@@ -1,0 +1,20 @@
+#layout-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #FFF8F4;
+}
+
+#navbar-layout-container {
+  width: 100%;
+  height: 4rem;
+  margin-bottom: 1rem;
+}
+
+#content-layout-container {
+  width: calc(100% - 4rem);
+  height: calc(100% - 5rem);
+  padding: 0 2rem;
+
+}
