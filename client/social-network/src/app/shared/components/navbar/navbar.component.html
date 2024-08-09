@@ -1,1 +1,36 @@
-<p>navbar works!</p>
+<div class="container">
+  <div class="navbar-left">
+
+      <div class="logo-navbar">
+        <img src="https://i.natgeofe.com/n/4f5aaece-3300-41a4-b2a8-ed2708a0a27c/domestic-dog_thumb_square.jpg" class="logo-navbar-icon" />
+      </div>
+    </div>
+
+  <div class="navbar-center">
+
+    <div id="sidebar-container">
+      <div class="sidenav-nav">
+        @for (route of dataRoutes; track i; let i = $index) {
+          <div
+            class="sidenav-nav-item"
+            [class]="routeSelected == i ? 'active' : 'inactive'"
+            (click)="navigate(i)"
+          >
+            <div class="sidenav-nav-link">
+              <mat-icon class="material-symbols-outlined sidenav-link-icon">
+                {{ route.icon }}
+              </mat-icon>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+
+  </div>
+  <div class="navbar-right">
+    <div class="avatar-navbar">
+      <img src="https://i.natgeofe.com/n/4f5aaece-3300-41a4-b2a8-ed2708a0a27c/domestic-dog_thumb_square.jpg" class="avatar-navbar-icon" />
+    </div>
+  </div>
+</div>

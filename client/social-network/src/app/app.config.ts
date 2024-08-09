@@ -6,13 +6,21 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getStorage, provideStorage } from '@angular/fire/storage';
-import {environment} from "../environments/environment";
-
+import { environment } from '../environments/environment';
+import { provideState, provideStore } from '@ngrx/store';
+import { provideEffects } from '@ngrx/effects';
+import { authReducer } from './ngrx/auth/auth.reducer';
+import { AuthEffects } from './ngrx/auth/auth.effects';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimationsAsync(),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-    provideAuth(() => getAuth()), provideStorage(() => getStorage())]
+    provideAuth(() => getAuth()),
+    provideStorage(() => getStorage()),
+    provideStore(),
+    provideEffects(AuthEffects),
+    provideState({ name: 'auth', reducer: authReducer }),
+  ],
 };
