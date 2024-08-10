@@ -5,6 +5,7 @@ import { FirebaseModule } from 'nestjs-firebase';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthMiddleware } from './auth/firebase-auth.middleware';
+import { ProfileModule } from './profile/profile.module';
 
 @Module({
   imports: [
@@ -26,6 +27,8 @@ import { AuthMiddleware } from './auth/firebase-auth.middleware';
     }),
 
     AuthModule,
+
+    ProfileModule,
   ],
   controllers: [AppController],
   providers: [AppService],

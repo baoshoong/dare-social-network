@@ -1,1 +1,18 @@
 <p>register works!</p>
+<form [formGroup]="regisForm">
+
+    <mat-form-field appearance="outline">
+      <mat-label>name</mat-label>
+      <input formControlName ="userName" matInput placeholder="Placeholder">
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>email</mat-label>
+    <input formControlName="email" matInput placeholder="Placeholder">
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+  </mat-form-field>
+
+
+<button mat-raised-button color="primary" (click)="register()">Register</button>
+</form>

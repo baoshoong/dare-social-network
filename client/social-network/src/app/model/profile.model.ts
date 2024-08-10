@@ -2,6 +2,6 @@ export interface ProfileModel {
   uid: string;
   userName: string;
   email: string;
-  photoUrl: string;
+  avatarUrl: string;
   bio: string;
 }
