@@ -5,11 +5,14 @@ import { Store } from '@ngrx/store';
 import * as AuthActions from '../../ngrx/auth/auth.actions';
 import { AsyncPipe } from '@angular/common';
 import { Subscription } from 'rxjs';
+import {MatIconModule} from '@angular/material/icon';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [MaterialModule, AsyncPipe],
+  imports: [MaterialModule, AsyncPipe, MatButtonModule, MatDividerModule, MatIconModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
