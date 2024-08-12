@@ -1,0 +1,66 @@
+#edit-profile{
+  border-radius: 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 10px;
+  box-sizing: border-box;
+}
+img{
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.form{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+mat-form-field{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
+
+}
+mat-label{
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: var(--primary);
+  border-radius: 10px;
+}
+button{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+#confirm {
+  color: var(--onPrimary);
+  font-style: revert;
+  font-weight: 600;
+  line-height: normal;
+  background-color: var(--primary);
+}
+#upload {
+  background-color: var(--primary);
+  color: var(--onPrimary);
+  font-weight: 600;
+  line-height: revert;
+}
+::ng-deep .mat-mdc-dialog-surface{
+
+  width: 30vw;
+  height: 63vh;
+  background-color: var(--surfaceContainerHigh);;
+}
+
+

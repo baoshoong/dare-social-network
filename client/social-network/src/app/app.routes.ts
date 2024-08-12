@@ -18,8 +18,12 @@ export const routes: Routes = [
   },
   {
     path: 'register',
-
     loadChildren: () =>
       import('./page/register/register.routes').then((m) => m.REGISTER_ROUTES),
+  },
+  {
+    path: 'loading',
+    loadChildren: () =>
+      import('./page/loading/loading.routes').then((m) => m.LOADING_ROUTES),
   },
 ];

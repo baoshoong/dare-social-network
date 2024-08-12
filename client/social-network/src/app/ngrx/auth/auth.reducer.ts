@@ -52,6 +52,7 @@ export const authReducer = createReducer(
     return {
       ...state,
       idToken: '',
+      loginWithGoogleSuccess: false,
       loading: false,
     };
   }),
@@ -79,6 +80,15 @@ export const authReducer = createReducer(
       ...state,
       authCredential: action.auth,
       loginWithGoogleSuccess: true,
+    };
+  }),
+
+  on(AuthActions.clearLoginSuccess, (state, action) => {
+    console.log(action.type);
+    return {
+      ...state,
+
+      loginWithGoogleSuccess: false,
     };
   }),
 );
