@@ -90,18 +90,19 @@ export class PostComponent {
   //     });
   //   }
   // }
-  readonly dialog = inject(MatDialog);
+  dialog = inject(MatDialog);
 
-  openDialog() {
-    this.dialog.open(detailPost);
+  openDialog(post: PostModel) {
+    this.dialog.open(DetailPostComponent,{data: post});
+    console.log(post);
   }
 }
 
-@Component({
-  selector: 'detail-post',
-  templateUrl: '../detail-post/detail-post.component.html',
-  standalone: true,
-  imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatButtonModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-})
-export class detailPost {}
+// @Component({
+//   selector: 'detail-post',
+//   templateUrl: '../detail-post/detail-post.component.html',
+//   standalone: true,
+//   imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatButtonModule],
+//   changeDetection: ChangeDetectionStrategy.OnPush,
+// })
+// export class detailPost {}
