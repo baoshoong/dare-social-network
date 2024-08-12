@@ -8,11 +8,18 @@ import { AuthState } from '../../ngrx/auth/auth.state';
 import { Store } from '@ngrx/store';
 import * as profileActions from '../../ngrx/profile/profile.actions';
 import { MaterialModule } from '../../shared/material.module';
+import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
+import {MatCheckbox} from "@angular/material/checkbox";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ShareModule, MaterialModule],
+  imports: [ShareModule, MaterialModule, MatInput,
+    MatLabel,
+    MatFormField,
+    MatCheckbox,
+    MatButton],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
