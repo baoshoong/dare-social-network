@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
       this.store.select('auth').subscribe((auth: AuthState) => {
         this.isLoadingSignIn = auth.loading;
         if (auth.loginWithGoogleSuccess) {
-          this.router.navigate(['/register']).then();
+          // this.router.navigate(['/register']).then();
         }
       }),
     );
