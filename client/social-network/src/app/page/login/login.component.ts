@@ -26,15 +26,14 @@ export class LoginComponent implements OnInit {
   subscriptions: Subscription[] = [];
   isLoadingSignIn = false;
   ngOnInit() {
-    this.subscriptions
-      .push
-      // this.store.select('auth').subscribe((auth: AuthState) => {
-      //   this.isLoadingSignIn = auth.loading;
-      //   if (auth.loginWithGoogleSuccess) {
-      //     // this.router.navigate(['/register']).then();
-      //   }
-      // }),
-      ();
+    this.subscriptions.push(
+      this.store.select('auth').subscribe((auth: AuthState) => {
+        this.isLoadingSignIn = auth.loading;
+        if (auth.loginWithGoogleSuccess) {
+          this.router.navigate(['/register']).then();
+        }
+      }),
+    );
   }
   loginWithGoogle() {
     this.store.dispatch(AuthActions.signInWithGoogle());

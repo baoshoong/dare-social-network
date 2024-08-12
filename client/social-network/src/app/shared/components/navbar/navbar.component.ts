@@ -34,14 +34,21 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
       profile: ProfileState;
     }>,
   ) {
-    this.profileMine$.subscribe((mine) => {
-      this.profileMine = mine;
-    });
+    this.profileMine$.subscribe((mine) => {});
   }
 
   profileMine$ = this.store.select('profile', 'mine');
-  profileMine: ProfileModel | null = null;
-  ngOnInit(): void {}
+
+  ngOnInit(): void {
+    this.subscriptions.push(
+      this.router.events
+        .pipe(filter((event) => event instanceof NavigationEnd))
+        .subscribe((event) => {
+          this.updateRouteSelected((event as NavigationEnd).urlAfterRedirects);
+        }),
+    );
+    this.updateRouteSelected(this.router.url);
+  }
 
   navigate(index: number) {
     this.router.navigate([this.dataRoutes[index].routeLink]).then(() => {
@@ -50,13 +57,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.subscriptions.push(
-      this.router.events
-        .pipe(filter((event) => event instanceof NavigationEnd))
-        .subscribe((event) => {
-          this.updateRouteSelected((event as NavigationEnd).urlAfterRedirects);
-        }),
-    );
+    console.log(this.router.url);
   }
 
   ngOnDestroy(): void {
@@ -66,7 +67,9 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private updateRouteSelected(url: string): void {
+    console.log(url);
     if (url.includes('home')) {
+      console.log('home');
       this.routeSelected = 0;
     } else if (url.includes('search')) {
       this.routeSelected = 1;

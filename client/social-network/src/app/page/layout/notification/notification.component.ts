@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './notification.component.scss'
 })
 export class NotificationComponent {
-
+  constructor() { }
 }
