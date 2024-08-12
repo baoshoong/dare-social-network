@@ -1,19 +1,94 @@
-<p>register works!</p>
-<form [formGroup]="regisForm">
+<div class="body-register">
+  <div class="register">
+    <div class="introduction">
+      <img class="bulb" src="../public/images/bulb.png" alt="" />
+      <div class="container-2">
+        <div class="container-7">
+          <img class="avatar" src="../public/images/avatar.png" alt="" />
+          <div class="title">Make your day</div>
+        </div>
+        <img class="man-image" src="../public/images/man_image.png" alt="" />
+      </div>
+    </div>
+    <div class="user-action">
+      <div class="container-3">
+        <div class="container-1">
+          <!--          <div class="tab-sign-in">-->
+          <!--            <span class="label">-->
+          <!--              Sign In-->
+          <!--            </span>-->
+          <!--          </div>-->
+          <div class="tab-register">
+            <span class="label-1"> Register </span>
+            <div class="indicator">
+              <div class="shape"></div>
+            </div>
+          </div>
+        </div>
 
-    <mat-form-field appearance="outline">
+        <form [formGroup]="regisForm">
+          <!-- <mat-form-field appearance="outline">
       <mat-label>name</mat-label>
-      <input formControlName ="userName" matInput placeholder="Placeholder">
+      <input  matInput placeholder="Placeholder">
       <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
     </mat-form-field>
 
   <mat-form-field appearance="outline">
     <mat-label>email</mat-label>
-    <input formControlName="email" matInput placeholder="Placeholder">
+    <input matInput placeholder="Placeholder">
     <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-  </mat-form-field>
+  </mat-form-field> -->
+          <!--------------------------------INPUT_FORM------------------------------------->
+          <mat-form-field
+            style="width: 400px"
+            class="example-full-width"
+            appearance="outline"
+          >
+            <mat-label style="color: #845317; font-weight: bold"
+              >Email</mat-label
+            >
+            <input
+              matInput
+              formControlName="email"
+              placeholder="..."
+              value="abc@gmail.com"
+            />
+          </mat-form-field>
+          <mat-form-field
+            style="width: auto"
+            class="example-full-width"
+            appearance="outline"
+          >
+            <mat-label style="color: #845317; font-weight: bold"
+              >User name</mat-label
+            >
+            <input
+              matInput
+              formControlName="userName"
+              placeholder="..."
+              value="Alan Fatter"
+            />
+          </mat-form-field>
+          <!---------------------------------INPUT_FORM_END------------------------------------>
+          <div class="check-with-box">
+            <mat-checkbox style="margin-left: -12px" class="example-margin"
+              >Nhấn đồng ý với tất cả các điều khoản<br />và điều kiện của chúng
+              tôi.</mat-checkbox
+            >
+          </div>
 
-
-<button mat-raised-button color="primary" (click)="register()">Register</button>
-
-</form>
+          <button mat-raised-button color="primary" (click)="register()">
+            Register
+          </button>
+        </form>
+        <button
+          style="background: #845317"
+          class="register-text"
+          mat-flat-button
+        >
+          Register
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,164 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.body-register {
+  background-color: #7F7F7F;
+  font-family: 'poppins', serif;
+  padding-top: 20px;
+  height: 100vh;
+}
+.register .bulb {
+  position: absolute;
+  left: 49%;
+  top: 0;
+  translate: -50% 0;
+  width: 174px;
+  height: 276px;
+}
+.register .avatar {
+  margin: 74px 0 0 130px;
+  width: 120px;
+  height: 120px;
+}
+.register .title {
+  position: relative;
+  margin-bottom: 87px;
+  display: inline-block;
+  overflow-wrap: break-word;
+  font-weight: 700;
+  font-size: 65px;
+  color: #845317;
+  margin-top: 23px;
+}
+.register .container-7 {
+  margin-bottom: 72px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 1152px;
+  box-sizing: border-box;
+}
+.register .man-image {
+  width: 380px;
+  height: 411px;
+}
+.register .container-2 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 1152px;
+  height: fit-content;
+  box-sizing: border-box;
+}
+.register .introduction {
+  position: relative;
+  display: flex;
+  padding-top: 27px;
+  width: 1325px;
+  height: fit-content;
+  box-sizing: border-box;
+}
+
+//.register .label {
+//  overflow-wrap: break-word;
+//  font-size: 28px;
+//  line-height: 1.286;
+//  color: #50453A;
+//}
+//.register .tab-sign-in {
+//  margin: 6px 14.5px 6px 0;
+//  display: flex;
+//  box-sizing: border-box;
+//}
+.register .label-1 {
+  overflow-wrap: break-word;
+  font-size: 28px;
+  line-height: 1.286;
+  color: #845317;
+}
+.register .shape {
+  border-radius: 100px 100px 0 0;
+  background: #845317;
+  width: 100px;
+  height: 2px;
+  margin: 10px 0 0 -13px;
+}
+.register .indicator {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  translate: -50% 0;
+  display: flex;
+  width: 103px;
+  height: 14px;
+  box-sizing: border-box;
+}
+.register .tab-register {
+  background: #FFFFFF;
+  position: relative;
+  display: flex;
+  padding: 6px 0;
+  width: 145.7px;
+  box-sizing: border-box;
+}
+.register .container-1 {
+  margin: 0 0 247px 11.2px;
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  width: fit-content;
+  box-sizing: border-box;
+}
+
+.register .icon {
+  width: 20px;
+  height: 20px;
+}
+
+.register .icon-1 {
+  width: 12px;
+  height: 9.4px;
+}
+
+.register .check-with-box {
+  margin-bottom: 69px;
+  display: flex;
+  flex-direction: row;
+  align-self: flex-start;
+  width: fit-content;
+  box-sizing: border-box;
+}
+.register .container-3 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+.register .user-action {
+  position: relative;
+  top: -670px;
+  display: flex;
+  box-sizing: border-box;
+}
+.register {
+  border-radius: 40px;
+  background: #FFFFFF;
+  padding: 5px 141px 0 141px;
+  width: 1440px;
+  height: 800px;
+  box-sizing: border-box;
+  margin: 10px auto;
+}
+
+.register-text {
+  overflow-wrap: break-word;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  line-height: 1.5;
+  color: #FFFFFF;
+  width: auto;
+  height: 60px;
+}
