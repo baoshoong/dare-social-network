@@ -55,7 +55,7 @@ export class AppComponent implements OnInit {
         this.store.dispatch(AuthActions.storeAuthCredential({ auth: auth }));
         // await this.router.navigate(['/loading']).then();
       } else {
-        this.router.navigate(['/login']).then();
+        // this.router.navigate(['/login']).then();
       }
     });
   }

@@ -1,0 +1,22 @@
+<div id="container-following">
+  <div id="header">
+    <div id="title">Followers</div>
+  </div>
+  <input id="search" type="text" placeholder="Search">
+  <div class="following">
+    <div *ngFor="let i of [].constructor(7); let idx = index" class="following-card">
+      <div class="following-item">
+        <img class="following-image" src="https://www.w3schools.com/howto/img_avatar.png">
+        <div class="info">
+          <div class="following-name">Name {{ idx + 1 }}</div>
+          <div class="following-username">username{{ idx + 1 }}</div>
+        </div>
+      </div>
+      <div class="button">
+        <button mat-raised-button class="Foll-But">Follow</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
