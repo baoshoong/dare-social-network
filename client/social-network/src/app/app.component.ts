@@ -39,24 +39,24 @@ export class AppComponent implements OnInit {
       profile: ProfileState;
     }>,
   ) {
-    onAuthStateChanged(this.auth, async (user) => {
-      if (user) {
-        let idToken = await user.getIdToken(true);
-        this.uid = user.uid;
-
-        let auth: AuthCredentialModel = {
-          uid: user.uid,
-          userName: user.displayName || '',
-          email: user.email || '',
-          photoUrl: user.photoURL || '',
-        };
-
-        this.store.dispatch(AuthActions.storeIdToken({ idToken: idToken }));
-        this.store.dispatch(AuthActions.storeAuthCredential({ auth: auth }));
-      } else {
-        this.router.navigate(['/login']).then();
-      }
-    });
+    // onAuthStateChanged(this.auth, async (user) => {
+    //   if (user) {
+    //     let idToken = await user.getIdToken(true);
+    //     this.uid = user.uid;
+    //
+    //     let auth: AuthCredentialModel = {
+    //       uid: user.uid,
+    //       userName: user.displayName || '',
+    //       email: user.email || '',
+    //       photoUrl: user.photoURL || '',
+    //     };
+    //
+    //     this.store.dispatch(AuthActions.storeIdToken({ idToken: idToken }));
+    //     this.store.dispatch(AuthActions.storeAuthCredential({ auth: auth }));
+    //   } else {
+    //     this.router.navigate(['/login']).then();
+    //   }
+    // });
   }
 
   ngOnInit(): void {
