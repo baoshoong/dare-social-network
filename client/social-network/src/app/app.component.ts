@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
         this.store.dispatch(AuthActions.storeIdToken({ idToken: idToken }));
         this.store.dispatch(AuthActions.storeAuthCredential({ auth: auth }));
       } else {
-        this.router.navigate(['/login']).then();
+        // this.router.navigate(['/login']).then();
       }
     });
   }
@@ -102,7 +102,7 @@ export class AppComponent implements OnInit {
         }
       } else if (authEmail && getProfileMineSuccess) {
         if (!mine.email) {
-          this.router.navigate(['/register']).then();
+          // this.router.navigate(['/register']).then();
         }
       }
     });
@@ -113,7 +113,7 @@ export class AppComponent implements OnInit {
 
     this.loginWithGoogleSuccess$.subscribe((loginWithGoogleSuccess) => {
       if (loginWithGoogleSuccess) {
-        this.router.navigate(['/register']).then();
+        // this.router.navigate(['/register']).then();
       }
     });
   }
