@@ -14,8 +14,9 @@ export interface ProfileState {
   isUpdateSuccess: boolean;
   updateErrorMessage: HttpErrorResponseModel;
 
-  isGetting: boolean;
+  isGettingMine: boolean;
   isGetMineSuccess: boolean;
+  isGetMineFailure: boolean;
   getErrorMessage: HttpErrorResponseModel;
 
   isGettingById: boolean;

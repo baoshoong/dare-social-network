@@ -16,7 +16,6 @@ export class HttpClientAuth {
     this.store.select('auth', 'idToken').subscribe((token) => {
       if (token) {
         this.idtoken = token;
-        console.log('token', token);
       }
     });
   }
