@@ -2,11 +2,16 @@ import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { MaterialModule } from '../../material.module';
 import { filter, Subscription } from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
+import { ProfileState } from '../../../ngrx/profile/profile.state';
+import { Store } from '@ngrx/store';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { ProfileModel } from '../../../model/profile.model';
+import * as AuthActions from '../../../ngrx/auth/auth.actions';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [MaterialModule],
+  imports: [MaterialModule, AsyncPipe, NgIf],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
@@ -22,11 +27,20 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     { icon: 'person', routeLink: '/profile' },
   ];
 
-  constructor(private router: Router) {}
-
-  ngOnInit(): void {
-    this.updateRouteSelected(this.router.url);
+  constructor(
+    private router: Router,
+    private store: Store<{
+      profile: ProfileState;
+    }>,
+  ) {
+    this.profileMine$.subscribe((mine) => {
+      this.profileMine = mine;
+    });
   }
+
+  profileMine$ = this.store.select('profile', 'mine');
+  profileMine: ProfileModel | null = null;
+  ngOnInit(): void {}
 
   navigate(index: number) {
     this.router.navigate([this.dataRoutes[index].routeLink]).then(() => {
@@ -64,5 +78,9 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       this.routeSelected = -1;
     }
+  }
+  logout() {
+    this.store.dispatch(AuthActions.signOut());
+    this.router.navigate(['/login']).then();
   }
 }

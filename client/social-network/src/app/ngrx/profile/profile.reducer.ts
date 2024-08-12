@@ -16,7 +16,8 @@ export const initialState: ProfileState = {
   isUpdateSuccess: false,
   updateErrorMessage: <HttpErrorResponseModel>{},
 
-  isGetting: false,
+  isGettingMine: false,
+  isGetMineFailure: false,
   isGetMineSuccess: false,
   getErrorMessage: <HttpErrorResponseModel>{},
 
@@ -85,27 +86,33 @@ export const profileReducer = createReducer(
   }),
 
   // getMine
-  on(ProfileActions.getMine, (state) => {
+  on(ProfileActions.getMine, (state, { type }) => {
+    console.log(type);
     return {
       ...state,
       isGetting: true,
+      isGetMineFailure: false,
     };
   }),
 
-  on(ProfileActions.getMineSuccess, (state, { mine }) => {
+  on(ProfileActions.getMineSuccess, (state, { mine, type }) => {
+    console.log(type);
     return {
       ...state,
       isGetting: false,
       isGetMineSuccess: true,
-      mine,
+      isGetMineFailure: false,
+      mine: mine,
     };
   }),
 
-  on(ProfileActions.getMineFailure, (state, { getErrorMessage }) => {
+  on(ProfileActions.getMineFailure, (state, { getErrorMessage, type }) => {
+    console.log(type);
     return {
       ...state,
       isGetting: false,
       isGetMineSuccess: false,
+      isGetMineFailure: true,
       getErrorMessage,
     };
   }),

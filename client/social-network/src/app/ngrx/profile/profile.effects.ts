@@ -44,6 +44,25 @@ export class ProfileEffects {
     );
   });
 
+  getMine$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(profileActions.getMine),
+      switchMap((action) => {
+        return this.profileService.getById(action.uid).pipe(
+          map((mine: ProfileModel) => {
+            console.log(mine);
+            return profileActions.getMineSuccess({ mine });
+          }),
+          catchError((error) => {
+            return of(
+              profileActions.getMineFailure({ getErrorMessage: error }),
+            );
+          }),
+        );
+      }),
+    );
+  });
+
   constructor(
     private actions$: Actions,
     private profileService: ProfileService,

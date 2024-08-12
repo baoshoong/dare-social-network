@@ -24,7 +24,10 @@ export const updateMineFailure = createAction(
   props<{ updateErrorMessage: HttpErrorResponseModel }>(),
 );
 
-export const getMine = createAction('[Profile] Get Mine');
+export const getMine = createAction(
+  '[Profile] Get Mine',
+  props<{ uid: string }>(),
+);
 export const getMineSuccess = createAction(
   '[Profile] Get Mine Success',
   props<{ mine: ProfileModel }>(),
