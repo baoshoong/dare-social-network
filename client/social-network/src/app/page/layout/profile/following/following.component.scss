@@ -1,0 +1,97 @@
+#container-following{
+  width: 501px;
+  height: 572px;
+  border-radius: 23px;
+  background-color:  #FFF8F4;
+  box-shadow: 0px 4px 8px rgba(33, 26, 20, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 21px;
+}
+#title{
+  color:  #211A14;
+  font-family: "Public Sans";
+  font-size:  30px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  gap: 10px;
+}
+#search{
+  display: flex;
+  width: 394px;
+  height: 40px;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  border-radius: 28px;
+  background: #F4E6DA;
+}
+.following{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 403px;
+  height: 100%;
+  overflow-y: auto;
+}
+.following-item{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.following-image{
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.info{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  text-align: left;
+  height: 100%;
+}
+.following-name{
+  color: #000;
+  font-family: "Public Sans";
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.following-username{
+  color: rgba(0, 0, 0, 0.25);
+  font-family: "Public Sans";
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.following-card{
+  display: flex;
+  width: 403px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}
+.Foll-But{
+  width: 100px;
+  height: 40px;
+  border-radius: 28px;
+  background-color: #F4E6DA;
+  color: #000;
+  font-family: "Public Sans";
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}

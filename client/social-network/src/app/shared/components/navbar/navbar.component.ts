@@ -53,11 +53,11 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
   private updateRouteSelected(url: string): void {
     if (url.includes('home')) {
       this.routeSelected = 0;
-    } else if (url.includes('ebooks')) {
+    } else if (url.includes('search')) {
       this.routeSelected = 1;
-    } else if (url.includes('authors')) {
+    } else if (url.includes('creator')) {
       this.routeSelected = 2;
-    } else if (url.includes('categories')) {
+    } else if (url.includes('notification')) {
       this.routeSelected = 3;
     } else if (url.includes('profile')) {
       this.routeSelected = 4;

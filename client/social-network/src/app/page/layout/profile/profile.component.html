@@ -1,1 +1,62 @@
-<p>profile works!</p>
+<div id ="container">
+  <div id="taskbar">
+    <div id="logo">
+      <img src="logo.png" alt="logo">
+    </div>
+    <div id="nav-bar">
+      <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
+      <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="search"></mat-icon>
+      <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="edit"></mat-icon>
+      <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="person"></mat-icon>
+    </div>
+    <div id="more">
+      <div class="setting"></div>
+      <div class="profile"></div>
+    </div>
+  </div>
+  <div id="card">
+    <div class="card-item">
+      <div class="card-item-content">
+        <div class="card-item-name">name</div>
+        <div class="card-item-username"> user name</div>
+        <div class="card-item-number">
+          <div>
+            <span class="number">220K</span>
+            <span class="funOfNum" (click)="openDialog3()" >Followers</span>
+          </div>
+          <div>
+            <span class="number">220K</span>
+            <span class="funOfNum">Post</span>
+          </div>
+          <div>
+            <span class="number">220K</span>
+            <span class="funOfNum" (click)="openDialog2()" >Following</span>
+          </div>
+        </div>
+        <div class="card-item-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</div>
+      </div>
+      <div class="card-item-image">
+        <img src="https://static.vecteezy.com/system/resources/previews/025/220/125/non_2x/picture-a-captivating-scene-of-a-tranquil-lake-at-sunset-ai-generative-photo.jpg" alt="image">
+        <div class="edit-button">
+          <button id="edit" mat-raised-button (click)="openDialog()">Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="Post">
+    <div class="Post-image">
+      <img class="img" src="https://static.vecteezy.com/system/resources/previews/025/220/125/non_2x/picture-a-captivating-scene-of-a-tranquil-lake-at-sunset-ai-generative-photo.jpg" alt="image">
+      <img class="img" src="https://static.vecteezy.com/system/resources/previews/025/220/125/non_2x/picture-a-captivating-scene-of-a-tranquil-lake-at-sunset-ai-generative-photo.jpg" alt="image">
+      <img class="img" src="https://static.vecteezy.com/system/resources/previews/025/220/125/non_2x/picture-a-captivating-scene-of-a-tranquil-lake-at-sunset-ai-generative-photo.jpg" alt="image">
+      <img class="img" src="https://static.vecteezy.com/system/resources/previews/025/220/125/non_2x/picture-a-captivating-scene-of-a-tranquil-lake-at-sunset-ai-generative-photo.jpg" alt="image">
+      <img class="img" src="https://static.vecteezy.com/system/resources/previews/025/220/125/non_2x/picture-a-captivating-scene-of-a-tranquil-lake-at-sunset-ai-generative-photo.jpg" alt="image">
+      <img class="img" src="https://static.vecteezy.com/system/resources/previews/025/220/125/non_2x/picture-a-captivating-scene-of-a-tranquil-lake-at-sunset-ai-generative-photo.jpg" alt="image">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
