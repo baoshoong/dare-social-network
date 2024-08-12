@@ -42,6 +42,7 @@ export class AppComponent implements OnInit {
     onAuthStateChanged(this.auth, async (user) => {
       if (user) {
         let idToken = await user.getIdToken(true);
+        this.router.navigate(['/loading']).then();
         this.uid = user.uid;
 
         let auth: AuthCredentialModel = {
@@ -53,7 +54,6 @@ export class AppComponent implements OnInit {
 
         this.store.dispatch(AuthActions.storeIdToken({ idToken: idToken }));
         this.store.dispatch(AuthActions.storeAuthCredential({ auth: auth }));
-        // await this.router.navigate(['/loading']).then();
       } else {
         this.router.navigate(['/login']).then();
       }

@@ -51,7 +51,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
     this.isGetMineSuccess$.subscribe((profile) => {
       if (profile) {
-        console.log('profile', profile);
         this.router.navigate(['/home']).then();
       }
     });
