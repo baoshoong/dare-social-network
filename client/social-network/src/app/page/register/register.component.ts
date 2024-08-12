@@ -8,30 +8,30 @@ import { AuthState } from '../../ngrx/auth/auth.state';
 import { Store } from '@ngrx/store';
 import * as profileActions from '../../ngrx/profile/profile.actions';
 import { MaterialModule } from '../../shared/material.module';
-import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
-import {MatCheckbox} from "@angular/material/checkbox";
-import {MatButton} from "@angular/material/button";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ShareModule, MaterialModule, MatInput,
-    MatLabel,
-    MatFormField,
-    MatCheckbox,
-    MatButton],
+  imports: [ShareModule, MaterialModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   constructor(
-    private store: Store<{ profileState: ProfileState; auth: AuthState }>,
+    private router: Router,
+    private store: Store<{ profile: ProfileState; auth: AuthState }>,
   ) {}
+
+  createMineSuccess$ = this.store.select('profile', 'isCreateSuccess');
+
+  uid = '';
 
   ngOnInit(): void {
     this.subscription.push(
       this.store.select('auth').subscribe((auth: AuthState) => {
         if (auth.authCredential) {
+          this.uid = auth.authCredential.uid;
           this.regisForm.patchValue({
             email: auth.authCredential.email,
             avatarUrl: auth.authCredential.photoUrl,
@@ -41,6 +41,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
         }
       }),
     );
+    this.createMineSuccess$.subscribe((isSuccess) => {
+      if (isSuccess) {
+        this.router.navigate(['/home']).then();
+      }
+    });
   }
   subscription: Subscription[] = [];
   regisForm = new FormGroup({

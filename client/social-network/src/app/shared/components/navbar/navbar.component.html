@@ -1,8 +1,7 @@
 <div class="container">
   <div class="navbar-left">
-
       <div class="logo-navbar">
-        <img src="../public/images/logo_1_1.png" class="logo-navbar-icon"  alt=""/>
+        <img src="../public/images/2.png" class="logo-navbar-icon"  alt=""/>
       </div>
     </div>
 
@@ -29,8 +28,14 @@
 
   </div>
   <div class="navbar-right">
-    <div class="avatar-navbar">
-      <img src="../public/images/logo_2.png" class="avatar-navbar-icon"  alt=""/>
+
+
+    <div class="avatar-navbar" *ngIf="profileMine$ | async as profile">
+      <img src="{{profile.avatarUrl}}" class="avatar-navbar-icon"  alt=""/>
     </div>
+
+
   </div>
+  <mat-icon class="material-symbols-outlined" (click)="logout()">logout</mat-icon>
+
 </div>

@@ -5,18 +5,26 @@
 }
 
 .login-body {
-  background: rgb(53, 52, 52);
+  background: #7F7F7F;
   width: auto;
   height: 100vh;
-  padding-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.combo-btn-note {
+  height: 50px;
 }
 
 .login .label {
   overflow-wrap: break-word;
-  font-weight: 400;
-  font-size: 40px;
+  font-weight: 900;
+  font-size: 26px;
   line-height: 1.286;
-  color: #845317;
+  color: var(--primary);
+  margin: -30px 0 0 50px;
 }
 
 .login .indicator {
@@ -71,22 +79,22 @@
   height: 22px;
   box-sizing: border-box;
   position: relative;
-  top:-63%;
+  top: 50%;
   left: -15px;
   z-index: 1;
 }
 
 .login .sign-in-text {
   overflow-wrap: break-word;
-  font-size: 20px;
+  font-size: 16px;
   letter-spacing: 0.5px;
   line-height: 1.5;
   color: #FFFFFF;
-  background: #845317;
+  background: var(--primary);
   width: 120%;
   height: 40px;
   margin-left: 35px;
-  margin-top: -120px;
+  margin-top: 0px;
 }
 
 .login .btn-sign-in {
@@ -99,7 +107,7 @@
 }
 
 .login .note {
-  margin: -160px 0 0 80px;
+  margin: 300px 0 100px 80px;
   overflow-wrap: break-word;
   font-family: 'Arial', serif;
   font-weight: 500;
@@ -108,7 +116,7 @@
 }
 
 .login .tab-login {
-  margin: 70px 0 0 -120px;
+  margin: 60px 0 0 -120px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -120,7 +128,7 @@
   overflow-wrap: break-word;
   font-weight: 700;
   font-size: 50px;
-  color: #845317;
+  color: var(--primary);
 }
 
 .login {
@@ -160,4 +168,91 @@
   border: none;
   background: #FFFFFF;
   font-size: 16px;
+}
+//-------------------------------------RESPONSIVE---------------------------------------------------
+/* Responsive Design for iPad Pro */
+@media (min-width: 1024px) and (min-height: 1366px) {
+  .login {
+    width: 85%;
+    height: auto;
+    flex-direction: column;
+    padding: 20px;
+    //border: 5px solid red;
+  }
+
+  .tab-1 {
+    width: 300px !important;
+  }
+
+  .login .man-images {
+    width: 30%;
+    margin: 0;
+    //border: 5px solid blueviolet;
+    position: relative;
+    left: 300px;
+    top: 30px;
+
+  }
+
+  .label {
+    //border: 5px solid aqua;
+    position: relative;
+    left: 100px;
+    bottom: -120px;
+    font-size: 50px !important;
+    width: 100%;
+  }
+
+  .combo-btn-note{
+    position: relative;
+    bottom: -170px;
+    //border: 5px solid gold;
+    width: 50%;
+    margin-left: 300px;
+    height: 100px;
+  }
+
+  .login .sign-in-text {
+    width: 210% !important;
+    height: 60px;
+    margin: 10px 0 0 10px;
+    //border: 5px solid greenyellow;
+    z-index: 0;
+  }
+
+  .login .btn-sign-in {
+    margin: 10px 0;
+  }
+
+  .login .note {
+    margin: 10px 0;
+    font-size: 18px;
+  }
+
+  .icon-gg {
+    transform: translate(60px,6px);
+    //position: unset !important;
+
+  }
+
+  #btn-clickHere {
+    font-size: 20px;
+  }
+
+  .login .title {
+    font-size: 5em;
+    //border: 5px solid blue;
+    position: relative;
+    top: -600px;
+    left: 80px;
+  }
+
+  .img-welcome {
+    width: 100%;
+    max-width: 300px;
+    //border: 5px solid green;
+    position: relative;
+    top: -350px;
+    left: 200px;
+  }
 }

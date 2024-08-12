@@ -24,7 +24,10 @@ export const updateMineFailure = createAction(
   props<{ updateErrorMessage: HttpErrorResponseModel }>(),
 );
 
-export const getMine = createAction('[Profile] Get Mine');
+export const getMine = createAction(
+  '[Profile] Get Mine',
+  props<{ uid: string }>(),
+);
 export const getMineSuccess = createAction(
   '[Profile] Get Mine Success',
   props<{ mine: ProfileModel }>(),
@@ -60,3 +63,9 @@ export const getByIdFailure = createAction(
   '[Profile] Get By Id Failure',
   props<{ getErrorMessageById: HttpErrorResponseModel }>(),
 );
+
+//clear get state
+export const clearGetState = createAction('[Profile] Clear Get State');
+export const clearCreateState = createAction('[Profile] Clear Create State');
+export const clearUpdateState = createAction('[Profile] Clear Update State');
+export const clearMessages = createAction('[Profile] Clear Message');

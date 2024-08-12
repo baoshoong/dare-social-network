@@ -39,11 +39,6 @@ export const LAYOUT_ROUTES: Routes = [
         loadChildren: () =>
           import('./search/search.routes').then((m) => m.SEARCH_ROUTES),
       },
-      {
-        path: 'testas',
-        loadChildren: () =>
-          import('./testas/testas.routes').then((m) => m.TESTAS_ROUTES),
-      },
     ],
   },
 ];

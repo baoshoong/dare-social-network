@@ -11,12 +11,10 @@ body {
 .search .icon {
   width: 18px;
   height: 18px;
-  margin: -5px auto;
-  margin-right: 30px;
 }
 
 .search .result {
-  margin: 150px 0 27px 13.1px;
+  margin: 130px 0 27px 13.1px;
   display: inline-block;
   overflow-wrap: break-word;
   font-family: 'Arial', serif;
@@ -27,14 +25,12 @@ body {
 
 .search .img-1 {
   border-radius: 16px;
-  //background: url('../public/images/img1.png') 50% / cover no-repeat;
   margin-bottom: 10px;
-  width: 317px;
-  height: 271.7px;
+  width: 230px;
+  height: 200px;
 }
 
 .search .avt {
-  //background: url('../public/images/avt1.png') 50% / cover no-repeat;
   width: 40px;
   height: 40px;
 }
@@ -61,6 +57,7 @@ body {
   display: flex;
   flex-direction: row;
   box-sizing: border-box;
+  margin-left: 42px;
 }
 
 .search .icon-heart-1 {
@@ -75,7 +72,7 @@ body {
 }
 
 .search .icon-1 {
-  margin: 8px 0;
+  margin: 8px 44px;
   display: flex;
   flex-direction: row;
   width: 58px;
@@ -96,7 +93,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 317px;
+  width: 300px;
   box-sizing: border-box;
 }
 
@@ -104,24 +101,28 @@ body {
   margin-bottom: 30px;
   display: flex;
   flex-direction: row;
-  column-gap: 25px;
-  width: 1343px;
+  column-gap: -5px;
+  width: 80vw;
   box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
 }
 
 .search .tab-2 {
   display: flex;
   flex-direction: row;
-  column-gap: 25px;
-  width: 1343px;
+  column-gap: -5px;
+  width: 80vw;
   box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
 }
 
 .search .tab-result {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 1343px;
+  width: 80vw;
   box-sizing: border-box;
 }
 
@@ -130,17 +131,22 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 95px 48px 9.6px 49px;
-  width: 1440px;
+  padding: 10px 48px 9.6px 49px;
+  width: 100%;
   box-sizing: border-box;
   margin: 10px auto;
   border-radius: 25px;
 }
 
 mat-form-field {
-  max-width: 450px;
   margin: -60px auto;
-  padding: 20px;
-  height: 60px;
-  width: 100%;
 }
+
+.search-frame {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  margin-top: 10px;
+}
+

@@ -1,47 +1,46 @@
 <div class="body-register">
   <div class="register">
     <div class="introduction">
-      <img class="bulb" src="../public/images/bulb.png" alt="">
+      <img class="bulb" src="../public/images/bulb.png" alt="" />
       <div class="container-2">
         <div class="container-7">
-          <img class="avatar" src="../public/images/avatar.png" alt="">
-          <div class="title">
-            Make your day
-          </div>
+          <img class="avatar" src="../public/images/avatar.png" alt="" />
+          <div class="title">Make your day</div>
         </div>
-        <img class="man-image" src="../public/images/man_image.png" alt="">
+        <img class="man-image" src="../public/images/man_image.png" alt="" />
       </div>
     </div>
     <div class="user-action">
       <div class="container-3">
         <div class="container-1">
           <div class="tab-register">
-            <span class="label-1">
-              Register
-            </span>
+            <span class="label-1"> Register </span>
             <div class="indicator">
-              <div class="shape">
-              </div>
             </div>
           </div>
         </div>
-        <!--------------------------------INPUT_FORM------------------------------------->
-        <div class="box-input">
-        <mat-form-field  class="example-full-width">
-          <mat-label>Email</mat-label>
-          <input matInput placeholder="..." value="abc@gmail.com">
-        </mat-form-field>
-        <mat-form-field  class="example-full-width">
-          <mat-label>User name</mat-label>
-          <input matInput placeholder="..." value="Alan Fatter">
-        </mat-form-field>
-        </div>
-        <!---------------------------------INPUT_FORM_END------------------------------------>
-        <div class="check-with-box">
-          <mat-checkbox style="margin-left: -12px" class="example-margin">Nhấn đồng ý với tất cả các điều khoản<br />và điều kiện của chúng tôi.</mat-checkbox>
-        </div>
 
-        <button style="background: #845317;" class="register-text" mat-flat-button>Register</button>
+        <form [formGroup]="regisForm" class="form-register">
+          <!--------------------------------INPUT_FORM------------------------------------->
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label class="input-info">Email</mat-label>
+            <input matInput formControlName="email" placeholder="..." value="abc@gmail.com" />
+          </mat-form-field>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label class="input-info">User name</mat-label>
+            <input matInput  placeholder="..." value="Alan Fatter" formControlName = "userName"/>
+          </mat-form-field>
+                 <!---------------------------------INPUT_FORM_END------------------------------------>
+          <div class="check-with-box">
+            <mat-checkbox style="margin-left: -12px" class="example-margin">Nhấn đồng ý với tất cả các điều
+              khoản<br />và điều kiện của chúng
+              tôi.</mat-checkbox>
+          </div>
+          <button style="background: #845317" class="register-text" mat-flat-button (click)="register()">
+            Register
+          </button>
+        </form>
+
       </div>
     </div>
   </div>

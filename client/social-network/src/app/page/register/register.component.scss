@@ -8,41 +8,42 @@
   font-family: 'poppins', serif;
   padding-top: 20px;
   height: 100vh;
+
 }
 .register .bulb {
   position: absolute;
-  left: 49%;
+  left: 45%;
   top: 0;
   translate: -50% 0;
-  width: 174px;
-  height: 276px;
+  width: 100px;
+  height: 185px;
 }
 .register .avatar {
-  margin: 74px 0 0 130px;
-  width: 120px;
-  height: 120px;
+  margin: 74px 0 0 50px;
+  width: 80px;
+  height: 80px;
 }
 .register .title {
-  position: relative;
-  margin-bottom: 87px;
+  margin-right: 70px;
   display: inline-block;
   overflow-wrap: break-word;
   font-weight: 700;
-  font-size: 65px;
-  color: #845317;
-  margin-top: 23px;
+  font-size: 50px;
+  color: var(--primary);
+
 }
 .register .container-7 {
   margin-bottom: 72px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 1152px;
+  width: 850px;
   box-sizing: border-box;
 }
 .register .man-image {
-  width: 380px;
-  height: 411px;
+  margin-right: 150px;
+  width:200px;
+  height: 200px;
 }
 .register .container-2 {
   position: relative;
@@ -57,35 +58,18 @@
   position: relative;
   display: flex;
   padding-top: 27px;
-  width: 1325px;
+  width: 850px;
   height: fit-content;
   box-sizing: border-box;
 }
 
-//.register .label {
-//  overflow-wrap: break-word;
-//  font-size: 28px;
-//  line-height: 1.286;
-//  color: #50453A;
-//}
-//.register .tab-sign-in {
-//  margin: 6px 14.5px 6px 0;
-//  display: flex;
-//  box-sizing: border-box;
-//}
 .register .label-1 {
   overflow-wrap: break-word;
   font-size: 28px;
   line-height: 1.286;
-  color: #845317;
+  color: var(--primary);
 }
-.register .shape {
-  border-radius: 100px 100px 0 0;
-  background: #845317;
-  width: 100px;
-  height: 2px;
-  margin: 10px 0 0 -13px;
-}
+
 .register .indicator {
   position: absolute;
   left: 50%;
@@ -139,11 +123,11 @@
 }
 .register .user-action {
   position: relative;
-  top: -700px;
+  top: -445px;
   left: -100px;
   display: flex;
   box-sizing: border-box;
-  border: 1px solid black;
+  width: 60%;
 }
 .register {
   border-radius: 40px;
@@ -161,13 +145,22 @@
   letter-spacing: 0.5px;
   line-height: 1.5;
   color: #FFFFFF;
-  width: auto;
-  height: 60px;
+  width: 100%;
+  height: 40px;
+  margin-top: -30px;
 }
-.box-input {
-  margin: -50px 0 0 0;
+.form-register{
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
   box-sizing: border-box;
+  margin-top: -100px;
+}
+.example-full-width {
+  width: 400px;
+}
+.input-info {
+  color: var(--primary);
+  font-weight: bold;
 }

@@ -1,6 +1,5 @@
 import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProfileDto } from './dto/create-profile.dto';
-import { UpdateProfileDto } from './dto/update-profile.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Profile } from './entities/profile.entity';
 import { Repository } from 'typeorm';
@@ -33,7 +32,7 @@ export class ProfileService {
   }
 
   async getProfile(uid: string): Promise<Profile> {
-    const profile = await this.profileRepository.findOne({ where: { uid } });
+      const profile = await this.profileRepository.findOne({ where: { uid } });
     if (!profile) {
       throw new NotFoundException('Profile not found');
     }
