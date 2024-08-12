@@ -16,9 +16,9 @@
             (click)="navigate(i)"
           >
             <div class="sidenav-nav-link">
-              <mat-icon class="material-symbols-outlined sidenav-link-icon">
-                {{ route.icon }}
-              </mat-icon>
+              <span  class="material-symbols-outlined sidenav-link-icon">
+                {{ route.icon  }}
+              </span>
             </div>
           </div>
         }
@@ -30,8 +30,13 @@
   <div class="navbar-right">
 
 
-    <div class="avatar-navbar" *ngIf="profileMine$ | async as profile">
-      <img src="{{profile.avatarUrl}}" class="avatar-navbar-icon"  alt=""/>
+    <div class="avatar-navbar" >
+      @if(!(profileMine$ | async)?.avatarUrl){
+        <img src="../public/images/avatar.png" class="avatar-navbar-icon" loading="lazy"  alt=""/>
+      } @else {
+        <img src="{{(profileMine$ | async)?.avatarUrl}}" class="avatar-navbar-icon" >
+      }
+
     </div>
 
 

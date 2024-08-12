@@ -25,6 +25,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   createMineSuccess$ = this.store.select('profile', 'isCreateSuccess');
 
+  isGetMineSuccess$ = this.store.select('profile', 'isGetMineSuccess');
+
   uid = '';
 
   ngOnInit(): void {
@@ -43,6 +45,13 @@ export class RegisterComponent implements OnInit, OnDestroy {
     );
     this.createMineSuccess$.subscribe((isSuccess) => {
       if (isSuccess) {
+        this.router.navigate(['/home']).then();
+      }
+    });
+
+    this.isGetMineSuccess$.subscribe((profile) => {
+      if (profile) {
+        console.log('profile', profile);
         this.router.navigate(['/home']).then();
       }
     });
