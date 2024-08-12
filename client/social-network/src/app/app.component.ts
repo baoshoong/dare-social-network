@@ -102,7 +102,7 @@ export class AppComponent implements OnInit {
         }
       } else if (authEmail && getProfileMineSuccess) {
         if (!mine.email) {
-          // this.router.navigate(['/register']).then();
+          this.router.navigate(['/register']).then();
         }
       }
     });
@@ -113,7 +113,7 @@ export class AppComponent implements OnInit {
 
     this.loginWithGoogleSuccess$.subscribe((loginWithGoogleSuccess) => {
       if (loginWithGoogleSuccess) {
-        // this.router.navigate(['/register']).then();
+        this.router.navigate(['/register']).then();
       }
     });
   }

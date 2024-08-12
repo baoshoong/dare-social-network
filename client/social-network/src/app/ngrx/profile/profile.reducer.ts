@@ -141,14 +141,16 @@ export const profileReducer = createReducer(
 
   // getById
 
-  on(ProfileActions.getById, (state) => {
+  on(ProfileActions.getById, (state, { type }) => {
+    console.log(type);
     return {
       ...state,
       isGettingById: true,
     };
   }),
 
-  on(ProfileActions.getByIdSuccess, (state, { profile }) => {
+  on(ProfileActions.getByIdSuccess, (state, { profile, type }) => {
+    console.log(type);
     return {
       ...state,
       isGettingById: false,
@@ -157,12 +159,44 @@ export const profileReducer = createReducer(
     };
   }),
 
-  on(ProfileActions.getByIdFailure, (state, { getErrorMessageById }) => {
+  on(ProfileActions.getByIdFailure, (state, { getErrorMessageById, type }) => {
+    console.log(getErrorMessageById);
     return {
       ...state,
       isGettingById: false,
       isGetByIdSuccess: false,
       getErrorMessageById,
+    };
+  }),
+
+  on(ProfileActions.clearGetState, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isGetting: false,
+      isGetMineSuccess: false,
+      isGetMineFailure: false,
+      getErrorMessage: <HttpErrorResponseModel>{},
+    };
+  }),
+
+  on(ProfileActions.clearCreateState, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isCreating: false,
+      isCreateSuccess: false,
+      createErrorMessage: <HttpErrorResponseModel>{},
+    };
+  }),
+
+  on(ProfileActions.clearUpdateState, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isUpdating: false,
+      isUpdateSuccess: false,
+      updateErrorMessage: <HttpErrorResponseModel>{},
     };
   }),
 );

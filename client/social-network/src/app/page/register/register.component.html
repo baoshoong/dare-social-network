@@ -26,7 +26,7 @@
           </div>
         </div>
 
-        <form [formGroup]="regisForm">
+        <form [formGroup]="regisForm" class="form-register">
           <!-- <mat-form-field appearance="outline">
       <mat-label>name</mat-label>
       <input  matInput placeholder="Placeholder">
@@ -76,18 +76,16 @@
               tôi.</mat-checkbox
             >
           </div>
-
-          <button mat-raised-button color="primary" (click)="register()">
+          <button
+            style="background: #845317"
+            class="register-text"
+            mat-flat-button
+            (click)="register()"
+          >
             Register
           </button>
         </form>
-        <button
-          style="background: #845317"
-          class="register-text"
-          mat-flat-button
-        >
-          Register
-        </button>
+
       </div>
     </div>
   </div>

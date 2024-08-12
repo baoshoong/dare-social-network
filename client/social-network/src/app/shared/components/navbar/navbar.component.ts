@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { ProfileModel } from '../../../model/profile.model';
 import * as AuthActions from '../../../ngrx/auth/auth.actions';
+import * as ProfileActions from '../../../ngrx/profile/profile.actions';
 
 @Component({
   selector: 'app-navbar',
@@ -81,6 +82,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   logout() {
     this.store.dispatch(AuthActions.signOut());
+    this.store.dispatch(ProfileActions.clearGetState());
     this.router.navigate(['/login']).then();
   }
 }

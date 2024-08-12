@@ -63,3 +63,9 @@ export const getByIdFailure = createAction(
   '[Profile] Get By Id Failure',
   props<{ getErrorMessageById: HttpErrorResponseModel }>(),
 );
+
+//clear get state
+export const clearGetState = createAction('[Profile] Clear Get State');
+export const clearCreateState = createAction('[Profile] Clear Create State');
+export const clearUpdateState = createAction('[Profile] Clear Update State');
+export const clearMessages = createAction('[Profile] Clear Message');
