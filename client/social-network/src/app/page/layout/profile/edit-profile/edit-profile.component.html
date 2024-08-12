@@ -1,0 +1,20 @@
+<div id="edit-profile">
+  <div id="avatar">
+    <img src="https://static.vecteezy.com/system/resources/previews/025/220/125/non_2x/picture-a-captivating-scene-of-a-tranquil-lake-at-sunset-ai-generative-photo.jpg" alt="avtar">
+  </div>
+  <div class="form">
+    <button id="upload"  mat-raised-button>Upload</button>
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Name">
+      <mat-icon>cancel</mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Bio</mat-label>
+      <input matInput placeholder="Bio">
+      <mat-icon>cancel</mat-icon>
+    </mat-form-field>
+    <button id="confirm" (click)="onNoClick()"  mat-raised-button >Save</button>
+  </div>
+</div>
+

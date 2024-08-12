@@ -1,7 +1,56 @@
-<h2 mat-dialog-title>Dialog with elements</h2>
-<mat-dialog-content>
-  <div></div>
+<mat-dialog-content class="container">
+  <div class="detail-container">
+    <div class="left-container">
+      <img [src]="data.imageUrl" alt="">
+    </div>
+    <div class="right-container">
+      <div class="top-content">
+        <div class="title">
+          <p>{{data.title}}</p>
+          <mat-dialog-actions>
+            <button mat-button mat-dialog-close>Close</button>
+          </mat-dialog-actions>
+        </div>
+        <div class="description">
+          <p>{{data.description}}</p>
+        </div>
+        <div class="content">
+          <div class="content-left">
+            <img [src]="data.avatarUrl" alt="">
+            <div>
+              <p>{{data.userName}}</p>
+              <p>1.8 triệu người theo giỏi</p>
+            </div>
+          </div>
+          <div class="content-right">
+            <button mat-button>Theo dõi</button>
+          </div>
+        </div>
+      </div>
+      <div class="middle-content">
+        <p>Comments</p>
+        <div class="user-commented">
+
+        </div>
+      </div>
+      <div class="bottom-content">
+        <div>
+          <div class="content-left" >
+
+          </div>
+          <div class>
+
+          </div>
+        </div>
+        <div class="user">
+          <div>
+            <img src="" alt="">
+          </div>
+          <div>
+            <input>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button mat-dialog-close>Close</button>
-</mat-dialog-actions>
