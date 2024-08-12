@@ -53,7 +53,7 @@ export class AppComponent implements OnInit {
 
         this.store.dispatch(AuthActions.storeIdToken({ idToken: idToken }));
         this.store.dispatch(AuthActions.storeAuthCredential({ auth: auth }));
-        await this.router.navigate(['/loading']).then();
+        // await this.router.navigate(['/loading']).then();
       } else {
         this.router.navigate(['/login']).then();
       }
@@ -90,13 +90,5 @@ export class AppComponent implements OnInit {
     this.loginWithGoogleSuccess$ = this.store.pipe(
       select((state) => state.auth.loginWithGoogleSuccess),
     );
-
-    // this.loginWithGoogleSuccess$.subscribe((loginWithGoogleSuccess) => {
-    //   console.log('loginWithGoogleSuccess', loginWithGoogleSuccess);
-    //   if (loginWithGoogleSuccess) {
-    //     this.router.navigate(['/register']).then();
-    //     this.store.dispatch(AuthActions.clearLoginSuccess());
-    //   }
-    // });
   }
 }
