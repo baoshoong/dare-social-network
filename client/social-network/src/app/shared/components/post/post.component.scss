@@ -1,10 +1,15 @@
 .grid-container {
   margin-top: 20px;
-  background-color: #f2f2f2;
   display: grid;
   justify-content: space-evenly;
   grid-gap: 30px 25px;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 4fr));
+  grid-template-columns: repeat(auto-fit, minmax(400px, 4fr));
+}
+
+@media only screen and (max-width: 900px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 4fr));
+  }
 }
 
 .post {
