@@ -39,24 +39,25 @@ export class AppComponent implements OnInit {
       profile: ProfileState;
     }>,
   ) {
-    // onAuthStateChanged(this.auth, async (user) => {
-    //   if (user) {
-    //     let idToken = await user.getIdToken(true);
-    //     this.uid = user.uid;
-    //
-    //     let auth: AuthCredentialModel = {
-    //       uid: user.uid,
-    //       userName: user.displayName || '',
-    //       email: user.email || '',
-    //       photoUrl: user.photoURL || '',
-    //     };
-    //
-    //     this.store.dispatch(AuthActions.storeIdToken({ idToken: idToken }));
-    //     this.store.dispatch(AuthActions.storeAuthCredential({ auth: auth }));
-    //   } else {
-    //     this.router.navigate(['/login']).then();
-    //   }
-    // });
+    onAuthStateChanged(this.auth, async (user) => {
+      if (user) {
+        let idToken = await user.getIdToken(true);
+        this.uid = user.uid;
+
+        let auth: AuthCredentialModel = {
+          uid: user.uid,
+          userName: user.displayName || '',
+          email: user.email || '',
+          photoUrl: user.photoURL || '../public/images/avatar.png',
+        };
+
+        this.store.dispatch(AuthActions.storeIdToken({ idToken: idToken }));
+        this.store.dispatch(AuthActions.storeAuthCredential({ auth: auth }));
+        // await this.router.navigate(['/loading']).then();
+      } else {
+        this.router.navigate(['/login']).then();
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -86,35 +87,8 @@ export class AppComponent implements OnInit {
       select((state) => state.profile.isGetMineFailure),
     );
 
-    combineLatest([
-      this.profileMine$,
-      this.getProfileMineSuccess$,
-      this.storeAuthCredential$,
-    ]).subscribe(([mine, getProfileMineSuccess, storeAuthCredential]) => {
-      const { email: authEmail } = storeAuthCredential;
-      const { email: profileEmail } = mine;
-      if (authEmail && getProfileMineSuccess) {
-        if (profileEmail) {
-          const isAuthRoute = ['/login', '/register'].includes(this.router.url);
-          const route = isAuthRoute ? '/home' : this.router.url;
-          console.log(isAuthRoute ? 'home' : 'reload');
-          this.router.navigate([route]).then();
-        }
-      } else if (authEmail && getProfileMineSuccess) {
-        if (!mine.email) {
-          this.router.navigate(['/register']).then();
-        }
-      }
-    });
-
     this.loginWithGoogleSuccess$ = this.store.pipe(
       select((state) => state.auth.loginWithGoogleSuccess),
     );
-
-    this.loginWithGoogleSuccess$.subscribe((loginWithGoogleSuccess) => {
-      if (loginWithGoogleSuccess) {
-        this.router.navigate(['/register']).then();
-      }
-    });
   }
 }

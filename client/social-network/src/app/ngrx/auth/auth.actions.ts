@@ -29,3 +29,5 @@ export const signOutFailure = createAction(
 );
 
 //clear state
+
+export const clearLoginSuccess = createAction('[Auth] Clear Login Success');
