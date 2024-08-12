@@ -8,6 +8,7 @@ import { AuthState } from '../../ngrx/auth/auth.state';
 import { Store } from '@ngrx/store';
 import * as profileActions from '../../ngrx/profile/profile.actions';
 import { MaterialModule } from '../../shared/material.module';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -18,13 +19,19 @@ import { MaterialModule } from '../../shared/material.module';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   constructor(
-    private store: Store<{ profileState: ProfileState; auth: AuthState }>,
+    private router: Router,
+    private store: Store<{ profile: ProfileState; auth: AuthState }>,
   ) {}
+
+  createMineSuccess$ = this.store.select('profile', 'isCreateSuccess');
+
+  uid = '';
 
   ngOnInit(): void {
     this.subscription.push(
       this.store.select('auth').subscribe((auth: AuthState) => {
         if (auth.authCredential) {
+          this.uid = auth.authCredential.uid;
           this.regisForm.patchValue({
             email: auth.authCredential.email,
             avatarUrl: auth.authCredential.photoUrl,
@@ -34,6 +41,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
         }
       }),
     );
+    this.createMineSuccess$.subscribe((isSuccess) => {
+      if (isSuccess) {
+        this.router.navigate(['/home']).then();
+      }
+    });
   }
   subscription: Subscription[] = [];
   regisForm = new FormGroup({

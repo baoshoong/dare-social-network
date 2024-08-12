@@ -1,18 +1,15 @@
 #edit-profile{
-  width: 573px;
-  height: 436px;
   border-radius: 26px;
-  background-color: #FFF8F4;;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   gap: 10px;
   box-sizing: border-box;
 }
 img{
-  width: 110px;
-  height: 110px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -30,41 +27,40 @@ mat-form-field{
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: #845317 1px solid;
-  width: 80%;
+  width: 60%;
 
 }
 mat-label{
-  font-family: "Public Sans";
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  color: #845317;
+  color: var(--primary);
+  border-radius: 10px;
 }
 button{
-  width: 80%;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  font-family: "Public Sans";
 }
 #confirm {
-  color: white;
-  font-size: 26px;
-  font-style: normal;
+  color: var(--onPrimary);
+  font-style: revert;
   font-weight: 600;
   line-height: normal;
-  background-color: #845317;
+  background-color: var(--primary);
 }
 #upload {
-  background-color: #845317;
-  width: 50%;
-  color: white;
-  font-family: "Public Sans";
-  font-size: 16px;
-  font-style: italic;
+  background-color: var(--primary);
+  color: var(--onPrimary);
   font-weight: 600;
   line-height: revert;
 }
+::ng-deep .mat-mdc-dialog-surface{
+
+  width: 30vw;
+  height: 63vh;
+  background-color: var(--surfaceContainerHigh);;
+}
+
 

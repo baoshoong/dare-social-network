@@ -1,8 +1,7 @@
 <div class="container">
   <div class="navbar-left">
-
       <div class="logo-navbar">
-        <img src="https://i.natgeofe.com/n/4f5aaece-3300-41a4-b2a8-ed2708a0a27c/domestic-dog_thumb_square.jpg" class="logo-navbar-icon" />
+        <img src="../public/images/logo_1_nobg.png" class="logo-navbar-icon"  alt=""/>
       </div>
     </div>
 
@@ -29,8 +28,14 @@
 
   </div>
   <div class="navbar-right">
-    <div class="avatar-navbar">
-      <img src="https://i.natgeofe.com/n/4f5aaece-3300-41a4-b2a8-ed2708a0a27c/domestic-dog_thumb_square.jpg" class="avatar-navbar-icon" />
+
+
+    <div class="avatar-navbar" *ngIf="profileMine$ | async as profile">
+      <img src="{{profile.avatarUrl}}" class="avatar-navbar-icon"  alt=""/>
     </div>
+
+
   </div>
+  <mat-icon class="material-symbols-outlined" (click)="logout()">logout</mat-icon>
+
 </div>

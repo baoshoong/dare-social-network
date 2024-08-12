@@ -3,13 +3,13 @@ import {MatDialog} from "@angular/material/dialog";
 import {EditProfileComponent} from "./edit-profile/edit-profile.component";
 import {FollowingComponent} from "./following/following.component";
 import {FollowersComponent} from "./followers/followers.component";
-import {MatIcon} from "@angular/material/icon";
+import {MaterialModule} from "../../../shared/material.module";
 
 @Component({
   selector: 'app-profile',
   standalone: true,
   imports: [
-    MatIcon
+    MaterialModule
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
