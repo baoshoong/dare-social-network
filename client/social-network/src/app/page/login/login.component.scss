@@ -14,28 +14,26 @@
 
 }
 
-.combo-btn-note {
-  height: 50px;
-}
-
 .login .label {
-  overflow-wrap: break-word;
   font-weight: 900;
-  font-size: 26px;
+  font-size: 38px;
   line-height: 1.286;
   color: var(--primary);
-  margin: -30px 0 0 50px;
+  //border: 2px solid gold;
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3%;
 }
 
-.login .indicator {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  translate: -50% 0;
+.lbl-img {
   display: flex;
-  width: 85px;
-  height: 14px;
-  box-sizing: border-box;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
 }
 
 .login .tab-1 {
@@ -47,88 +45,52 @@
   box-sizing: border-box;
 }
 
-.login .tab-group {
-  position: absolute;
-  left: 50%;
-  bottom: -1px;
-  translate: -50% 0;
-  display: flex;
-  flex-direction: row;
-  box-sizing: border-box;
-}
-
-.login .tabs-sign-in-register {
-  background: #FFFFFF;
-  position: relative;
-  margin: 0 0 150px -90px;
-  align-self: center;
-  width: 289px;
-  height: 47px;
-}
-
 .login .man-images {
-  margin:  -100px 0 119px 120px;
-  width: 35%;
+  max-width: 60%;
   height: auto;
 }
 
 .login .icon-gg {
-  margin: 3px 10px 3px 80px;
-  display: flex;
   width: 22px;
   height: 22px;
   box-sizing: border-box;
-  position: relative;
-  top: 50%;
-  left: -15px;
   z-index: 1;
 }
 
 .login .sign-in-text {
-  overflow-wrap: break-word;
   font-size: 16px;
-  letter-spacing: 0.5px;
-  line-height: 1.5;
-  color: #FFFFFF;
-  background: var(--primary);
-  width: 120%;
-  height: 40px;
-  margin-left: 35px;
-  margin-top: 0px;
-}
-
-.login .btn-sign-in {
-  border-radius: 100px;
-  margin: 0 41px 127px 41px;
+  width: 70%;
+  height: 30px;
   display: flex;
-  align-self: flex-start;
-  width: 380px;
-  box-sizing: border-box;
+  flex-direction: column;
 }
 
-.login .note {
-  margin: 300px 0 100px 80px;
-  overflow-wrap: break-word;
-  font-family: 'Arial', serif;
-  font-weight: 500;
-  font-size: 14px;
-  color: #000000;
+.gg {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 .login .tab-login {
-  margin: 60px 0 0 -120px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  width: 50%;
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
 }
 
 .login .title {
-  margin: 30px 6.6px 161px -350px;
-  display: inline-block;
-  overflow-wrap: break-word;
+  //border: 2px solid red;
   font-weight: 700;
-  font-size: 50px;
+  font-size: 38px;
   color: var(--primary);
+  margin-top: 6%;
+  width: fit-content;
+  height: fit-content;
+
 }
 
 .login {
@@ -136,31 +98,23 @@
   background: #FFFFFF;
   display: flex;
   flex-direction: row;
-  padding: 0 0 57px 65px;
   width: 70%;
   height: 80%;
-  max-width: 1200px;
   box-sizing: border-box;
-  margin: 0 auto;
-
+  //border: 2px solid green;
 }
 
 .login .tab-welcome {
-  margin-bottom: 71px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   box-sizing: border-box;
-  margin-left: 200px;
-  height: 100px;
-  width: 600px;
-
+  width: 50%;
+  //border: 3px solid green;
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px;
 }
 
 .img-welcome {
-  margin: -50px 0px 0 -400px;
-  width: 350px;
-  height: 400px;
+  max-width: 80%;
+  height: auto;
 }
 
 #btn-clickHere {
@@ -169,90 +123,95 @@
   background: #FFFFFF;
   font-size: 16px;
 }
-//-------------------------------------RESPONSIVE---------------------------------------------------
-/* Responsive Design for iPad Pro */
-@media (min-width: 1024px) and (min-height: 1366px) {
+
+.group-welcome {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+/* Media Query cho iPad Pro ở chế độ dọc (Portrait) */
+@media only screen
+and (min-device-width: 1024px)
+and (max-device-width: 1366px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: portrait) {
+  .login .sign-in-text{
+    margin-top: 20%;
+  }
+  .login .title {
+    margin-top: 6.5% !important;
+  }
+
+}
+
+/* Media Query cho iPad Pro ở chế độ ngang (Landscape) */
+@media only screen
+and (min-device-width: 1024px)
+and (max-device-width: 1366px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: landscape) {
+
   .login {
-    width: 85%;
-    height: auto;
-    flex-direction: column;
-    padding: 20px;
-    //border: 5px solid red;
+    height: 50%;
   }
+}
 
-  .tab-1 {
-    width: 300px !important;
-  }
-
-  .login .man-images {
-    width: 30%;
-    margin: 0;
-    //border: 5px solid blueviolet;
-    position: relative;
-    left: 300px;
-    top: 30px;
-
-  }
-
-  .label {
-    //border: 5px solid aqua;
-    position: relative;
-    left: 100px;
-    bottom: -120px;
-    font-size: 50px !important;
-    width: 100%;
-  }
-
-  .combo-btn-note{
-    position: relative;
-    bottom: -170px;
-    //border: 5px solid gold;
-    width: 50%;
-    margin-left: 300px;
-    height: 100px;
-  }
+/* Media Query cho iPad Air ở chế độ ngang (Landscape) */
+@media only screen
+and (min-device-width: 820px)
+and (max-device-width: 1180px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: landscape) {
 
   .login .sign-in-text {
-    width: 210% !important;
-    height: 60px;
-    margin: 10px 0 0 10px;
-    //border: 5px solid greenyellow;
-    z-index: 0;
+    margin-top: -10%;
   }
+}
 
-  .login .btn-sign-in {
-    margin: 10px 0;
+/* Media Query cho iPad Mini ở chế độ dọc (Portrait) */
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: portrait) {
+
+  .login .sign-in-text {
+    width: 80%;
+    font-size: 14px;
+    margin-left: 100%;
   }
-
-  .login .note {
-    margin: 10px 0;
-    font-size: 18px;
-  }
-
-  .icon-gg {
-    transform: translate(60px,6px);
-    //position: unset !important;
-
-  }
-
-  #btn-clickHere {
-    font-size: 20px;
-  }
-
   .login .title {
-    font-size: 5em;
-    //border: 5px solid blue;
-    position: relative;
-    top: -600px;
-    left: 80px;
+    margin-top: 8%;
   }
+  .login {
+    height: 40%;
+  }
+}
 
-  .img-welcome {
-    width: 100%;
-    max-width: 300px;
-    //border: 5px solid green;
-    position: relative;
-    top: -350px;
-    left: 200px;
+/* Media Query cho iPad Mini ở chế độ ngang (Landscape) */
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: landscape) {
+
+  .lbl-img {
+    margin-top: -0.1%;
+    //border: 3px solid green;
+  }
+  .group-welcome {
+    margin-top: -0.1%;
+    //border: 2px solid blue;
+  }
+  .login {
+    height: 60%;
+  }
+  .login .title {
+    margin-top: 6.5%;
   }
 }

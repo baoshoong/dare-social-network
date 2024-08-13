@@ -3,98 +3,76 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 .body-register {
   background-color: #7F7F7F;
   font-family: 'poppins', serif;
-  padding-top: 20px;
+  max-width: 100%;
   height: 100vh;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 .register .bulb {
-  position: absolute;
-  left: 45%;
-  top: 0;
-  translate: -50% 0;
   width: 100px;
   height: 185px;
 }
-.register .avatar {
-  margin: 74px 0 0 50px;
-  width: 80px;
-  height: 80px;
-}
-.register .title {
-  margin-right: 70px;
-  display: inline-block;
-  overflow-wrap: break-word;
-  font-weight: 700;
-  font-size: 50px;
-  color: var(--primary);
 
+.register .avatar {
+  max-width: 20%;
+  height: auto;
 }
-.register .container-7 {
-  margin-bottom: 72px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 850px;
-  box-sizing: border-box;
-}
-.register .man-image {
-  margin-right: 150px;
-  width:200px;
-  height: 200px;
-}
-.register .container-2 {
-  position: relative;
+
+.group-checkbox {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  width: 1152px;
-  height: fit-content;
-  box-sizing: border-box;
+  align-items: center;
+  gap: 50px;
 }
+
+.register .title {
+  font-weight: 700;
+  font-size: 32px;
+  color: var(--primary);
+  margin-top: 6.5%;
+}
+
+.register .man-image {
+  max-width: 55%;
+  height: auto;
+  margin-left: 25%;
+}
+
 .register .introduction {
-  position: relative;
   display: flex;
-  padding-top: 27px;
-  width: 850px;
-  height: fit-content;
+  width: 50%;
+  height: 100%;
   box-sizing: border-box;
+  //border: 2px solid gold;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
 .register .label-1 {
-  overflow-wrap: break-word;
-  font-size: 28px;
+  margin-top: 3%;
+  font-size: 32px;
   line-height: 1.286;
   color: var(--primary);
 }
 
-.register .indicator {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  translate: -50% 0;
-  display: flex;
-  width: 103px;
-  height: 14px;
-  box-sizing: border-box;
-}
 .register .tab-register {
   background: #FFFFFF;
-  position: relative;
   display: flex;
-  padding: 6px 0;
-  width: 145.7px;
+  width: 100%;
+  height: 100%;
   box-sizing: border-box;
-}
-.register .container-1 {
-  margin: 0 0 247px 11.2px;
-  display: flex;
-  flex-direction: row;
-  align-self: center;
-  width: fit-content;
-  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  border-bottom-left-radius: 40px;
+  border-top-left-radius: 40px;
 }
 
 .register .icon {
@@ -108,59 +86,160 @@
 }
 
 .register .check-with-box {
-  margin-bottom: 69px;
   display: flex;
   flex-direction: row;
   align-self: flex-start;
   width: fit-content;
   box-sizing: border-box;
 }
-.register .container-3 {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
+
 .register .user-action {
-  position: relative;
-  top: -445px;
-  left: -100px;
   display: flex;
+  //flex-direction: column;
   box-sizing: border-box;
-  width: 60%;
+  width: 50%;
+  height: 100%;
+ // border: 2px solid blue;
+  border-bottom-left-radius: 40px;
+  border-top-left-radius: 40px;
 }
+
 .register {
   border-radius: 40px;
   background: #FFFFFF;
-  padding: 5px 141px 0 141px;
   width: 80%;
   height: 90%;
   box-sizing: border-box;
   margin: 10px auto;
+  display: flex;
+  flex-direction: row;
 }
 
 .register-text {
   overflow-wrap: break-word;
-  font-size: 20px;
+  font-size: 24px;
   letter-spacing: 0.5px;
   line-height: 1.5;
   color: #FFFFFF;
   width: 100%;
   height: 40px;
-  margin-top: -30px;
+  font-weight: bold;
 }
+
+.check-with-box {
+  margin-left: -2.4%;
+}
+
 .form-register{
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  margin-top: -100px;
+
 }
+
 .example-full-width {
-  width: 400px;
+  width: 100%;
 }
+
 .input-info {
   color: var(--primary);
   font-weight: bold;
+}
+
+.group-title-welcome {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+//ipad pro nam doc
+@media only screen
+and (min-device-width: 1024px)
+and (max-device-width: 1366px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: portrait) {
+
+  .register .title {
+    font-size: 32px;
+    margin-left: -5%;
+  }
+  .register .man-image{
+    margin-left: 25%;
+  }
+  .register {
+    height: 40% !important;
+  }
+  .register-text {
+    width: 80%;
+  }
+}
+
+/* Media Query cho iPad Pro ở chế độ ngang (Landscape) */
+@media only screen
+and (min-device-width: 1024px)
+and (max-device-width: 1366px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: landscape) {
+
+ .register {
+   height: 60%;
+ }
+}
+
+/* Media Query cho iPad Mini ở chế độ dọc (Portrait) */
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: portrait) {
+
+  .check-with-box {
+    margin-left: 6%;
+  }
+
+  .register .man-image{
+    margin-left: 25%;
+  }
+  .example-full-width {
+    margin-left: 10%;
+    //border: 2px solid gold;
+    width: 80%;
+  }
+  .register {
+    height: 50%;
+  }
+  .register-text {
+    width: 80%;
+
+  }
+}
+
+/* Media Query cho iPad Mini ở chế độ ngang (Landscape) */
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: landscape) {
+
+  .register .title{
+    font-size: 32px;
+  }
+  .register .man-image{
+    margin-left: 25%;
+  }
+
+  .register-text {
+    width: 80%;
+    margin-top: -10%;
+  }
+
+  .example-full-width {
+    margin-left: 10%;
+    width: 80%;
+  }
+  .check-with-box {
+    margin-left: 7%;
+  }
 }
