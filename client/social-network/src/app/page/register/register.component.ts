@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ShareModule } from '../../shared/share.module';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProfileModel } from '../../model/profile.model';
@@ -9,6 +9,8 @@ import { Store } from '@ngrx/store';
 import * as profileActions from '../../ngrx/profile/profile.actions';
 import { MaterialModule } from '../../shared/material.module';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { WarningComponent } from '../../shared/components/warning/warning.component';
 
 @Component({
   selector: 'app-register',
@@ -58,7 +60,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
   regisForm = new FormGroup({
     email: new FormControl(''),
-    userName: new FormControl('', Validators.required),
+    userName: new FormControl('', [
+      Validators.required,
+      Validators.minLength(10),
+    ]),
     avatarUrl: new FormControl(''),
     uid: new FormControl(''),
   });
@@ -76,16 +81,26 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   register() {
-    this.regisData = {
-      email: this.regisForm.value.email ?? '',
-      userName: this.regisForm.value.userName ?? '',
-      uid: this.regisForm.value.uid ?? '',
-      bio: '',
-      avatarUrl: this.regisForm.value.avatarUrl ?? '',
-    };
+    if (this.regisForm.invalid) {
+      this.openDialog();
+    } else {
+      this.regisData = {
+        email: this.regisForm.value.email ?? '',
+        userName: this.regisForm.value.userName ?? '',
+        uid: this.regisForm.value.uid ?? '',
+        bio: '',
+        avatarUrl: this.regisForm.value.avatarUrl ?? '',
+      };
+    }
 
     console.log(this.regisData);
 
     this.store.dispatch(profileActions.createMine({ mine: this.regisData }));
+  }
+
+  readonly dialog = inject(MatDialog);
+
+  openDialog() {
+    this.dialog.open(WarningComponent);
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Repository } from "typeorm";
@@ -44,8 +44,22 @@ export class PostService {
     return savedPost;
   }
 
-  async findAll() {
-    return await this.postRepository.find();
+  async findAll(pageNumber: number , limitNumber: number ) {
+    const skip = (pageNumber - 1) * limitNumber;
+    if (isNaN(skip)) {
+      throw new BadRequestException('Calculated skip value must be a valid number');
+    }
+    const [result, total] = await this.postRepository.findAndCount({
+      skip,
+      take: limitNumber,
+    });
+
+    return {
+      data: result,
+      count: total,
+      pageNumber,
+      limitNumber,
+    };
   }
 
 

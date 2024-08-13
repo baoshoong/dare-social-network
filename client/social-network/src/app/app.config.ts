@@ -15,6 +15,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { profileReducer } from './ngrx/profile/profile.reducer';
 import { ProfileEffects } from './ngrx/profile/profile.effects';
 import { HttpClientAuth } from './util/http-client-auth';
+import { postReducer } from './ngrx/post/post.reducer';
+import { PostEffects } from './ngrx/post/post.effects';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
@@ -24,9 +26,10 @@ export const appConfig: ApplicationConfig = {
     provideAuth(() => getAuth()),
     provideStorage(() => getStorage()),
     provideStore(),
-    provideEffects(AuthEffects, ProfileEffects),
+    provideEffects(AuthEffects, ProfileEffects, PostEffects),
     provideState({ name: 'auth', reducer: authReducer }),
     provideState({ name: 'profile', reducer: profileReducer }),
+    provideState({ name: 'post', reducer: postReducer }),
     provideHttpClient(),
     provideAnimationsAsync(),
     HttpClientAuth,

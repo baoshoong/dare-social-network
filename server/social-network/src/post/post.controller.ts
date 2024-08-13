@@ -10,8 +10,8 @@ import {
   Put,
   Query,
   UseInterceptors,
-  UploadedFiles
-} from "@nestjs/common";
+  UploadedFiles, BadRequestException,
+} from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
@@ -29,7 +29,7 @@ export class PostController {
 
 
   @Post()
-  @UseInterceptors(FilesInterceptor('files'))
+  @UseInterceptors(FilesInterceptor('imageUrl'))
   async create(@UploadedFiles() photos: Express.Multer.File[], @Body() createPostDto: CreatePostDto, @Req() req){
     createPostDto.id = this.idGenService.generateId();
     console.log(createPostDto.id);
@@ -40,8 +40,15 @@ export class PostController {
   }
 
   @Get()
-  async findAll() {
-    return this.postService.findAll();
+  async findAll(@Query('page') page: string, @Query('limit') limit: string) {
+    const pageNumber = parseInt(page, 10) ;
+    const limitNumber = parseInt(limit, 10) ;
+
+    if (isNaN(pageNumber) || isNaN(limitNumber)) {
+      throw new BadRequestException('Page and limit must be valid numbers');
+    }
+
+    return this.postService.findAll(pageNumber, limitNumber);
   }
 
   @Get(':id')

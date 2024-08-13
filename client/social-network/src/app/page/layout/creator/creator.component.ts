@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MaterialModule } from '../../../shared/material.module';
 import {
   FormControl,
@@ -11,6 +11,8 @@ import { PostModel } from '../../../model/post.model';
 import { ShareModule } from '../../../shared/share.module';
 import { Store } from '@ngrx/store';
 import { ProfileState } from '../../../ngrx/profile/profile.state';
+import * as PostAction from '../../../ngrx/post/post.actions';
+import { PostState } from '../../../ngrx/post/post.state';
 
 @Component({
   selector: 'app-creator',
@@ -26,13 +28,14 @@ import { ProfileState } from '../../../ngrx/profile/profile.state';
   templateUrl: './creator.component.html',
   styleUrl: './creator.component.scss',
 })
-export class CreatorComponent {
+export class CreatorComponent implements OnInit {
   profileMine$ = this.store.select('profile', 'mine');
   uid = '';
 
   constructor(
     private store: Store<{
       profile: ProfileState;
+      Post: PostState;
     }>,
   ) {
     this.profileMine$.subscribe((mine) => {
@@ -41,15 +44,21 @@ export class CreatorComponent {
       }
     });
   }
+  myFile: File[] = [];
+
+  ngOnInit(): void {}
+
+  imageUrl = new FormControl(new Array<File>());
+
   createPostForm = new FormGroup({
     title: new FormControl(''),
-    description: new FormControl(''),
+    content: new FormControl(''),
   });
   postForm: PostModel = {
     uid: '',
     title: '',
-    description: '',
-    imageUrl: '',
+    content: '',
+    imageUrl: this.myFile as File[],
     id: BigInt(1),
   };
 
@@ -63,8 +72,12 @@ export class CreatorComponent {
 
   handleFileInput(event: Event) {
     const input = event.target as HTMLInputElement;
+    this.myFile = [];
 
     if (input.files && input.files[0]) {
+      Array.from(input.files).forEach((file) => {
+        this.myFile.push(file); // Ensure myFile is an array and push files into it
+      });
       const reader = new FileReader();
       console.log('input.files: ', input.files);
       reader.onload = (e) => {
@@ -72,14 +85,14 @@ export class CreatorComponent {
       };
       reader.readAsDataURL(input.files[0]);
 
-      this.postForm.imageUrl = input.files;
       console.log('Post Form: ', this.postForm);
     }
+    console.log('My File: ', this.myFile);
   }
   clearInputData() {
     this.createPostForm.setValue({
       title: '',
-      description: '',
+      content: '',
     });
     this.imageSrc = null;
   }
@@ -102,17 +115,19 @@ export class CreatorComponent {
       40,
     );
     console.log('Title: ', this.createPostForm.value.title);
-    console.log('Description: ', this.createPostForm.value.description);
+    console.log('Description: ', this.createPostForm.value.content);
     console.log('Image: ', this.postForm.imageUrl);
     this.postForm = {
       uid: this.uid,
       id: BigInt(1),
       title: this.createPostForm.value.title,
-      description: this.createPostForm.value.description ?? '',
-      imageUrl: this.postForm.imageUrl,
+      content: this.createPostForm.value.content ?? '',
+      imageUrl: this.myFile,
     };
 
     console.log('Post Form: ', this.postForm);
+    this.store.dispatch(PostAction.createPost({ post: this.postForm }));
+
     this.clearInputData();
   }
   textLimit(text: string, wordLimit: number): string {
@@ -129,7 +144,7 @@ export class CreatorComponent {
   }
   clearDescription() {
     this.createPostForm.patchValue({
-      description: '',
+      content: '',
     });
   }
 }
