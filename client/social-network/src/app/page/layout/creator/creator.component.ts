@@ -66,7 +66,7 @@ export class CreatorComponent {
 
     if (input.files && input.files[0]) {
       const reader = new FileReader();
-
+      console.log('input.files: ', input.files);
       reader.onload = (e) => {
         this.imageSrc = e.target?.result;
       };

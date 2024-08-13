@@ -6,16 +6,12 @@ import {
   signOut,
 } from '@angular/fire/auth';
 import { AuthCredentialModel } from '../../model/auth.model';
-import { ProfileService } from '../profile/profile.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(
-    private auth: Auth,
-    private profileService: ProfileService,
-  ) {}
+  constructor(private auth: Auth) {}
   currentUser: any;
   async signInWithGoogle() {
     const credential = await signInWithPopup(
@@ -38,15 +34,6 @@ export class AuthService {
       console.log('Logout success');
     } catch (error) {
       console.error('Logout failed');
-    }
-  }
-
-  async checkUserProfile(uid: string): Promise<boolean> {
-    try {
-      const profile = await this.profileService.getById(uid).toPromise();
-      return !!profile;
-    } catch (error) {
-      return false;
     }
   }
 }
