@@ -7,9 +7,9 @@
         <div>
           <form [formGroup]="regisForm" class="form-register">
             <!--------------------------------INPUT_FORM------------------------------------->
-            <mat-form-field class="example-full-width" appearance="outline">
+            <mat-form-field class="example-full-width" appearance="outline" >
               <mat-label class="input-info">Email</mat-label>
-              <input matInput formControlName="email" placeholder="..." value="abc@gmail.com" />
+              <input matInput formControlName="email" placeholder="..." value="abc@gmail.com"/>
             </mat-form-field>
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label class="input-info">User name</mat-label>
@@ -18,7 +18,7 @@
             <!---------------------------------INPUT_FORM_END------------------------------------>
             <div class="group-checkbox">
               <div class="check-with-box">
-                <mat-checkbox class="example-margin">Nhấn đồng ý với tất cả các điều
+                <mat-checkbox formControlName="box" class="example-margin">Nhấn đồng ý với tất cả các điều
                   khoản và điều kiện của chúng tôi.
                 </mat-checkbox>
               </div>
