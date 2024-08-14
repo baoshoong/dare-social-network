@@ -2,7 +2,6 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {MaterialModule} from "../../material.module";
 import {NgForOf, NgIf} from "@angular/common";
 import {DetailPostComponent} from "../detail-post/detail-post.component";
-import {PostModel} from "../../../page/layout/home/home.component";
 
 @Component({
   selector: 'app-post',
@@ -12,11 +11,10 @@ import {PostModel} from "../../../page/layout/home/home.component";
   styleUrl: './post.component.scss',
 })
 export class PostComponent {
-  @Input() post!: PostModel;
-  @Output() postSelected = new EventEmitter<PostModel>();
+  @Input() post: any;
+  @Output() imageClick = new EventEmitter<void>();
 
-  openPostDetail() {
-    this.postSelected.emit(this.post);
-    console.log(this.post);
+  onImageClick() {
+    this.imageClick.emit();
   }
 }

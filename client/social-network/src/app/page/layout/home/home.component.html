@@ -1,6 +1,7 @@
-<app-detail-post *ngIf="selectedPost" [post]="selectedPost" (closeDetail)="onPostSelected()"></app-detail-post>
 <div class="home-container">
   <div class="grid-container">
-    <app-post *ngFor="let post of posts; trackBy: trackByFn" [post]="post" (postSelected)="onPostSelected($event)"></app-post>
+    <div *ngFor="let post of posts">
+      <app-post [post]="post" (imageClick)="navigateToDetail(post)"></app-post>
+    </div>
   </div>
 </div>
