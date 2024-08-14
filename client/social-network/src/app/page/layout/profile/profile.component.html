@@ -2,8 +2,8 @@
   <div id="card">
     <div class="card-item">
       <div class="card-item-content">
-        <div class="card-item-name">name</div>
-        <div class="card-item-username"> user name</div>
+        <div class="card-item-name">{{ name }}</div>
+        <div class="card-item-username"> username</div>
         <div class="card-item-number">
           <div>
             <span class="number">220K</span>
@@ -18,14 +18,12 @@
             <span class="funOfNum" (click)="openDialog2()" >Following</span>
           </div>
         </div>
-        <div class="card-item-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</div>
+        <div class="card-item-description">{{bio}}</div>
       </div>
-      <div class="card-item-image">
-        <img src="https://static.vecteezy.com/system/resources/previews/025/220/125/non_2x/picture-a-captivating-scene-of-a-tranquil-lake-at-sunset-ai-generative-photo.jpg" alt="image">
         <div class="edit-button">
-          <button id="edit" mat-raised-button (click)="openDialog()">Edit</button>
+          <img [src]="avatarUrl" alt="avatar">
+          <button id="edit" mat-raised-button (click)="openEditProfileDialog()">Edit Profile</button>
         </div>
-      </div>
     </div>
   </div>
   <div id="Post">
