@@ -8,6 +8,7 @@ import { AuthMiddleware } from './auth/firebase-auth.middleware';
 import { ProfileModule } from './profile/profile.module';
 import { PostModule } from './post/post.module';
 import { StorageModule } from './storage/storage.module';
+import { SearchModule } from './search/search.module';
 
 @Module({
   imports: [
@@ -35,6 +36,8 @@ import { StorageModule } from './storage/storage.module';
     PostModule,
 
     StorageModule,
+
+    SearchModule,
   ],
   controllers: [AppController],
   providers: [AppService],
