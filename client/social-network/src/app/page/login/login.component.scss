@@ -5,37 +5,35 @@
 }
 
 .login-body {
-  background: rgb(53, 52, 52);
+  background: #7F7F7F;
   width: auto;
   height: 100vh;
-  padding-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 }
 
 .login .label {
-  overflow-wrap: break-word;
-  font-weight: 400;
-  font-size: 40px;
+  font-weight: 900;
+  font-size: 38px;
   line-height: 1.286;
-  color: #845317;
-}
-
-.login .shape {
-  border-radius: 100px 100px 0 0;
-  background: #845317;
-  width: 100px;
-  height: 3px;
-  margin: 15px 0 0 -12px;
-}
-
-.login .indicator {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  translate: -50% 0;
+  color: var(--primary);
+  //border: 2px solid gold;
+  width: fit-content;
+  height: fit-content;
   display: flex;
-  width: 85px;
-  height: 14px;
-  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3%;
+}
+
+.lbl-img {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
 }
 
 .login .tab-1 {
@@ -47,104 +45,52 @@
   box-sizing: border-box;
 }
 
-//.login .label-1 {
-//  overflow-wrap: break-word;
-//  font-family: 'Arial', serif;
-//  font-size: 28px;
-//  line-height: 1.286;
-//  color: #50453A;
-//}
-
-//.login .tab-2 {
-//  background: #FFFFFF;
-//  display: flex;
-//  padding: 6px 0;
-//  width: 144.5px;
-//  box-sizing: border-box;
-//}
-
-.login .tab-group {
-  position: absolute;
-  left: 50%;
-  bottom: -1px;
-  translate: -50% 0;
-  display: flex;
-  flex-direction: row;
-  box-sizing: border-box;
-}
-
-.login .tabs-sign-in-register {
-  background: #FFFFFF;
-  position: relative;
-  margin: 0 0 150px 0;
-  align-self: center;
-  width: 289px;
-  height: 47px;
-}
-
 .login .man-images {
-
-  margin: 0 16.4px 119px 0;
-  width: 461px;
-  height: 370px;
+  max-width: 60%;
+  height: auto;
 }
 
 .login .icon-gg {
-  margin: 3px 10px 3px 80px;
-  display: flex;
   width: 22px;
   height: 22px;
   box-sizing: border-box;
-  position: relative;
-  top:43px;
-  left: -5px;
   z-index: 1;
 }
 
 .login .sign-in-text {
-  overflow-wrap: break-word;
-  font-size: 20px;
-  letter-spacing: 0.5px;
-  line-height: 1.5;
-  color: #FFFFFF;
-  background: #845317;
-  width: 380px;
-  height: 60px;
-  margin-left: 10px;
-}
-
-.login .btn-sign-in {
-  border-radius: 100px;
-  margin: 0 41px 127px 41px;
+  font-size: 16px;
+  width: 70%;
+  height: 30px;
   display: flex;
-  align-self: flex-start;
-  width: 380px;
-  box-sizing: border-box;
+  flex-direction: column;
 }
 
-.login .note {
-  margin-left: 37px;
-  overflow-wrap: break-word;
-  font-family: 'Arial', serif;
-  font-weight: 500;
-  font-size: 23px;
-  color: #000000;
+.gg {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 .login .tab-login {
-  margin: 33px 85.9px 0 0;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  width: 50%;
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
 }
 
 .login .title {
-  margin: 50px 6.6px 161px 6.6px;
-  display: inline-block;
-  overflow-wrap: break-word;
+  //border: 2px solid red;
   font-weight: 700;
-  font-size: 86px;
-  color: #845317;
+  font-size: 38px;
+  color: var(--primary);
+  margin-top: 6%;
+  width: fit-content;
+  height: fit-content;
+
 }
 
 .login {
@@ -152,31 +98,120 @@
   background: #FFFFFF;
   display: flex;
   flex-direction: row;
-  padding: 0 0 57px 65px;
-  width: 1440px;
+  width: 70%;
+  height: 80%;
   box-sizing: border-box;
-  border: 1px solid black;
-  margin: 0 auto;
-
+  //border: 2px solid green;
 }
 
 .login .tab-welcome {
-  margin-bottom: 71px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
   box-sizing: border-box;
-  margin-left: 100px;
+  width: 50%;
+  //border: 3px solid green;
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px;
 }
 
 .img-welcome {
-  width: 550px;
-  height: 600px;
+  max-width: 80%;
+  height: auto;
 }
 
 #btn-clickHere {
   color: blue;
   border: none;
   background: #FFFFFF;
-  font-size: 20px;
+  font-size: 16px;
+}
+
+.group-welcome {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+/* Media Query cho iPad Pro ở chế độ dọc (Portrait) */
+@media only screen
+and (min-device-width: 1024px)
+and (max-device-width: 1366px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: portrait) {
+  .login .sign-in-text{
+    margin-top: 20%;
+  }
+  .login .title {
+    margin-top: 6.5% !important;
+  }
+
+}
+
+/* Media Query cho iPad Pro ở chế độ ngang (Landscape) */
+@media only screen
+and (min-device-width: 1024px)
+and (max-device-width: 1366px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: landscape) {
+
+  .login {
+    height: 50%;
+  }
+}
+
+/* Media Query cho iPad Air ở chế độ ngang (Landscape) */
+@media only screen
+and (min-device-width: 820px)
+and (max-device-width: 1180px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: landscape) {
+
+  .login .sign-in-text {
+    margin-top: -10%;
+  }
+}
+
+/* Media Query cho iPad Mini ở chế độ dọc (Portrait) */
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: portrait) {
+
+  .login .sign-in-text {
+    width: 80%;
+    font-size: 14px;
+    margin-left: 100%;
+  }
+  .login .title {
+    margin-top: 8%;
+  }
+  .login {
+    height: 40%;
+  }
+}
+
+/* Media Query cho iPad Mini ở chế độ ngang (Landscape) */
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: landscape) {
+
+  .lbl-img {
+    margin-top: -0.1%;
+    //border: 3px solid green;
+  }
+  .group-welcome {
+    margin-top: -0.1%;
+    //border: 2px solid blue;
+  }
+  .login {
+    height: 60%;
+  }
+  .login .title {
+    margin-top: 6.5%;
+  }
 }

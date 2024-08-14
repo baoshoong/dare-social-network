@@ -19,9 +19,11 @@ export class ProfileService {
       throw new BadRequestException('Profile already exists');
     }
     // Kiểm tra các trường không được phép null
-    if (!createProfileDto.userName && !createProfileDto.avatarUrl) {
+    if (createProfileDto.userName == '' && createProfileDto.avatarUrl == '' ) {
       throw new BadRequestException('Name, avatarUrl, and bio cannot be empty');
     }
+
+
     // Tạo profile mới
     const profile = this.profileRepository.create(createProfileDto);
     profile.uid = uid;

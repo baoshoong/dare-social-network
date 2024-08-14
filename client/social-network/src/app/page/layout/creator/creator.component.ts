@@ -1,29 +1,65 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
-import {MaterialModule} from "../../../shared/material.module";
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {CommonModule, NgIf} from "@angular/common";
-import {PostModel} from "../../../model/post.model";
-import {ShareModule} from "../../../shared/share.module";
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MaterialModule } from '../../../shared/material.module';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { CommonModule, NgIf } from '@angular/common';
+import { PostModel } from '../../../model/post.model';
+import { ShareModule } from '../../../shared/share.module';
+import { Store } from '@ngrx/store';
+import { ProfileState } from '../../../ngrx/profile/profile.state';
+import * as PostAction from '../../../ngrx/post/post.actions';
+import { PostState } from '../../../ngrx/post/post.state';
 
 @Component({
   selector: 'app-creator',
   standalone: true,
-  imports: [MaterialModule, FormsModule, NgIf, ShareModule, ReactiveFormsModule, CommonModule],
+  imports: [
+    MaterialModule,
+    FormsModule,
+    NgIf,
+    ShareModule,
+    ReactiveFormsModule,
+    CommonModule,
+  ],
   templateUrl: './creator.component.html',
-  styleUrl: './creator.component.scss'
+  styleUrl: './creator.component.scss',
 })
-export class CreatorComponent {
-  createPostForm= new FormGroup({
-    title:new FormControl(''),
-    description:new FormControl(''),
-    // imageUrl:new FormControl<string | ArrayBuffer | null | undefined>('')
-  });
+export class CreatorComponent implements OnInit {
+  profileMine$ = this.store.select('profile', 'mine');
+  uid = '';
 
+  constructor(
+    private store: Store<{
+      profile: ProfileState;
+      Post: PostState;
+    }>,
+  ) {
+    this.profileMine$.subscribe((mine) => {
+      if (mine) {
+        this.uid = mine.uid;
+      }
+    });
+  }
+  myFile: File[] = [];
+
+  ngOnInit(): void {}
+
+  imageUrl = new FormControl(new Array<File>());
+
+  createPostForm = new FormGroup({
+    title: new FormControl(''),
+    content: new FormControl(''),
+  });
   postForm: PostModel = {
     uid: '',
     title: '',
-    description: '',
-    imageUrl: ''
+    content: '',
+    imageUrl: this.myFile as File[],
+    id: BigInt(1),
   };
 
   imageSrc: string | ArrayBuffer | null | undefined = null;
@@ -36,25 +72,34 @@ export class CreatorComponent {
 
   handleFileInput(event: Event) {
     const input = event.target as HTMLInputElement;
+    this.myFile = [];
 
     if (input.files && input.files[0]) {
+      Array.from(input.files).forEach((file) => {
+        this.myFile.push(file); // Ensure myFile is an array and push files into it
+      });
       const reader = new FileReader();
+      console.log('input.files: ', input.files);
       reader.onload = (e) => {
         this.imageSrc = e.target?.result;
       };
       reader.readAsDataURL(input.files[0]);
+
+      console.log('Post Form: ', this.postForm);
     }
+    console.log('My File: ', this.myFile);
   }
-  clearInputData(){
+  clearInputData() {
     this.createPostForm.setValue({
-      title:'',
-      description:'',
+      title: '',
+      content: '',
     });
     this.imageSrc = null;
   }
   createPost() {
     const inputFilled = this.createPostForm.value?.title?.trim() !== '';
-    const imageSrcFilled = typeof this.imageSrc === 'string' && this.imageSrc.trim() !== '';
+    const imageSrcFilled =
+      typeof this.imageSrc === 'string' && this.imageSrc.trim() !== '';
     //
     // console.log('Title: ', this.createPostForm.value.title);
     // console.log('Description: ', this.createPostForm.value.description);
@@ -65,28 +110,41 @@ export class CreatorComponent {
       return;
     }
 
-    this.createPostForm.value.title = this.textLimit(this.createPostForm.value?.title as string,40);
+    this.createPostForm.value.title = this.textLimit(
+      this.createPostForm.value?.title as string,
+      40,
+    );
     console.log('Title: ', this.createPostForm.value.title);
-    console.log('Description: ',this.createPostForm.value.description);
-    console.log('Image: ',this.imageSrc);
+    console.log('Description: ', this.createPostForm.value.content);
+    console.log('Image: ', this.postForm.imageUrl);
+    this.postForm = {
+      uid: this.uid,
+      id: BigInt(1),
+      title: this.createPostForm.value.title,
+      content: this.createPostForm.value.content ?? '',
+      imageUrl: this.myFile,
+    };
+
+    console.log('Post Form: ', this.postForm);
+    this.store.dispatch(PostAction.createPost({ post: this.postForm }));
+
     this.clearInputData();
   }
   textLimit(text: string, wordLimit: number): string {
     const words = text.split(/\s+/);
-   if(words.length > wordLimit){
-     return words.slice(0,wordLimit).join(' ');
-   }
-   return text;
+    if (words.length > wordLimit) {
+      return words.slice(0, wordLimit).join(' ');
+    }
+    return text;
   }
-  clearTitle(){
+  clearTitle() {
     this.createPostForm.patchValue({
-      title:''
+      title: '',
     });
   }
-  clearDescription(){
+  clearDescription() {
     this.createPostForm.patchValue({
-      description:''
+      content: '',
     });
   }
-
 }

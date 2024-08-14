@@ -10,5 +10,6 @@ import { Profile } from './entities/profile.entity';
   ],
   controllers: [ProfileController],
   providers: [ProfileService],
+  exports: [TypeOrmModule],
 })
 export class ProfileModule {}

@@ -4,16 +4,13 @@ import {NgForOf, NgIf} from "@angular/common";
 import {DetailPostComponent} from "../detail-post/detail-post.component";
 import {PostModel} from "../../../page/layout/home/home.component";
 
-
 @Component({
   selector: 'app-post',
   standalone: true,
   imports: [MaterialModule, NgForOf, DetailPostComponent, NgIf],
   templateUrl: './post.component.html',
-  styleUrl: './post.component.scss'
+  styleUrl: './post.component.scss',
 })
-
-
 export class PostComponent {
   @Input() post!: PostModel;
   @Output() postSelected = new EventEmitter<PostModel>();
