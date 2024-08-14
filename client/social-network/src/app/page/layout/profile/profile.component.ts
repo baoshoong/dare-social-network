@@ -15,11 +15,13 @@ import {MaterialModule} from "../../../shared/material.module";
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent {
+
   name: string = 'Current Name';
   bio: string = 'Current Bio';
   avatarUrl: string = 'https://www.w3schools.com/howto/img_avatar.png';
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) {
+  }
 
   openDialog2() {
     this.dialog.open(FollowingComponent);
@@ -31,16 +33,17 @@ export class ProfileComponent {
 
   openEditProfileDialog(): void {
     const dialogRef = this.dialog.open(EditProfileComponent, {
-      data: { avatarUrl: this.avatarUrl,
-              name: this.name,
-              bio: this.bio,}
+      data: {
+        avatarUrl: this.avatarUrl,
+        name: this.name,
+        bio: this.bio
+      }
     });
     dialogRef.componentInstance.avatarChanged.subscribe((newAvatarUrl: string) => {
       this.avatarUrl = newAvatarUrl;
+      this.name = dialogRef.componentInstance.editProfileForm.value.name ?? '';
+      this.bio = dialogRef.componentInstance.editProfileForm.value.bio ?? '';
     });
-    dialogRef.componentInstance.profileUpdated.subscribe((updatedProfile: { name: string, bio: string }) => {
-      this.name = updatedProfile.name;
-      this.bio = updatedProfile.bio;
-    });
+
   }
 }

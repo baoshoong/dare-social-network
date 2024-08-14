@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
 import { FormControl, FormGroup } from "@angular/forms";
 import { MaterialModule } from "../../../../shared/material.module";
 import {ShareModule} from "../../../../shared/share.module";
+import {ProfileModel} from "../../../../model/profile.model";
 
 @Component({
   selector: 'app-edit-profile',
@@ -17,21 +18,25 @@ import {ShareModule} from "../../../../shared/share.module";
 })
 export class EditProfileComponent {
   @Output() avatarChanged = new EventEmitter<string>();
-  @Output() profileUpdated = new EventEmitter<{ name: string, bio: string }>();
   url: string;
-  profileForm: FormGroup;
-  value1 = '';
-  value2 = '';
+  protected readonly document = document;
+  profileForm: ProfileModel = {
+    bio: '',
+    uid: '',
+    userName: '',
+    email: '',
+    avatarUrl: '',
+
+}
+  editProfileForm = new FormGroup({
+    name: new FormControl(''),
+    bio: new FormControl(''),
+  });
 
   constructor(public dialog: MatDialog,
               @Inject(MAT_DIALOG_DATA) public data: any) {
     this.url = data.avatarUrl;
-    this.profileForm = new FormGroup({
-      name: new FormControl(data.name || ''),
-      bio: new FormControl(data.bio || '')
-    });
   }
-
   onSelectedFile(e: any): void {
     if (e.target.files) {
       const reader = new FileReader();
@@ -41,15 +46,35 @@ export class EditProfileComponent {
       };
     }
   }
-
+  clearInput(): void {
+    this.editProfileForm.setValue({
+      name: '',
+      bio: '',
+    });
+  }
   onSaveClick(): void {
     this.avatarChanged.emit(this.url);
-    this.profileUpdated.emit({
-      name: this.profileForm.get('name')?.value,
-      bio: this.profileForm.get('bio')?.value
-    });
+
+    this.profileForm = {
+      uid: this.profileForm.uid,
+      avatarUrl: this.url,
+      email: this.profileForm.email,
+      bio: this.editProfileForm.value.bio ?? '',
+      userName: this.editProfileForm.value.name ?? '',//neu null thi rong
+    };
+    console.log(this.profileForm);
     this.dialog.closeAll();
+    this.clearInput();
+  }
+  clearName(): void {
+    this.editProfileForm.patchValue({
+      name: '',
+    });
+  }
+  clearBio(): void {
+    this.editProfileForm.patchValue({
+      bio: '',
+    });
   }
 
-  protected readonly document = document;
 }

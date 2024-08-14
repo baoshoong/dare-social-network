@@ -1,7 +1,7 @@
 <div class="grid-container">
   <div class="post" *ngFor="let post of post">
     <div class="post-header">
-      <img (click)="openDialog()" class="post-image" [src]="post.imageUrl" alt="{{ post.title }}">
+      <img (click)="openDialog(post)" class="post-image" [src]="post.imageUrl" alt="{{ post.title }}">
     </div>
     <div class="post-content">
       <div class="content-left">

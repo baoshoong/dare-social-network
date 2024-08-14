@@ -1,34 +1,34 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+
+  Post,
+
+  UploadedFiles,
+  UseInterceptors,
+  MaxFileSizeValidator, ParseFilePipe, FileTypeValidator, Query, Body
+} from "@nestjs/common";
 import { StorageService } from './storage.service';
-import { CreateStorageDto } from './dto/create-storage.dto';
-import { UpdateStorageDto } from './dto/update-storage.dto';
+import { FilesInterceptor } from "@nestjs/platform-express";
+import {Storage} from "./entities/storage.entity";
 
 @Controller('storage')
 export class StorageController {
   constructor(private readonly storageService: StorageService) {}
 
-  @Post()
-  create(@Body() createStorageDto: CreateStorageDto) {
-    return this.storageService.create(createStorageDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.storageService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.storageService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateStorageDto: UpdateStorageDto) {
-    return this.storageService.update(+id, updateStorageDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.storageService.remove(+id);
+  @Post("upload")
+  @UseInterceptors(FilesInterceptor('imageUrl') )
+  async uploadFiles(
+    @UploadedFiles() files: Express.Multer.File[],
+    @Body("folderName") folderName: string,
+  ): Promise<{ urls: string[] }> {
+    console.log(files);
+    console.log(folderName);
+    try {
+      const urls = await this.storageService.uploadFilesToFirebase(files, folderName);
+      console.log(urls);
+      return { urls };
+    } catch (error) {
+      throw error;
+    }
   }
 }

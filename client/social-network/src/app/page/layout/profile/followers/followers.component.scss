@@ -9,6 +9,10 @@
   align-items: center;
   justify-content: space-around;
   gap:  20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
 
 }
 ::ng-deep .mat-mdc-dialog-surface{
@@ -22,6 +26,7 @@
   font-size:  25px;
   font-style: normal;
   gap: 10px;
+  padding-top: 10px;
 }
 mat-form-field{
   display: flex;

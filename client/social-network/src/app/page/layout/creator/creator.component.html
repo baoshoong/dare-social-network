@@ -4,7 +4,7 @@
     <img src="../../../../../../../public/images/add_photo_alternate.png" alt="add photo" >
     <img *ngIf="imageSrc" [src]="imageSrc" alt="Selected Image" id="selected-image">
     <h3 id="description">Drag And Drop Your Images Here</h3>
-    <input type="file" #fileInput id="file"  (change)="handleFileInput($event)">
+    <input type="file" #fileInput id="file" [formControl]="imageUrl"  (change)="handleFileInput($event)">
   </div>
     <form [formGroup]="createPostForm" >
   <div id="post-information">
@@ -21,7 +21,7 @@
 
       <mat-form-field appearance="outline" class="example-form-field">
         <mat-label>Description</mat-label>
-        <input matInput placeholder="Input"  formControlName="description" >
+        <input matInput placeholder="Input"  formControlName="content" >
 
           <button matSuffix mat-icon-button aria-label="Clear" (click)="clearDescription()">
             <mat-icon matSuffix>close</mat-icon>

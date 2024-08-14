@@ -66,9 +66,14 @@
   font-size: 15px;
   font-style: normal;
   font-weight: 500;
-  line-height: normal;
   width: 407px;
   height: 53px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;// chinh dong
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  margin: 0;
 }
 .number{
   color: var(--onBackground);
@@ -106,6 +111,7 @@ img{
   width: 130px;
   height: 130px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 #mat-flat-button{
