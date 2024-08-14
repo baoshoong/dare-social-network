@@ -8,14 +8,13 @@
 }
 
 #card{
-  width: 874px;
-  height: 175px;
+  width: 60%;
+  height: 10%;
   top: 100px;
   left: 283px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
 }
 .card-item-content{
   width: 40%;
@@ -33,7 +32,6 @@
 }
 .card-item-name{
   color: var(--onBackground);
-  font-feature-settings: 'liga' off;
   font-size: 28px;
   font-style: normal;
   font-weight: 800;
@@ -79,9 +77,7 @@
   color: var(--onBackground);
   text-align: center;
   font-size: 17px;
-  font-style: normal;
   font-weight: 700;
-  line-height: normal;
 }
 .card-item-image{
   width: 20%;
@@ -140,5 +136,11 @@ img{
   width: 350px;
   height: 300px;
   border-radius: 16px;
+}
+
+.grid-container{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
