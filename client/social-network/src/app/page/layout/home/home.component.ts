@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { MaterialModule } from '../../../shared/material.module';
-import {PostComponent} from "../../../shared/components/post/post.component";
-import {RouterOutlet} from "@angular/router";
-import {NgFor, NgIf} from "@angular/common";
-import {DetailPostComponent} from "../../../shared/components/detail-post/detail-post.component";
+import { PostComponent } from '../../../shared/components/post/post.component';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { NgFor, NgIf } from '@angular/common';
 
 export interface PostModel {
   id: number;
@@ -18,7 +17,7 @@ export interface PostModel {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MaterialModule, PostComponent, RouterOutlet, NgFor, DetailPostComponent, NgIf],
+  imports: [MaterialModule, PostComponent, RouterOutlet, NgFor, NgIf, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -30,7 +29,7 @@ export class HomeComponent {
       avatarUrl: 'https://cdn.myportfolio.com/591d04f256aa901b6f95d035a778faaa/4f6bf891-5a71-4ac9-835b-457eb72462b2_rw_600.png?h=4349d2bcaaf94efadb052ed53cfc97b3',
       title: 'Social Media Analytics Dashboard',
       description: 'Simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s',
-      imageUrl: 'https://i.pinimg.com/564x/d4/bc/c4/d4bcc46e371e194b20854acd1ba3a86b.jpg',
+      imageUrl: 'https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       likes: 3000
     },
     {
@@ -39,7 +38,7 @@ export class HomeComponent {
       avatarUrl: 'https://cdn.myportfolio.com/591d04f256aa901b6f95d035a778faaa/4f6bf891-5a71-4ac9-835b-457eb72462b2_rw_600.png?h=4349d2bcaaf94efadb052ed53cfc97b3',
       title: 'Post 2',
       description: 'This is a post',
-      imageUrl: 'https://i.pinimg.com/564x/d4/bc/c4/d4bcc46e371e194b20854acd1ba3a86b.jpg',
+      imageUrl: 'https://images.pexels.com/photos/3791466/pexels-photo-3791466.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       likes: 20
     },
     {
@@ -152,13 +151,11 @@ export class HomeComponent {
     },
   ]
 
-  selectedPost?: PostModel;
+  constructor(private router: Router) {}
 
-  onPostSelected(post?: PostModel) {
-    this.selectedPost = post;
+  navigateToDetail(post: PostModel) {
+    this.router.navigate(['/detail-post', post.id], { state: { post } }).then(r => console.log(r));
+    console.log(post);
   }
 
-  trackByFn(index: number, item: PostModel): number {
-    return item.id; // Assuming each post has a unique 'id' property
-  }
 }
