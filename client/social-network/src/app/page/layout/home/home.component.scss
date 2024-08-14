@@ -1,3 +1,17 @@
 .home-container{
   height: 100%;
 }
+
+.grid-container {
+  margin-top: 20px;
+  display: grid;
+  justify-content: space-evenly;
+  grid-gap: 30px 25px;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 4fr));
+}
+
+@media only screen and (max-width: 900px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 4fr));
+  }
+}

@@ -26,4 +26,11 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./page/loading/loading.routes').then((m) => m.LOADING_ROUTES),
   },
+  {
+    path: 'detail-post',
+    loadChildren: () =>
+      import('./page/detail-post/detail-post.routes').then(
+        (m) => m.DETAIL_POST_ROUTES
+      ),
+  }
 ];

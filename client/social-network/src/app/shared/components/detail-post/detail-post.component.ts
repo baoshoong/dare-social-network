@@ -1,8 +1,7 @@
-import {Component, inject, Inject, Input} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {MaterialModule} from "../../material.module";
 import {NgIf} from "@angular/common";
-import {MAT_DIALOG_DATA} from "@angular/material/dialog";
-import {PostModel} from "../post/post.component";
+import {PostModel} from "../../../page/layout/home/home.component";
 
 export interface CommentModel {
   userName: string;
@@ -18,10 +17,29 @@ export interface CommentModel {
   templateUrl: './detail-post.component.html',
   styleUrl: './detail-post.component.scss'
 })
-export class DetailPostComponent {
-  //display the post
-  readonly data = inject<PostModel>(MAT_DIALOG_DATA);
+export class DetailPostComponent implements OnInit, OnDestroy {
+  @Input() post!: PostModel;
+  @Output() closeDetail = new EventEmitter<void>();
 
-  //display the comments
+  isOverlayVisible = false;
+  private clickListener: any;
 
+  constructor(private elementRef: ElementRef) {}
+
+  ngOnInit() {
+    this.isOverlayVisible = true;
+    this.clickListener = this.onDocumentClick.bind(this);
+    document.addEventListener('click', this.clickListener);
+  }
+
+  ngOnDestroy() {
+    this.isOverlayVisible = false;
+    document.removeEventListener('click', this.clickListener);
+  }
+
+  private onDocumentClick(event: MouseEvent) {
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      this.closeDetail.emit();
+    }
+  }
 }
