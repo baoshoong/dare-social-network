@@ -1,33 +1,34 @@
 <div id="edit-profile">
-  <div class="form">
-    <img [src]="url">
-    <input type="file" (change)="onSelectedFile($event)" id="fileInput" hidden>
-    <button id="upload" mat-raised-button (click)="document.getElementById('fileInput')?.click()">Upload</button>
+  <form [formGroup]="editProfileForm">
+    <div class="form">
+      <img [src]="url">
+      <input type="file" (change)="onSelectedFile($event)" id="fileInput" hidden>
+      <button id="upload" mat-raised-button (click)="document.getElementById('fileInput')?.click()">Upload</button>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Name</mat-label>
-      <input matInput type="text" placeholder="Name" [(ngModel)]="value1">
-      <button matSuffix mat-icon-button aria-label="Clear" (click)="value1=''">
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Name" formControlName="name">
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="clearName()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Bio</mat-label>
-      <input matInput type="text" placeholder="Bio"  [(ngModel)]="value2">
-      <button matSuffix mat-icon-button aria-label="Clear" (click)="value2=''">
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-form-field>
-
-
+      <mat-form-field appearance="outline">
+        <mat-label>Bio</mat-label>
+        <input matInput  placeholder="Bio"  formControlName="bio">
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="clearBio()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
     <button id="confirm" (click)="onSaveClick()" mat-raised-button>Save</button>
   </div>
+  </form>
+
 </div>
-@if(isUploading$|async){
+<!--@if(isUploading$|async){-->
 
-  <div class="loading-overlay">
-    <mat-spinner class="loading-spinner"></mat-spinner>
+<!--  <div class="loading-overlay">-->
+<!--    <mat-spinner class="loading-spinner"></mat-spinner>-->
 
-  </div>
-}
+<!--  </div>-->
+<!--}-->

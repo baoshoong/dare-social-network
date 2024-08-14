@@ -41,9 +41,7 @@ mat-form-field{
 }
 mat-label{
   font-size: 16px;
-  font-style: normal;
   font-weight: 400;
-  line-height: normal;
   color: var(--primary);
   border-radius: 10px;
 }
@@ -56,21 +54,19 @@ button{
 }
 #confirm {
   color: var(--onPrimary);
-  font-style: revert;
   font-weight: 600;
-  line-height: normal;
+  font-size: 20px;
   background-color: var(--primary);
+  width: 65%;
 }
 #upload {
   background-color: var(--primary);
   color: var(--onPrimary);
-  font-weight: 600;
-  line-height: revert;
 }
 ::ng-deep .mat-mdc-dialog-surface{
 
   width: 30vw;
-  height: 65vh;
+  height: 60vh;
   background-color: var(--surfaceContainerHigh);
   display: flex;
   align-items: center;

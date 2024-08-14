@@ -15,6 +15,7 @@ import { StorageState } from '../../../../ngrx/storage/storage.state';
 import { StorageModel } from '../../../../model/storage.model';
 import * as StorageActions from '../../../../ngrx/storage/storage.actions';
 import { Subscription } from 'rxjs';
+import { ProfileModel } from '../../../../model/profile.model';
 
 @Component({
   selector: 'app-edit-profile',
@@ -25,11 +26,20 @@ import { Subscription } from 'rxjs';
 })
 export class EditProfileComponent implements OnInit, OnDestroy {
   @Output() avatarChanged = new EventEmitter<string>();
-  @Output() profileUpdated = new EventEmitter<{ name: string; bio: string }>();
   url: string;
-  profileForm: FormGroup;
-  value1 = '';
-  value2 = '';
+  protected readonly document = document;
+  profileForm: ProfileModel = {
+    bio: '',
+    uid: '',
+    userName: '',
+    email: '',
+    avatarUrl: '',
+
+}
+  editProfileForm = new FormGroup({
+    name: new FormControl(''),
+    bio: new FormControl(''),
+  });
 
   myFile: File[] = [];
 
@@ -43,22 +53,13 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     this.url = data.avatarUrl;
-    this.profileForm = new FormGroup({
-      name: new FormControl(data.name || ''),
-      bio: new FormControl(data.bio || ''),
-    });
   }
-
-  isUploading$ = this.store.select('storage', 'isUploading');
-
-  ngOnDestroy(): void {
-    this.subscription.forEach((sub) => sub.unsubscribe());
-  }
-
   ngOnInit(): void {
-    this.subscription.push(this.isUploading$.subscribe((isUploading) => {}));
+    throw new Error('Method not implemented.');
   }
-
+  ngOnDestroy(): void {
+    throw new Error('Method not implemented.');
+  }
   onSelectedFile(e: any): void {
     if (e.target.files) {
       console.log(e.target.files);
@@ -74,20 +75,41 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       };
     }
   }
-
+  clearInput(): void {
+    this.editProfileForm.setValue({
+      name: '',
+      bio: '',
+    });
+  }
   onSaveClick(): void {
     this.avatarChanged.emit(this.url);
-    this.profileUpdated.emit({
-      name: this.profileForm.get('name')?.value,
-      bio: this.profileForm.get('bio')?.value,
-    });
+
+    this.profileForm = {
+      uid: this.profileForm.uid,
+      avatarUrl: this.url,
+      email: this.profileForm.email,
+      bio: this.editProfileForm.value.bio ?? '',
+      userName: this.editProfileForm.value.name ?? '',//neu null thi rong
+    };
+    console.log(this.profileForm);
+  
     this.myFile.forEach((file) => {
       this.store.dispatch(
         StorageActions.uploadFile({ file, fileName: file.name }),
       );
     });
     this.dialog.closeAll();
+    this.clearInput();
+  }
+  clearName(): void {
+    this.editProfileForm.patchValue({
+      name: '',
+    });
+  }
+  clearBio(): void {
+    this.editProfileForm.patchValue({
+      bio: '',
+    });
   }
 
-  protected readonly document = document;
 }
