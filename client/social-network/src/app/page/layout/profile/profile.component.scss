@@ -1,6 +1,6 @@
 #container{
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,9 +32,8 @@
   justify-content: space-between;
 }
 .card-item-name{
-  color: #211A14;
+  color: var(--onBackground);
   font-feature-settings: 'liga' off;
-  font-family: Public Sans;
   font-size: 28px;
   font-style: normal;
   font-weight: 800;
@@ -60,6 +59,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  cursor: pointer;
 }
 .card-item-description{
   color: var(--onSurfaceVariant);
@@ -73,7 +73,6 @@
 .number{
   color: var(--onBackground);
   text-align: center;
-  font-family: "Public Sans";
   font-size: 17px;
   font-style: normal;
   font-weight: 700;
@@ -95,10 +94,17 @@ button mat-raised-button{
   background-color: var(--primary);
   color: var(--onPrimary);
 }
-
+.edit-button{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 100px;
+}
 img{
-  width: 110px;
-  height: 110px;
+  width: 130px;
+  height: 130px;
   border-radius: 50%;
 }
 
@@ -113,17 +119,14 @@ img{
 }
 #Post{
   display: flex;
-  width: 1440px;
-  padding: 3px 175px 0px 175px;
+  width: 100%;
   flex-direction: column;
-  justify-content: flex-end;
   align-items: center;
   gap: 35px;
 }
 .Post-image{
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
 
