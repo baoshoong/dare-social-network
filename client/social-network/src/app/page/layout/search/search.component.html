@@ -1,33 +1,35 @@
 <div class="search">
+
   <mat-form-field appearance="outline" class="search-frame">
-      <mat-label class="search-input" > <span class="material-symbols-outlined">
-        search
-      </span></mat-label>
-      <input matInput [(ngModel)]="searchQuery" placeholder="Tìm kiếm...">
-    </mat-form-field>
+      <mat-label class="search-input" >Search</mat-label>
+      <input matInput [(ngModel)]="searchQuery" placeholder="Search">
+  </mat-form-field>
   <div class="result">
     Result
   </div>
   <div class="pic-result">
-  @for (item of data; track $index){
-      <div class="tab-1">
-          <img class="img-1" src="{{item.image}}" alt="...">
-          <div class="status-1">
-            <div class="avt-name-1">
-              <div class="bg-avt">
-                <img class="avt" src="{{item.avatar}}" alt="...">
-              </div>
-              <div class="rose">
-                Rose
-              </div>
-            </div>
-            <div class="icon-1">
-              <img class="icon-heart-1" src="{{item.icon_heart}}" alt="...">
-              <img class="icon-comment-1" src="{{item.icon_comment}}" alt="...">
-            </div>
-          </div>
-        </div>
-  }
+
+<!--  @for (item of items; track $index){-->
+<!--      <div class="tab-1">-->
+<!--          <img class="img-1" src="{{item.image}}" alt="...">-->
+<!--          <div class="status-1">-->
+<!--            <div class="avt-name-1">-->
+<!--              <div class="bg-avt">-->
+<!--                <img class="avt" src="{{item.avatar}}" alt="...">-->
+<!--              </div>-->
+<!--              <div class="rose">-->
+<!--                Rose-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="icon-1">-->
+<!--              <img class="icon-heart-1" src="{{item.icon_heart}}" alt="...">-->
+<!--              <img class="icon-comment-1" src="{{item.icon_comment}}" alt="...">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--  }-->
+<!--      <app-post *ngFor="let post of posts; trackBy: trackByFn" [post]="post" (postSelected)="onPostSelected($event)"></app-post>-->
+
   </div>
 
 </div>
