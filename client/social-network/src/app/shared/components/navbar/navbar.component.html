@@ -31,16 +31,26 @@
 
 
     <div class="avatar-navbar" >
-      @if(!(profileMine$ | async)?.avatarUrl){
-        <img src="../public/images/avatar.png" class="avatar-navbar-icon" loading="lazy"  alt=""/>
-      } @else {
-        <img src="{{(profileMine$ | async)?.avatarUrl}}" class="avatar-navbar-icon" >
-      }
+
+      <button mat-icon-button [matMenuTriggerFor]="menu"  >
+        @if(!(profileMine$ | async)?.avatarUrl){
+          <img src="../public/images/avatar.png" class="avatar-navbar-icon" loading="lazy"  alt=""/>
+        } @else {
+          <img src="{{(profileMine$ | async)?.avatarUrl}}" class="avatar-navbar-icon" >
+        }
+
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon class="material-symbols-outlined" (click)="logout()">logout</mat-icon>
+          <span>logout</span>
+        </button>
+      </mat-menu>
 
     </div>
 
 
   </div>
-  <mat-icon class="material-symbols-outlined" (click)="logout()">logout</mat-icon>
+
 
 </div>
