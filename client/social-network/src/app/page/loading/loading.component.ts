@@ -31,5 +31,7 @@ export class LoadingComponent implements OnInit {
         this.router.navigate(['/register']);
       }
     });
+
+    setTimeout(() => {}, 2000);
   }
 }

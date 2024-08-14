@@ -1,9 +1,11 @@
-import { IsString, IsEmail } from 'class-validator';
+import { IsString, IsEmail, IsNotEmpty } from 'class-validator';
 export class CreateProfileDto {
   @IsString()
+  @IsNotEmpty()
   userName: string;
 
   @IsEmail()
+  @IsNotEmpty()
   email: string;
 
   @IsString()

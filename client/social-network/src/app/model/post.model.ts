@@ -1,8 +1,7 @@
-import * as url from "node:url";
-
-export interface PostModel{
+export interface PostModel {
   uid: string;
   title: string;
-  description: string;
-  imageUrl: string;
+  content: string;
+  imageUrl: string | File[];
+  id: bigint;
 }

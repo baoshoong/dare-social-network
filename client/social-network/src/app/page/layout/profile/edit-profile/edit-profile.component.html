@@ -1,20 +1,26 @@
 <div id="edit-profile">
-  <div id="avatar">
-    <img src="https://static.vecteezy.com/system/resources/previews/025/220/125/non_2x/picture-a-captivating-scene-of-a-tranquil-lake-at-sunset-ai-generative-photo.jpg" alt="avtar">
-  </div>
   <div class="form">
-    <button id="upload"  mat-raised-button>Upload</button>
+    <img [src]="url">
+    <input type="file" (change)="onSelectedFile($event)" id="fileInput" hidden>
+    <button id="upload" mat-raised-button (click)="document.getElementById('fileInput')?.click()">Upload</button>
+
     <mat-form-field appearance="outline">
       <mat-label>Name</mat-label>
-      <input matInput placeholder="Name">
-      <mat-icon>cancel</mat-icon>
+      <input matInput type="text" placeholder="Name" [(ngModel)]="value1">
+      <button matSuffix mat-icon-button aria-label="Clear" (click)="value1=''">
+        <mat-icon>close</mat-icon>
+      </button>
     </mat-form-field>
+
     <mat-form-field appearance="outline">
       <mat-label>Bio</mat-label>
-      <input matInput placeholder="Bio">
-      <mat-icon>cancel</mat-icon>
+      <input matInput type="text" placeholder="Bio"  [(ngModel)]="value2">
+      <button matSuffix mat-icon-button aria-label="Clear" (click)="value2=''">
+        <mat-icon>close</mat-icon>
+      </button>
     </mat-form-field>
-    <button id="confirm" (click)="onNoClick()"  mat-raised-button >Save</button>
+
+
+    <button id="confirm" (click)="onSaveClick()" mat-raised-button>Save</button>
   </div>
 </div>
-

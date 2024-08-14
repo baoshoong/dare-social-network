@@ -7,14 +7,6 @@
   gap: 10px;
   box-sizing: border-box;
 }
-img{
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 .form{
   width: 100%;
   display: flex;
@@ -23,11 +15,28 @@ img{
   justify-content: center;
   gap: 10px;
 }
+img{
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  object-fit: cover;
+}
+#fileInput{
+  background-color: var(--primary);
+  color: var(--onPrimary);
+  font-weight: 600;
+  line-height: normal;
+  border-radius: 10px;
+}
+
 mat-form-field{
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 60%;
+  width: 150%;
 
 }
 mat-label{
@@ -42,6 +51,8 @@ button{
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
+
 }
 #confirm {
   color: var(--onPrimary);
@@ -59,8 +70,12 @@ button{
 ::ng-deep .mat-mdc-dialog-surface{
 
   width: 30vw;
-  height: 63vh;
-  background-color: var(--surfaceContainerHigh);;
+  height: 65vh;
+  background-color: var(--surfaceContainerHigh);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
 }
 
 

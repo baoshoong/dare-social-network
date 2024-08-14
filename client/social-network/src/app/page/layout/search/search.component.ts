@@ -11,7 +11,7 @@ import {SEARCH_ROUTES} from "./search.routes";
   standalone: true,
   imports: [MatCardModule, MatFormFieldModule, MatInputModule, FormsModule],
   templateUrl: './search.component.html',
-  styleUrl: './search.component.scss'
+  styleUrl: './search.component.scss',
 })
 export class SearchComponent {
   searchQuery: string = '';
