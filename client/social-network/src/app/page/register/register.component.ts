@@ -56,6 +56,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this.router.navigate(['/home']).then();
       }
     });
+
+    // Vô hiệu hóa trường email khi cần thiết
+    this.disableEmailField();
   }
   subscription: Subscription[] = [];
   regisForm = new FormGroup({
@@ -66,6 +69,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     ]),
     avatarUrl: new FormControl(''),
     uid: new FormControl(''),
+    box: new FormControl(false, Validators.requiredTrue),
   });
 
   regisData: ProfileModel = {
@@ -76,14 +80,36 @@ export class RegisterComponent implements OnInit, OnDestroy {
     avatarUrl: '',
   };
 
+
+
   ngOnDestroy(): void {
     this.subscription.forEach((sub) => sub.unsubscribe());
   }
 
   register() {
+    let message = '';
+
     if (this.regisForm.invalid) {
-      this.openDialog();
-    } else {
+      if (this.regisForm.controls['userName'].invalid) {
+        message = 'Please fill in the username field.';
+
+      } else if (this.regisForm.controls['box'].value !== true) {
+        message = 'Please agree to the terms and conditions.';
+
+      }
+      // @ts-ignore
+      if(this.regisForm.value.userName.length < 10) {
+        message = 'Please enter a valid username with at least 10 characters.';
+
+      }
+      // Ngăn không cho tiếp tục nếu có lỗi
+      if (message) {
+        this.openDialog(message);
+        return;
+      }
+    }
+
+    else {
       this.regisData = {
         email: this.regisForm.value.email ?? '',
         userName: this.regisForm.value.userName ?? '',
@@ -100,7 +126,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   readonly dialog = inject(MatDialog);
 
-  openDialog() {
-    this.dialog.open(WarningComponent);
+  openDialog(message: string) {
+    this.dialog.open(WarningComponent, {
+      data: { message: message }
+    });
+  }
+  disableEmailField() {
+    this.regisForm.get('email')?.disable();
   }
 }
