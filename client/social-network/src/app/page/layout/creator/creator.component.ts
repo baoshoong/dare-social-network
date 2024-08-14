@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MaterialModule } from '../../../shared/material.module';
 import {
   FormControl,
@@ -13,6 +19,8 @@ import { Store } from '@ngrx/store';
 import { ProfileState } from '../../../ngrx/profile/profile.state';
 import * as PostAction from '../../../ngrx/post/post.actions';
 import { PostState } from '../../../ngrx/post/post.state';
+import { LoadingComponent } from '../../loading/loading.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-creator',
@@ -24,29 +32,45 @@ import { PostState } from '../../../ngrx/post/post.state';
     ShareModule,
     ReactiveFormsModule,
     CommonModule,
+    LoadingComponent,
   ],
   templateUrl: './creator.component.html',
   styleUrl: './creator.component.scss',
 })
-export class CreatorComponent implements OnInit {
+export class CreatorComponent implements OnInit, OnDestroy {
   profileMine$ = this.store.select('profile', 'mine');
   uid = '';
+
+  subscription: Subscription[] = [];
+  isLoading = true;
+  isCreating$ = this.store.select('post', 'isCreating');
 
   constructor(
     private store: Store<{
       profile: ProfileState;
-      Post: PostState;
+      post: PostState;
     }>,
   ) {
-    this.profileMine$.subscribe((mine) => {
-      if (mine) {
-        this.uid = mine.uid;
-      }
-    });
+    this.subscription.push(
+      this.profileMine$.subscribe((profile) => {
+        this.uid = profile.uid;
+      }),
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.forEach((sub) => sub.unsubscribe());
   }
   myFile: File[] = [];
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.subscription.push(
+      this.isCreating$.subscribe((isCreating) => {
+        this.isLoading = isCreating;
+        console.log('isCreating: ', isCreating);
+      }),
+    );
+  }
 
   imageUrl = new FormControl(new Array<File>());
 
