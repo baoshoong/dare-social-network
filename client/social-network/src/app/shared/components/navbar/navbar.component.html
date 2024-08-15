@@ -16,8 +16,11 @@
             (click)="navigate(i)"
           >
             <div class="sidenav-nav-link">
-              <span  class="material-symbols-outlined sidenav-link-icon">
+              <span  class="material-symbols-outlined sidenav-link-icon" style="margin: 0">
                 {{ route.icon  }}
+              </span>
+              <span style="margin: 0">
+                {{ route.name  }}
               </span>
             </div>
           </div>
@@ -41,8 +44,8 @@
 
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-          <mat-icon class="material-symbols-outlined" (click)="logout()">logout</mat-icon>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon class="material-symbols-outlined" >logout</mat-icon>
           <span>logout</span>
         </button>
       </mat-menu>

@@ -5,7 +5,6 @@ import { NavigationEnd, Router } from '@angular/router';
 import { ProfileState } from '../../../ngrx/profile/profile.state';
 import { Store } from '@ngrx/store';
 import { AsyncPipe, NgIf } from '@angular/common';
-import { ProfileModel } from '../../../model/profile.model';
 import * as AuthActions from '../../../ngrx/auth/auth.actions';
 import * as ProfileActions from '../../../ngrx/profile/profile.actions';
 
@@ -21,11 +20,11 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   routeSelected: number = -1;
   dataRoutes = [
-    { icon: 'home', routeLink: '/home' },
-    { icon: 'search', routeLink: '/search' },
-    { icon: 'edit_square', routeLink: '/creator' },
-    { icon: 'campaign', routeLink: '/notification' },
-    { icon: 'person', routeLink: '/profile' },
+    { icon: 'home', routeLink: '/home', name: 'Home' },
+    { icon: 'search', routeLink: '/search', name: 'Search' },
+    { icon: 'edit_square', routeLink: '/creator', name: 'Creator' },
+    { icon: 'campaign', routeLink: '/notification', name: 'Notification' },
+    { icon: 'person', routeLink: '/profile', name: 'Profile' },
   ];
 
   constructor(
