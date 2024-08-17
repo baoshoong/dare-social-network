@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {MaterialModule} from "../../material.module";
 import {NgForOf, NgIf} from "@angular/common";
-import {DetailPostComponent} from "../detail-post/detail-post.component";
+import {DetailPostComponent} from "../../../page/detail-post/detail-post.component";
 
 @Component({
   selector: 'app-post',
