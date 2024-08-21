@@ -1,13 +1,13 @@
 import { PostState } from './post.state';
 import { HttpErrorResponseModel } from '../../model/http-error-response.model';
-import { PostModel } from '../../model/post.model';
+import { PostModel, PostResponse } from '../../model/post.model';
 import { createReducer, on } from '@ngrx/store';
 import * as postActions from './post.actions';
 
 export const initialState: PostState = {
-  posts: [],
+  posts: <PostResponse>{},
   postDetail: <PostModel>{},
-  minePosts: [],
+  minePosts: <PostResponse>{},
 
   isCreating: false,
   isCreateSuccess: false,

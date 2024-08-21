@@ -1,7 +1,10 @@
 <div class="home-container">
   <div class="grid-container">
-    <div *ngFor="let post of posts">
-      <app-post [post]="post" (imageClick)="navigateToDetail(post)"></app-post>
+
+    <div *ngFor="let post of posts.data">
+<!--      <app-post [post]="post" (imageClick)="navigateToDetail(post)"></app-post>-->
+      <app-post [post]="post" ></app-post>
+
     </div>
   </div>
 </div>

@@ -47,18 +47,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
     );
     this.createMineSuccess$.subscribe((isSuccess) => {
       if (isSuccess) {
-        this.router.navigate(['/home']).then();
-      }
-    });
-
-    this.isGetMineSuccess$.subscribe((profile) => {
-      if (profile) {
-        this.router.navigate(['/home']).then();
+        this.router.navigate(['/home']).then(() => {
+          this.store.dispatch(profileActions.getMine({ uid: this.uid }));
+        });
       }
     });
 
     // Vô hiệu hóa trường email khi cần thiết
-    this.disableEmailField();
+    // this.disableEmailField();
   }
   subscription: Subscription[] = [];
   regisForm = new FormGroup({
@@ -80,8 +76,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
     avatarUrl: '',
   };
 
-
-
   ngOnDestroy(): void {
     this.subscription.forEach((sub) => sub.unsubscribe());
   }
@@ -92,24 +86,19 @@ export class RegisterComponent implements OnInit, OnDestroy {
     if (this.regisForm.invalid) {
       if (this.regisForm.controls['userName'].invalid) {
         message = 'Please fill in the username field.';
-
       } else if (this.regisForm.controls['box'].value !== true) {
         message = 'Please agree to the terms and conditions.';
-
       }
       // @ts-ignore
-      if(this.regisForm.value.userName.length < 10) {
+      if (this.regisForm.value.userName.length < 10) {
         message = 'Please enter a valid username with at least 10 characters.';
-
       }
       // Ngăn không cho tiếp tục nếu có lỗi
       if (message) {
         this.openDialog(message);
         return;
       }
-    }
-
-    else {
+    } else {
       this.regisData = {
         email: this.regisForm.value.email ?? '',
         userName: this.regisForm.value.userName ?? '',
@@ -128,10 +117,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   openDialog(message: string) {
     this.dialog.open(WarningComponent, {
-      data: { message: message }
+      data: { message: message },
     });
   }
-  disableEmailField() {
-    this.regisForm.get('email')?.disable();
-  }
+  // disableEmailField() {
+  //   this.regisForm.get('email')?.disable();
+  // }
 }

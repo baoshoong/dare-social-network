@@ -1,7 +1,8 @@
-import {Component, Input} from '@angular/core';
-import {MaterialModule} from "../../material.module";
-import {NgIf} from "@angular/common";
-import {PostModel} from "../../../page/layout/home/home.component";
+import { Component, Input } from '@angular/core';
+import { MaterialModule } from '../../material.module';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { PostModel } from '../../../model/post.model';
+import { IdToAvatarPipe } from '../../pipes/id-to-avatar.pipe';
 
 export interface CommentModel {
   userName: string;
@@ -13,9 +14,9 @@ export interface CommentModel {
 @Component({
   selector: 'app-detail-post',
   standalone: true,
-  imports: [MaterialModule, NgIf],
+  imports: [MaterialModule, NgIf, AsyncPipe, IdToAvatarPipe],
   templateUrl: './detail-post.component.html',
-  styleUrl: './detail-post.component.scss'
+  styleUrl: './detail-post.component.scss',
 })
 export class DetailPostComponent {
   @Input() post!: PostModel;

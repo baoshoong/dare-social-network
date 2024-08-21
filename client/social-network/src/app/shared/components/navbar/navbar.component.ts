@@ -7,6 +7,8 @@ import { Store } from '@ngrx/store';
 import { AsyncPipe, NgIf } from '@angular/common';
 import * as AuthActions from '../../../ngrx/auth/auth.actions';
 import * as ProfileActions from '../../../ngrx/profile/profile.actions';
+import { AuthService } from '../../../service/auth/auth.service';
+import { AuthState } from '../../../ngrx/auth/auth.state';
 
 @Component({
   selector: 'app-navbar',
@@ -29,14 +31,18 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private authService: AuthService,
     private store: Store<{
       profile: ProfileState;
+      auth: AuthState;
     }>,
   ) {
     this.profileMine$.subscribe((mine) => {});
   }
 
   profileMine$ = this.store.select('profile', 'mine');
+
+  logout$ = this.store.select('auth', 'logOutSuccess');
 
   ngOnInit(): void {
     this.subscriptions.push(
@@ -45,6 +51,12 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
         .subscribe((event) => {
           this.updateRouteSelected((event as NavigationEnd).urlAfterRedirects);
         }),
+
+      this.logout$.subscribe((logout) => {
+        if (logout == true) {
+          this.router.navigate(['/login']).then();
+        }
+      }),
     );
     this.updateRouteSelected(this.router.url);
   }
@@ -81,8 +93,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
   logout() {
-    this.store.dispatch(AuthActions.signOut());
+    this.authService.logout();
     this.store.dispatch(ProfileActions.clearGetState());
-    this.router.navigate(['/login']).then();
   }
 }

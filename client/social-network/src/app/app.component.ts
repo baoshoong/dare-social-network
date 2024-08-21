@@ -9,11 +9,13 @@ import { combineLatest, filter, Observable, Subscription } from 'rxjs';
 import { ProfileState } from './ngrx/profile/profile.state';
 import { ProfileModel } from './model/profile.model';
 import * as ProfileActions from './ngrx/profile/profile.actions';
+import { ShareModule } from './shared/share.module';
+import { MaterialModule } from './shared/material.module';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, ShareModule, MaterialModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -21,15 +23,21 @@ export class AppComponent implements OnInit {
   title = 'social-network';
   uid = ' ';
   subscriptions: Subscription[] = [];
+
   storeIdToken$!: Observable<string>;
   storeAuthCredential$!: Observable<AuthCredentialModel>;
 
-  loginWithGoogleSuccess$!: Observable<boolean>;
+  authCredential$ = this.store.select((state) => state.auth.authCredential);
+  mine$ = this.store.select((state) => state.profile.mine);
+  getMineError$ = this.store.select((state) => state.profile.getErrorMessage);
+  isGetMineSuccess$ = this.store.select(
+    (state) => state.profile.isGetMineSuccess,
+  );
+  isGetMineFailure$ = this.store.select(
+    (state) => state.profile.isGetMineFailure,
+  );
 
-  profileMine$!: Observable<ProfileModel>;
-  getProfileMineSuccess$!: Observable<boolean>;
-
-  profileMineFailure$!: Observable<boolean>;
+  isShowSpinner = true;
 
   constructor(
     private router: Router,
@@ -42,7 +50,7 @@ export class AppComponent implements OnInit {
     onAuthStateChanged(this.auth, async (user) => {
       if (user) {
         let idToken = await user.getIdToken(true);
-        // this.router.navigate(['/loading']).then();
+
         this.uid = user.uid;
 
         let auth: AuthCredentialModel = {
@@ -54,14 +62,18 @@ export class AppComponent implements OnInit {
 
         this.store.dispatch(AuthActions.storeIdToken({ idToken: idToken }));
         this.store.dispatch(AuthActions.storeAuthCredential({ auth: auth }));
+        this.store.dispatch(ProfileActions.getMine({ uid: user.uid }));
       } else {
-        // this.router.navigate(['/login']).then();
+        this.router.navigate(['/login']).then(() => {
+          this.isShowSpinner = false;
+        });
       }
     });
   }
 
   ngOnInit(): void {
     this.storeIdToken$ = this.store.pipe(select((state) => state.auth.idToken));
+
     this.storeAuthCredential$ = this.store.pipe(
       select((state) => state.auth.authCredential),
     );
@@ -70,25 +82,35 @@ export class AppComponent implements OnInit {
       console.log('idToken', idToken);
     });
 
-    this.storeAuthCredential$.subscribe((auth) => {
-      if (auth) {
-        console.log('auth', auth.uid);
-        this.store.dispatch(ProfileActions.getMine({ uid: auth.uid }));
-      }
-    });
-
-    this.profileMine$ = this.store.pipe(
-      select((state) => state.profile.profile),
-    );
-    this.getProfileMineSuccess$ = this.store.pipe(
-      select((state) => state.profile.isGetMineSuccess),
-    );
-    this.profileMineFailure$ = this.store.pipe(
-      select((state) => state.profile.isGetMineFailure),
-    );
-
-    this.loginWithGoogleSuccess$ = this.store.pipe(
-      select((state) => state.auth.loginWithGoogleSuccess),
+    combineLatest([
+      this.authCredential$,
+      this.isGetMineSuccess$,
+      this.isGetMineFailure$,
+      this.getMineError$,
+      this.mine$,
+    ]).subscribe(
+      ([
+        authCredential,
+        isGetMineSuccess,
+        isGetMineFailure,
+        getMineError,
+        mine,
+      ]) => {
+        if (authCredential.uid) {
+          if (isGetMineSuccess && mine?.uid) {
+            console.log(mine);
+            this.router.navigate(['/home']).then(() => {
+              this.isShowSpinner = false;
+            });
+          } else if (isGetMineFailure && getMineError.status) {
+            console.log(getMineError);
+            this.router.navigate(['/register']).then(() => {
+              this.isShowSpinner = false;
+              this.store.dispatch(ProfileActions.clearMessages());
+            });
+          }
+        }
+      },
     );
   }
 }

@@ -5,23 +5,19 @@ import {
   ElementRef,
   OnInit,
   Renderer2,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PostModel } from '../layout/home/home.component';
+import { PostModel } from '../../model/post.model';
 import { MatButton } from '@angular/material/button';
 import { MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-detail-post',
   standalone: true,
-  imports: [
-    MatButton,
-    MatDialogActions,
-    MatDialogClose
-  ],
+  imports: [MatButton, MatDialogActions, MatDialogClose],
   templateUrl: './detail-post.component.html',
-  styleUrls: ['./detail-post.component.scss']
+  styleUrls: ['./detail-post.component.scss'],
 })
 export class DetailPostComponent implements OnInit, AfterViewInit {
   detailPost: PostModel | null = null;
@@ -30,11 +26,11 @@ export class DetailPostComponent implements OnInit, AfterViewInit {
 
   constructor(
     private route: ActivatedRoute,
-    private renderer: Renderer2
+    private renderer: Renderer2,
   ) {}
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       const navigation = history.state;
       if (navigation && navigation.post) {
         this.detailPost = navigation.post;
