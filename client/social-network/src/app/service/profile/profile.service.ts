@@ -19,4 +19,10 @@ export class ProfileService {
       `profile?uid=${uid}`,
     ) as Observable<ProfileModel>;
   }
+
+  updateProfile(profile: ProfileModel) {
+    let url = this.httpClient.put(`profile?uid=${profile.uid}`, profile);
+
+    return url;
+  }
 }

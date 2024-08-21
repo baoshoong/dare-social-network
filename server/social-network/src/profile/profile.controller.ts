@@ -32,8 +32,11 @@ export class ProfileController {
     return this.profileService.getProfile(uid);
   }
 
-  @Put(':uid')
-  async updateProfile(@Req() req, @Body() createProfileDto: CreateProfileDto) {
+  @Put()
+  async updateProfile(
+    @Req() req,
+    @Query('uid') @Body() createProfileDto: CreateProfileDto,
+  ) {
     console.log('updateProfileDto:', createProfileDto);
     const { uid } = req.user;
     return this.profileService.updateProfile(uid, createProfileDto);

@@ -18,6 +18,7 @@ import { AuthState } from '../../../ngrx/auth/auth.state';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
+  uid = '';
   subscriptions: Subscription[] = [];
 
   routeSelected: number = -1;
@@ -26,7 +27,11 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     { icon: 'search', routeLink: '/search', name: 'Search' },
     { icon: 'edit_square', routeLink: '/creator', name: 'Creator' },
     { icon: 'campaign', routeLink: '/notification', name: 'Notification' },
-    { icon: 'person', routeLink: '/profile', name: 'Profile' },
+    { icon: 'person', routeLink: `/profile/${this.uid}`, name: 'Profile' },
+  ];
+
+  navigationProfile = [
+    { icon: 'person', routeLink: `/profile/${this.uid}`, name: 'Profile' },
   ];
 
   constructor(
@@ -36,9 +41,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
       profile: ProfileState;
       auth: AuthState;
     }>,
-  ) {
-    this.profileMine$.subscribe((mine) => {});
-  }
+  ) {}
 
   profileMine$ = this.store.select('profile', 'mine');
 
@@ -57,14 +60,27 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
           this.router.navigate(['/login']).then();
         }
       }),
+
+      this.profileMine$.subscribe((mine) => {
+        if (mine) {
+          this.uid = mine.uid;
+        }
+      }),
     );
     this.updateRouteSelected(this.router.url);
   }
 
   navigate(index: number) {
-    this.router.navigate([this.dataRoutes[index].routeLink]).then(() => {
-      this.routeSelected = index;
-    });
+    if (index === 4) {
+      this.router.navigate([`/profile/${this.uid}`]).then(() => {
+        this.routeSelected = index;
+      });
+      return;
+    } else {
+      this.router.navigate([this.dataRoutes[index].routeLink]).then(() => {
+        this.routeSelected = index;
+      });
+    }
   }
 
   ngAfterViewInit(): void {

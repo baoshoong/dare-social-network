@@ -4,7 +4,7 @@
   </div>
   <div class="post-content">
     <div class="content-left">
-      <img class="avatar" [src]=" post.uid | idToAvatar | async " alt="">
+      <img class="avatar" (click)="navigateToProfile()" [src]=" post.uid | idToAvatar | async " alt="">
       <p>{{ post.uid | idToName | async }}</p>
     </div>
     <div class="content-right">
