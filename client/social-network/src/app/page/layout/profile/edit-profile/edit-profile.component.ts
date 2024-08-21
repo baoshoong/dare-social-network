@@ -31,7 +31,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   urlsa: string;
   myAvatarUrl: string[] = [];
   myFile: File[] = [];
-  myUrl: string = '';
+  uid = '';
 
   protected document = document;
   profileForm: ProfileModel = {
@@ -55,6 +55,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   isUploading$ = this.store.select('storage', 'isUploading');
 
   profileMine$ = this.store.select('profile', 'mine');
+  isUpdating$ = this.store.select('profile', 'isUpdating');
+  isUpdateSuccess$ = this.store.select('profile', 'isUpdateSuccess');
 
   constructor(
     public dialog: MatDialog,
@@ -70,6 +72,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     this.subscription.push(
       this.profileMine$.subscribe((profile) => {
         if (profile) {
+          this.uid = profile.uid;
           this.editProfileForm.setValue({
             name: profile.userName,
             bio: profile.bio,
@@ -89,10 +92,19 @@ export class EditProfileComponent implements OnInit, OnDestroy {
           });
         }
       }),
+
+      this.isUpdateSuccess$.subscribe((isUpdateSuccess) => {
+        if (isUpdateSuccess) {
+          this.dialog.closeAll();
+          this.store.dispatch(ProfileActions.getMine({ uid: this.uid }));
+        }
+      }),
     );
   }
   ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
+    this.subscription.forEach((sub) => {
+      sub.unsubscribe();
+    });
   }
   onSelectedFile(e: any): void {
     if (e.target.files) {
@@ -125,20 +137,19 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   onSaveClick(): void {
     // this.avatarChanged.emit(this.url);
 
-    // this.myAvatarUrl[0].forEach((url) => {
-    //   this.profileForm.avatarUrl = url;
-    //   console.log(this.profileForm.avatarUrl);
-    // });
-
     this.profileForm = {
       uid: this.editProfileForm.value.uid ?? '',
       avatarUrl: this.profileForm.avatarUrl ?? '',
       email: this.editProfileForm.value.email ?? '',
       bio: this.editProfileForm.value.bio ?? '',
-      userName: this.editProfileForm.value.name ?? '', //neu null thi rong
+      userName: this.editProfileForm.value.name ?? '',
     };
     console.log(this.profileForm);
-    this.store.dispatch(ProfileActions.updateMine({ mine: this.profileForm }));
+    this.store.dispatch(
+      ProfileActions.updateMine({
+        mine: this.profileForm,
+      }),
+    );
 
     // this.dialog.closeAll();
     // this.clearInput();

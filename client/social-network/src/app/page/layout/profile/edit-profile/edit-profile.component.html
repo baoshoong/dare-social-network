@@ -2,16 +2,20 @@
   <form [formGroup]="editProfileForm">
     <div class="form">
 
-      @if(isUploading$|async){
-        <mat-spinner></mat-spinner>
-      } @else {
 
-      }
       <img [src]="urlsa">
       <input type="file" (change)="onSelectedFile($event)" id="fileInput" hidden>
+      @if(isUploading$|async){
+        <button class="upload" mat-raised-button (click)="document.getElementById('fileInput')?.click()">
+          <span class="loader"></span>
+        </button>
+      } @else {
+        <button class="upload" mat-raised-button (click)="document.getElementById('fileInput')?.click()">Upload</button>
+<!--        <button class="upload" mat-raised-button (click)="document.getElementById('fileInput')?.click()">-->
+<!--          <span class="loader"></span>-->
+<!--        </button>-->
 
-
-      <button id="upload" mat-raised-button (click)="document.getElementById('fileInput')?.click()">Upload</button>
+      }
 
       <mat-form-field appearance="outline">
         <mat-label>Name</mat-label>
