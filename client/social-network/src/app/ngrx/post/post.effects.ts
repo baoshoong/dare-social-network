@@ -31,4 +31,23 @@ export class PostEffects {
     private actions$: Actions,
     private postService: PostService,
   ) {}
+  getAllPostData$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(postActions.getAllPost),
+      switchMap((action) => {
+        return this.postService.getAllPost(action.limit, action.page).pipe(
+          map((posts: PostModel[]) => {
+            return postActions.getAllPostSuccess({ posts });
+          }),
+          catchError((error: HttpErrorResponseModel) => {
+            return of(
+              postActions.getAllPostFailure({ getAllPostErrorMessage: error }),
+            );
+          }),
+        );
+      }),
+    );
+  });
+
+
 }

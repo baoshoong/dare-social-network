@@ -47,7 +47,7 @@ export const getPostByIdFailure = createAction(
 
 //get all post
 
-export const getAllPost = createAction('[Post] Get All Post');
+export const getAllPost = createAction('[Post] Get All Post', props<{ page: number, limit: number }>());
 
 export const getAllPostSuccess = createAction(
   '[Post] Get All Post Success',

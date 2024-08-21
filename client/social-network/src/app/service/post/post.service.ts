@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClientAuth } from '../../util/http-client-auth';
 import { PostModel } from '../../model/post.model';
+import {PostDataModel} from "../../model/post-data.model";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostService {
+  postData: PostDataModel[] = [];
   constructor(private httpClient: HttpClientAuth) {}
 
   createPost(post: PostModel) {
@@ -19,5 +22,8 @@ export class PostService {
     formData.append('uid', post.uid);
     formData.append('id', post.id.toString());
     return this.httpClient.post('post', formData);
+  }
+  getAllPost(limit: number, page: number) {
+    return this.httpClient.get(`post?limit=${limit}&page=${page}`);
   }
 }

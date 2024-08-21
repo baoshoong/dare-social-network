@@ -21,6 +21,8 @@ import * as PostAction from '../../../ngrx/post/post.actions';
 import { PostState } from '../../../ngrx/post/post.state';
 import { LoadingComponent } from '../../loading/loading.component';
 import { Subscription } from 'rxjs';
+import { getAllPost } from '../../../ngrx/post/post.actions';
+import {PostDataModel} from "../../../model/post-data.model";
 
 @Component({
   selector: 'app-creator',
@@ -45,6 +47,8 @@ export class CreatorComponent implements OnInit, OnDestroy {
   isLoading = true;
   isCreating$ = this.store.select('post', 'isCreating');
 
+  postData$ = this.store.select('post', 'postData');
+
   constructor(
     private store: Store<{
       profile: ProfileState;
@@ -56,6 +60,7 @@ export class CreatorComponent implements OnInit, OnDestroy {
         this.uid = profile.uid;
       }),
     );
+
   }
 
   ngOnDestroy(): void {
@@ -166,9 +171,17 @@ export class CreatorComponent implements OnInit, OnDestroy {
       title: '',
     });
   }
-  clearDescription() {
+  clearContent() {
     this.createPostForm.patchValue({
       content: '',
     });
   }
+  getAllPost() {
+    this.store.dispatch(getAllPost({ limit:5, page: 2}));
+    this.postData$.subscribe((data) => {
+
+      console.log('Data: ', data);
+    });
+    }
 }
+
