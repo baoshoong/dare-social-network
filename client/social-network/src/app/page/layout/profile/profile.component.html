@@ -2,7 +2,7 @@
   <div id="card">
     <div class="card-item">
       <div class="card-item-content">
-        <div class="card-item-name">{{ name }}</div>
+        <div class="card-item-name">{{ profileMine.userName  }}</div>
         <div class="card-item-username"> username</div>
         <div class="card-item-number">
           <div>
@@ -18,10 +18,10 @@
             <span class="funOfNum" (click)="openDialog2()" >Following</span>
           </div>
         </div>
-        <div class="card-item-description">{{ bio }}</div>
+        <div class="card-item-description">{{ profileMine.bio }}</div>
       </div>
         <div class="edit-button">
-          <img [src]="avatarUrl" alt="avatar">
+          <img [src]="profileMine.avatarUrl" alt="avatar">
           <button id="edit" mat-raised-button (click)="openEditProfileDialog()">Edit Profile</button>
         </div>
     </div>
@@ -29,7 +29,12 @@
   <div id="Post">
     <div class="grid-container">
 <!--      <app-post *ngFor="let post of posts; trackBy: trackByFn" [post]="post" (postSelected)="onPostSelected($event)"></app-post>-->
+      @for(post of minePosts.data; track $index){
+        <app-post [post]="post" ></app-post>
+
+      }
     </div>
+</div>
 </div>
 
 
