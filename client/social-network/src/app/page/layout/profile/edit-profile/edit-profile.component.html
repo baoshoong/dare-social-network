@@ -1,3 +1,4 @@
+<!-- src/app/page/layout/profile/edit-profile/edit-profile.component.html -->
 <div id="edit-profile">
   <form [formGroup]="editProfileForm">
     <div class="form">
@@ -7,28 +8,27 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Name</mat-label>
-        <input matInput placeholder="Name" formControlName="name">
+        <input matInput placeholder="Name" formControlName="name" hidden>
         <button matSuffix mat-icon-button aria-label="Clear" (click)="clearName()">
           <mat-icon>close</mat-icon>
         </button>
+        <mat-error *ngIf="editProfileForm.get('name')?.hasError('maxlength')">
+          Name cannot exceed 10 characters.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Bio</mat-label>
-        <input matInput  placeholder="Bio"  formControlName="bio">
+        <input matInput placeholder="Bio" formControlName="bio" hidden>
         <button matSuffix mat-icon-button aria-label="Clear" (click)="clearBio()">
           <mat-icon>close</mat-icon>
         </button>
+        <mat-error *ngIf="editProfileForm.get('bio')?.hasError('maxlength')">
+          Bio cannot exceed 200 characters.
+        </mat-error>
       </mat-form-field>
-    <button id="confirm" (click)="onSaveClick()" mat-raised-button>Save</button>
-  </div>
+
+      <button id="confirm" (click)="onSaveClick()" mat-raised-button>Save</button>
+    </div>
   </form>
-
 </div>
-<!--@if(isUploading$|async){-->
-
-<!--  <div class="loading-overlay">-->
-<!--    <mat-spinner class="loading-spinner"></mat-spinner>-->
-
-<!--  </div>-->
-<!--}-->

@@ -7,7 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { FormControl, FormGroup } from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { MaterialModule } from '../../../../shared/material.module';
 import { ShareModule } from '../../../../shared/share.module';
 import { Store } from '@ngrx/store';
@@ -24,6 +24,8 @@ import { ProfileModel } from '../../../../model/profile.model';
   templateUrl: 'edit-profile.component.html',
   styleUrls: ['edit-profile.component.scss'],
 })
+
+
 export class EditProfileComponent implements OnInit, OnDestroy {
   @Output() avatarChanged = new EventEmitter<string>();
   url: string;
@@ -37,8 +39,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
 }
   editProfileForm = new FormGroup({
-    name: new FormControl(''),
-    bio: new FormControl(''),
+    name: new FormControl('', [Validators.required, Validators.maxLength(15)]),
+    bio: new FormControl('', [Validators.required, Validators.maxLength(200)])
   });
 
   myFile: File[] = [];
@@ -92,14 +94,14 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       userName: this.editProfileForm.value.name ?? '',//neu null thi rong
     };
     console.log(this.profileForm);
-  
-    this.myFile.forEach((file) => {
-      this.store.dispatch(
-        StorageActions.uploadFile({ file, fileName: file.name }),
-      );
-    });
-    this.dialog.closeAll();
-    this.clearInput();
+
+    // this.myFile.forEach((file) => {
+    //   this.store.dispatch(
+    //     StorageActions.uploadFile({ file, fileName: file.name }),
+    //   );
+    // });
+    // this.dialog.closeAll();
+    // this.clearInput();
   }
   clearName(): void {
     this.editProfileForm.patchValue({
@@ -111,5 +113,4 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       bio: '',
     });
   }
-
 }

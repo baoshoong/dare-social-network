@@ -66,12 +66,12 @@
   font-weight: 500;
   width: 407px;
   height: 53px;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;// chinh dong
-  -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
-  margin: 0;
+  //overflow: hidden;
+  //display: -webkit-box;
+  //-webkit-line-clamp: 2;// chinh dong
+  //-webkit-box-orient: vertical;
+  //text-overflow: ellipsis;
+  //margin: 0;
 }
 .number{
   color: var(--onBackground);
