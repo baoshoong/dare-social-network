@@ -66,12 +66,26 @@ export class HomeComponent implements OnInit {
 
   navigateToDetail(post: PostModel) {
     this.store.dispatch(profileActions.getById({ uid: post.uid }));
+    this.store.dispatch(postActions.getPostById({ id: post.id }));
+
     this.subscription.push(
       this.getProfile$.subscribe((profile) => {
-        const profileDetail = profile && profile.uid === post.uid ? profile : null;
-        this.router
-          .navigate(['/detail-post', post.id], { state: { post, profile: profileDetail } })
-          .then((r) => console.log(r));
+        if (profile && profile.uid === post.uid) {
+          this.subscription.push(
+            this.getAllPost$.subscribe((posts) => {
+              const postDetail = posts.data.find(p => p.id === post.id);
+              if (postDetail) {
+                this.router
+                  .navigate(['/detail-post', post.id], { state: { post: postDetail, profile } })
+                  .then((r) => console.log(r));
+              }
+            })
+          );
+        } else {
+          this.router
+            .navigate(['/detail-post', post.id], { state: { post, profile: null } })
+            .then((r) => console.log(r));
+        }
       })
     );
   }
