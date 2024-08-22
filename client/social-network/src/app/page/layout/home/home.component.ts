@@ -24,7 +24,7 @@ import { ProfileModel } from '../../../model/profile.model';
     RouterLink,
   ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
   constructor(
@@ -35,12 +35,16 @@ export class HomeComponent implements OnInit {
     }>,
   ) {
     this.store.dispatch(
-      postActions.getAllPost({ pageNumber: 1, limitNumber: 5 }),
+      postActions.getAllPost({ pageNumber: 1, limitNumber: 10 }),
     );
   }
 
   subscription: Subscription[] = [];
   getAllPost$ = this.store.select('post', 'posts');
+  getProfile$ = this.store.select('profile', 'mine');
+
+  posts: PostResponse = { data: [], count: 0, pageNumber: 1, limitNumber: 10 };
+  profile: ProfileModel | null = null;
 
   ngOnInit(): void {
     this.subscription.push(
@@ -50,14 +54,25 @@ export class HomeComponent implements OnInit {
         }
       }),
     );
+
+    this.subscription.push(
+      this.getProfile$.subscribe((profile) => {
+        if (profile) {
+          this.profile = profile;
+        }
+      }),
+    );
   }
 
-  posts = <PostResponse>{};
-
   navigateToDetail(post: PostModel) {
-    this.router
-      .navigate(['/detail-post', post.id], { state: { post } })
-      .then((r) => console.log(r));
-    console.log(post);
+    this.store.dispatch(profileActions.getById({ uid: post.uid }));
+    this.subscription.push(
+      this.getProfile$.subscribe((profile) => {
+        const profileDetail = profile && profile.uid === post.uid ? profile : null;
+        this.router
+          .navigate(['/detail-post', post.id], { state: { post, profile: profileDetail } })
+          .then((r) => console.log(r));
+      })
+    );
   }
 }
