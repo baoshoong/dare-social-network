@@ -12,9 +12,11 @@ export class SearchService {
 
   constructor(private idgenService: IdgenService) {
     this.esClient = new Client({
-      node: 'https://f5be4034ea9f40549563ff60fbdbc4c9.asia-southeast1.gcp.elastic-cloud.com:443',
+      node: 'https://fa1ae860cffd45b98ce30a8297a7429b.us-central1.gcp.cloud.es.io:443',
       auth: {
-        apiKey: "bTn2eV-vTlO7Fe9ByMSUWA",
+        apiKey: "N3VYTFpKRUJ2a19OYWhpZV9CZDM6REFnTHVZZk9Scm1hTEsxU2loY3lxUQ==",
+        username: "elastic",
+        password: "CGSqEgB730tMblc7lXZBwSI9"
       }
     });
 
@@ -32,6 +34,7 @@ export class SearchService {
       }
     });
   }
+
 
   async searchProfiles(query: string) {
     // search for profiles by username or email or uid
@@ -92,9 +95,10 @@ export class SearchService {
     const response = await this.esClient.search({
       index: 'posts',
       query: {
-        match: {
-          content: query,
-        },
+        multi_match: {
+          query: query,
+          fields: ['*'],
+        }
       }
     });
     return response.hits.hits;
@@ -142,5 +146,19 @@ export class SearchService {
       index: 'posts',
       id: postId.toString(),
     });
+  }
+
+
+  async searchAny( indexName: string, query: string) {
+    const response = await this.esClient.search({
+      index: [indexName],
+      query: {
+        multi_match: {
+          query: query,
+          fields: ['*'],
+        },
+      },
+    });
+    return response.hits.hits.map((hit)=>hit['_source']);
   }
 }

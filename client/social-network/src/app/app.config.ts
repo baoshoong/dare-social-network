@@ -19,6 +19,8 @@ import { postReducer } from './ngrx/post/post.reducer';
 import { PostEffects } from './ngrx/post/post.effects';
 import { storageReducer } from './ngrx/storage/storage.reducer';
 import { StorageEffects } from './ngrx/storage/storage.effects';
+import { SearchReducer } from './ngrx/search/search.reducer';
+import { searchEffects } from './ngrx/search/search.effects';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
@@ -28,11 +30,18 @@ export const appConfig: ApplicationConfig = {
     provideAuth(() => getAuth()),
     provideStorage(() => getStorage()),
     provideStore(),
-    provideEffects(AuthEffects, ProfileEffects, PostEffects, StorageEffects),
+    provideEffects(
+      AuthEffects,
+      ProfileEffects,
+      PostEffects,
+      StorageEffects,
+      searchEffects,
+    ),
     provideState({ name: 'auth', reducer: authReducer }),
     provideState({ name: 'profile', reducer: profileReducer }),
     provideState({ name: 'post', reducer: postReducer }),
     provideState({ name: 'storage', reducer: storageReducer }),
+    provideState({ name: 'search', reducer: SearchReducer }),
     provideHttpClient(),
     provideAnimationsAsync(),
     HttpClientAuth,

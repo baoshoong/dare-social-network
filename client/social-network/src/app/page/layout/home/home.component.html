@@ -1,11 +1,18 @@
 <div class="home-container">
   <div class="grid-container">
-    @for (post of posts; track $index) {
+    @for (post of posts.data; track $index) {
       <div class="post-container">
        <div class="post">
-          <app-post [post]="post" (imageClick)="navigateToDetail(post)"></app-post>
+          <!-- <app-post [post]="post" (imageClick)="navigateToDetail(post)"></app-post> -->
+          <app-post [post]="post" ></app-post>
         </div>
       </div>
     }
+
+    <!-- <div *ngFor="let post of posts.data">
+     <app-post [post]="post" (imageClick)="navigateToDetail(post)"></app-post>
+      <app-post [post]="post" ></app-post>
+
+    </div> -->
   </div>
 </div>

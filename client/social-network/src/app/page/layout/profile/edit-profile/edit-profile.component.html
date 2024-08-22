@@ -1,8 +1,16 @@
 <div id="edit-profile">
   <form [formGroup]="editProfileForm">
     <div class="form">
-      <img [src]="url">
+
+      @if(isUploading$|async){
+        <mat-spinner></mat-spinner>
+      } @else {
+
+      }
+      <img [src]="urlsa">
       <input type="file" (change)="onSelectedFile($event)" id="fileInput" hidden>
+
+
       <button id="upload" mat-raised-button (click)="document.getElementById('fileInput')?.click()">Upload</button>
 
       <mat-form-field appearance="outline">

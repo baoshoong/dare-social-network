@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+
 }
 
 .post-header {
@@ -33,7 +34,10 @@
 }
 
 .avatar {
-  width: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 .icon-material {

@@ -13,8 +13,8 @@ export class AuthMiddleware implements NestMiddleware {
     }
 
     try {
-      const decodedToken = await admin.auth().verifyIdToken(token);
-      req.user = decodedToken;
+
+      req.user = await admin.auth().verifyIdToken(token);
       next();
     } catch (error) {
       throw new UnauthorizedException('Invalid token');
