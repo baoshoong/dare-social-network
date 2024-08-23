@@ -6,6 +6,7 @@ import { PostModel, PostResponse } from '../../model/post.model';
   providedIn: 'root',
 })
 export class PostService {
+
   constructor(private httpClient: HttpClientAuth) {}
 
   createPost(post: PostModel) {

@@ -1,5 +1,6 @@
 import { PostModel, PostResponse } from '../../model/post.model';
 import { HttpErrorResponseModel } from '../../model/http-error-response.model';
+import {PostDataModel} from "../../model/post-data.model";
 
 export interface PostState {
   posts: PostResponse;
