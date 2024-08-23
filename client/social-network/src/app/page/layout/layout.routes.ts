@@ -12,7 +12,7 @@ export const LAYOUT_ROUTES: Routes = [
           import('./home/home.routes').then((m) => m.HOME_ROUTES),
       },
       {
-        path: 'profile',
+        path: 'profile/:uid',
         loadChildren: () =>
           import('./profile/profile.routes').then((m) => m.PROFILE_ROUTES),
       },

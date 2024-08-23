@@ -1,41 +1,45 @@
-<div id ="container">
-  <div id="card">
-    <div class="card-item">
-      <div class="card-item-content">
-        <div class="card-item-name">{{ profileMine.userName  }}</div>
-        <div class="card-item-username"> username</div>
-        <div class="card-item-number">
-          <div id="Followers">
-            <span class="number">220K</span>
-            <span class="funOfNum" (click)="openDialog3()" >Followers</span>
-          </div>
-          <div id="Post">
-            <span class="number">220K</span>
-            <span class="funOfNum">Post</span>
-          </div>
-          <div id="Following">
-            <span class="number">220K</span>
-            <span class="funOfNum" (click)="openDialog2()" >Following</span>
-          </div>
+@if(isGettingMinePost$ | async){
+  <div class="loading-overlay">
+    <mat-spinner class="loading-spinner"></mat-spinner>
+  </div>
+} @else {
+  <div id ="container">
+    <div id="card">
+      <div class="card-item">
+        <div class="card-item-content">
+          <div class="card-item-name">{{ profileMine.userName  }}</div>
+          <!-- <div class="card-item-username"> username</div>
+          <div class="card-item-number">
+            <div>
+              <span class="number">220K</span>
+              <span class="funOfNum" (click)="openDialog3()" >Followers</span>
+            </div>
+            <div>
+              <span class="number">220K</span>
+              <span class="funOfNum">Post</span>
+            </div>
+            <div>
+              <span class="number">220K</span>
+              <span class="funOfNum" (click)="openDialog2()" >Following</span>
+            </div>
+          </div> -->
+          <div class="card-item-description">{{ profileMine.bio }}</div>
         </div>
-        <div class="card-item-description">{{ profileMine.bio }}</div>
-      </div>
-        <div class="card-item-image">
+        <div class="edit-button">
           <img [src]="profileMine.avatarUrl" alt="avatar">
           <button id="edit" mat-raised-button (click)="openEditProfileDialog()">Edit Profile</button>
         </div>
+      </div>
     </div>
   </div>
-</div>
-    <div class="grid-container">
-      @for(post of minePosts.data; track $index){
-        <div class="post-container">
-          <div class="post">
-             <app-post [post]="post"></app-post>
-           </div>
-         </div>
-      }
-    </div>
+      <div class="grid-container">
+        @for(post of minePosts.data; track $index){
+          <app-post [post]="post" ></app-post>
+        }
+      </div>
+}
+
+
 
 
 

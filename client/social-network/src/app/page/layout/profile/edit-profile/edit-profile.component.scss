@@ -63,8 +63,7 @@ button{
   background-color: var(--primary);
   //width: 65%;
 }
-
-#upload {
+.upload {
   background-color: var(--primary);
   color: var(--onPrimary);
 }
@@ -83,6 +82,25 @@ button{
   width: 100%;
 }
 
-// ::ng-deep .mat-mdc-raised-button .mat-mdc-button-touch-target{
-//   padding-bottom: 20px;
-// }
+.loader {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid #FFF;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+

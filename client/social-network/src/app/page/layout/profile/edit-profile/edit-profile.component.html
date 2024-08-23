@@ -2,9 +2,21 @@
 <div id="edit-profile">
   <form [formGroup]="editProfileForm">
     <div class="form">
-      <img [src]="url">
+
+
+      <img [src]="urlsa">
       <input type="file" (change)="onSelectedFile($event)" id="fileInput" hidden>
-      <button id="upload" mat-raised-button (click)="document.getElementById('fileInput')?.click()">Upload</button>
+      @if(isUploading$|async){
+        <button class="upload" mat-raised-button (click)="document.getElementById('fileInput')?.click()">
+          <span class="loader"></span>
+        </button>
+      } @else {
+        <button class="upload" mat-raised-button (click)="document.getElementById('fileInput')?.click()">Upload</button>
+<!--        <button class="upload" mat-raised-button (click)="document.getElementById('fileInput')?.click()">-->
+<!--          <span class="loader"></span>-->
+<!--        </button>-->
+
+      }
 
       <mat-form-field appearance="outline">
         <mat-label>Name</mat-label>
