@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SEARCH_ROUTES } from './search.routes';
 import { PostComponent } from '../../../shared/components/post/post.component';
-
+import { SearchService } from '../../../service/search/search.service';
 // @ts-ignore
 import * as PostActions from '../../../ngrx/post/post.action';
 import { AsyncPipe, NgForOf } from '@angular/common';
@@ -12,6 +12,8 @@ import { Store } from '@ngrx/store';
 import { SearchState } from '../../../ngrx/search/search.state';
 import { debounceTime, Subscription } from 'rxjs';
 import * as SearchActions from '../../../ngrx/search/search.actions';
+import {PostModel} from "../../../model/post.model";
+//import {importType} from "@angular/compiler";
 
 @Component({
   selector: 'app-search',
@@ -29,6 +31,8 @@ import * as SearchActions from '../../../ngrx/search/search.actions';
 })
 export class SearchComponent implements OnInit {
   searchQuery: string = '';
+  items: PostModel[] = [];
+  filteredItems: PostModel[] = [];
   searchControl = new FormControl();
 
   searchResults: any;
@@ -37,10 +41,14 @@ export class SearchComponent implements OnInit {
 
   searchResults$ = this.store.select('search', 'searchResult');
 
+  isLoading= true;
+  isSearching$ = this.store.select('search', 'isSearching');
+
+
   constructor(
     private store: Store<{
       search: SearchState;
-    }>,
+    }>,private searchService: SearchService,
   ) {}
 
   ngOnInit(): void {
@@ -48,16 +56,26 @@ export class SearchComponent implements OnInit {
       this.searchResults$.subscribe((searchResults) => {
         this.searchResults = searchResults;
         console.log('searchResults', searchResults);
+
       }),
 
       this.searchControl.valueChanges
         .pipe(debounceTime(1000))
         .subscribe((query) => {
           this.store.dispatch(SearchActions.search({ query }));
+          this.search();
         }),
     );
   }
-
+  search(){
+    if(this.searchQuery.trim()===''){
+      this.filteredItems = this.items;
+    }else{
+      this.searchService.search(this.searchQuery).subscribe(results => {
+        this.filteredItems= results.posts;
+      });
+    }
+  }
   // selectedPost?: PostModel;
   //
   // onPostSelected(post?: PostModel) {
