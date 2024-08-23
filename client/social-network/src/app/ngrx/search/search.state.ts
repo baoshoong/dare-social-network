@@ -6,4 +6,6 @@ export interface SearchState {
 
   searchResultLoading: boolean;
   searchResultFailure: HttpErrorResponseModel;
+  isSearching: boolean;
+  isSearchingSuccess: boolean;
 }

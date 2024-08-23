@@ -8,6 +8,8 @@ export const initialState: SearchState = {
   searchResult: <CommonSearchResultModel>{},
   searchResultLoading: false,
   searchResultFailure: <HttpErrorResponseModel>{},
+  isSearching: false,
+  isSearchingSuccess: false,
 };
 
 export const SearchReducer = createReducer(
@@ -18,6 +20,7 @@ export const SearchReducer = createReducer(
     return {
       ...state,
       searchResultLoading: true,
+      isSearching: true,
     };
   }),
 
@@ -27,6 +30,8 @@ export const SearchReducer = createReducer(
       ...state,
       searchResult: searchResult,
       searchResultLoading: false,
+      isSearching: false,
+      isSearchingSuccess: true,
     };
   }),
 

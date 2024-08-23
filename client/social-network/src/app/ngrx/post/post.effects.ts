@@ -95,4 +95,23 @@ export class PostEffects {
     private actions$: Actions,
     private postService: PostService,
   ) {}
+  getAllPostData$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(postActions.getAllPost),
+      switchMap((action) => {
+        return this.postService.getAllPost(action.limitNumber, action.pageNumber).pipe(
+          map((posts) => {
+            return postActions.getAllPostSuccess({ posts });
+          }),
+          catchError((error: HttpErrorResponseModel) => {
+            return of(
+              postActions.getAllPostFailure({ getAllPostErrorMessage: error }),
+            );
+          }),
+        );
+      }),
+    );
+  });
+
+
 }
