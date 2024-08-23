@@ -26,7 +26,7 @@ import * as PostActions from '../../../ngrx/post/post.actions';
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss',
 })
-export class PostComponent implements OnInit {
+export class PostComponent {
   constructor(
     private route: Router,
     private store: Store<{
@@ -35,19 +35,7 @@ export class PostComponent implements OnInit {
   ) {}
 
   profiles = <ProfileModel>{};
-  getProfile$ = this.store.select('profile', 'mine');
 
-  subscription: Subscription[] = [];
-
-  ngOnInit(): void {
-    this.subscription.push(
-      this.getProfile$.subscribe((profiles) => {
-        if (profiles) {
-          this.profiles = profiles;
-        }
-      }),
-    );
-  }
   @Input() post: PostModel = <PostModel>{};
   @Output() imageClick = new EventEmitter<void>();
 

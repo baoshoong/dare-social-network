@@ -1,7 +1,6 @@
-import { Component, OnInit, AfterViewInit, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import {Component, OnInit, AfterViewInit, ElementRef, Renderer2, ViewChild, Input} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostModel } from '../../model/post.model';
-import { ProfileModel } from '../../model/profile.model';
 import { MatButton } from '@angular/material/button';
 import { MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import { AsyncPipe } from '@angular/common';
@@ -17,7 +16,6 @@ import { IdToNamePipe } from '../../shared/pipes/id-to-name.pipe';
 })
 export class DetailPostComponent implements OnInit, AfterViewInit {
   detailPost: PostModel | null = null;
-  profile: ProfileModel | null = null;
 
   @ViewChild('imageElement', { static: false }) imageElement!: ElementRef;
 
@@ -30,7 +28,6 @@ export class DetailPostComponent implements OnInit, AfterViewInit {
     this.route.paramMap.subscribe((params) => {
       const state = history.state;
       this.detailPost = state.post;
-      this.profile = state.profile;
     });
   }
 

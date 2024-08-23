@@ -24,7 +24,7 @@ import { ProfileModel } from '../../../model/profile.model';
     RouterLink,
   ],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
   constructor(
@@ -41,10 +41,6 @@ export class HomeComponent implements OnInit {
 
   subscription: Subscription[] = [];
   getAllPost$ = this.store.select('post', 'posts');
-  getProfile$ = this.store.select('profile', 'mine');
-
-  posts: PostResponse = { data: [], count: 0, pageNumber: 1, limitNumber: 10 };
-  profile: ProfileModel | null = null;
 
   ngOnInit(): void {
     this.subscription.push(
@@ -54,39 +50,14 @@ export class HomeComponent implements OnInit {
         }
       }),
     );
-
-    this.subscription.push(
-      this.getProfile$.subscribe((profile) => {
-        if (profile) {
-          this.profile = profile;
-        }
-      }),
-    );
   }
 
-  navigateToDetail(post: PostModel) {
-    this.store.dispatch(profileActions.getById({ uid: post.uid }));
-    this.store.dispatch(postActions.getPostById({ id: post.id }));
+  posts = <PostResponse>{};
 
-    this.subscription.push(
-      this.getProfile$.subscribe((profile) => {
-        if (profile && profile.uid === post.uid) {
-          this.subscription.push(
-            this.getAllPost$.subscribe((posts) => {
-              const postDetail = posts.data.find(p => p.id === post.id);
-              if (postDetail) {
-                this.router
-                  .navigate(['/detail-post', post.id], { state: { post: postDetail, profile } })
-                  .then((r) => console.log(r));
-              }
-            })
-          );
-        } else {
-          this.router
-            .navigate(['/detail-post', post.id], { state: { post, profile: null } })
-            .then((r) => console.log(r));
-        }
-      })
-    );
+  navigateToDetail(post: PostModel) {
+    this.router
+      .navigate(['/detail-post', post.id], { state: { post } })
+      .then((r) => console.log(r));
+    console.log(post);
   }
 }

@@ -15,9 +15,9 @@
         </div>
         <div class="content">
           <div class="content-left">
-            <img class="avatar" [src]="profile?.avatarUrl" alt="Avatar">
+            <img class="avatar" [src]="(detailPost?.uid ?? '') | idToAvatar | async" alt="Avatar">
             <div class="info">
-              <p class="name">{{profile?.userName}}</p>
+              <p class="name">{{(detailPost?.uid ?? '') | idToName | async}}</p>
               <p class="follower">1.8 triệu người theo giỏi</p>
             </div>
           </div>
