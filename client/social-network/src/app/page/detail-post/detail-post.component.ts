@@ -6,11 +6,14 @@ import { MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import { AsyncPipe } from '@angular/common';
 import { IdToAvatarPipe } from '../../shared/pipes/id-to-avatar.pipe';
 import { IdToNamePipe } from '../../shared/pipes/id-to-name.pipe';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
 
 @Component({
   selector: 'app-detail-post',
   standalone: true,
-  imports: [MatButton, MatDialogActions, MatDialogClose, AsyncPipe, IdToNamePipe, IdToAvatarPipe],
+  imports: [MatButton, MatDialogActions, MatDialogClose, AsyncPipe, IdToNamePipe, IdToAvatarPipe, FormsModule, MatFormField, MatInput, MatLabel, ReactiveFormsModule],
   templateUrl: './detail-post.component.html',
   styleUrls: ['./detail-post.component.scss'],
 })
