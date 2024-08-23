@@ -12,6 +12,7 @@ import { PostModel } from '../../../model/post.model';
 import { Router } from '@angular/router';
 import * as ProfileActions from '../../../ngrx/profile/profile.actions';
 import * as PostActions from '../../../ngrx/post/post.actions';
+import { PostLoaderSkeletonComponent } from '../post-loader-skeleton/post-loader-skeleton.component';
 
 @Component({
   selector: 'app-post',
@@ -24,6 +25,7 @@ import * as PostActions from '../../../ngrx/post/post.actions';
     IdToAvatarPipe,
     AsyncPipe,
     IdToNamePipe,
+    PostLoaderSkeletonComponent,
   ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss',

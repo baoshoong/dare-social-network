@@ -1,7 +1,14 @@
-<div class="home-container">
-  <div class="grid-container">
+<div class="home-container"
 
-    <div *ngFor="let post of posts.data">
+>
+  <div class="grid-container"
+       infiniteScroll
+       [infiniteScrollDistance]="2"
+       [infiniteScrollThrottle]="50"
+       [fromRoot]="true"
+       (scrolled)="onScrollDown($event)"
+  >
+    <div *ngFor="let post of posts">
 <!--      <app-post [post]="post" (imageClick)="navigateToDetail(post)"></app-post>-->
       <app-post [post]="post" ></app-post>
 
