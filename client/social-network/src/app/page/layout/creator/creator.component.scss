@@ -19,10 +19,13 @@
   justify-content: center;
   cursor: pointer;
   gap: 50px;
-  z-index: 0;
+  z-index: 1;
   position: relative;
 }
-#description{
+#upload-image::after{
+  background: transparent;
+}
+.content{
   position: relative;
 
   font-size: 20px;
@@ -107,7 +110,8 @@
   height: 100%;
   object-fit: cover;
   position: absolute;
-  z-index: 1;
+  z-index: 2;
+  border-radius: 12px;
 }
 
 .loading-overlay {

@@ -97,7 +97,7 @@ export class CreatorComponent implements OnInit, OnDestroy {
   triggerFileInput() {
     this.fileInput.nativeElement.click();
   }
-
+  isImageUploaded= false;
   handleFileInput(event: Event) {
     const input = event.target as HTMLInputElement;
     this.myFile = [];
@@ -110,6 +110,7 @@ export class CreatorComponent implements OnInit, OnDestroy {
       console.log('input.files: ', input.files);
       reader.onload = (e) => {
         this.imageSrc = e.target?.result;
+        this.isImageUploaded= true;
       };
       reader.readAsDataURL(input.files[0]);
 
