@@ -16,20 +16,19 @@ import { FriendshipModule } from './friendship/friendship.module';
 @Module({
   imports: [
     FirebaseModule.forRoot({
-      googleApplicationCredential: "./configs/private-key.json" // Đường dẫn đến file firebase-admin-key.json
+      googleApplicationCredential: './configs/private-key.json', // Đường dẫn đến file firebase-admin-key.json
     }),
 
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'dpg-cqqugbtsvqrc73fntor0-a.singapore-postgres.render.com',
-      port: 5432,
+      host: 'aws-0-ap-southeast-1.pooler.supabase.com',
+      port: 6543,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      username: 'huy',
-      password: 'zHb1wWoTyegO10trfVeDsz9aq8tZmKM5',
-      database: 'dare',
+      username: 'postgres.rndigiehwzwulnceicof',
+      password: 'Thanhhuy2002@',
+      database: 'postgres',
       synchronize: true,
       ssl: { rejectUnauthorized: false },
-
     }),
 
     AuthModule,
@@ -51,10 +50,8 @@ import { FriendshipModule } from './friendship/friendship.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule implements NestModule{
+export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(AuthMiddleware)
-      .forRoutes('*'); // Áp dụng middleware cho tất cả các route, bạn có thể tùy chỉnh theo nhu cầu
+    consumer.apply(AuthMiddleware).forRoutes('*'); // Áp dụng middleware cho tất cả các route, bạn có thể tùy chỉnh theo nhu cầu
   }
 }

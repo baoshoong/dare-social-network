@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MaterialModule } from '../../../shared/material.module';
 import { PostComponent } from '../../../shared/components/post/post.component';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
@@ -27,7 +27,7 @@ import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private store: Store<{
@@ -42,6 +42,11 @@ export class HomeComponent implements OnInit {
       }),
     );
   }
+
+  ngOnDestroy(): void {
+    this.subscription.forEach((sub) => sub.unsubscribe());
+    this.store.dispatch(postActions.clearGetPost());
+  }
   selector: string = '.scroll-container';
   currentPage = 1;
   size = 10;
@@ -53,8 +58,9 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.subscription.push(
       this.getAllPost$.subscribe((posts) => {
-        if (posts) {
+        if (posts.limitNumber > 0) {
           this.tempArray = [...this.posts];
+          console.log(this.tempArray);
           this.posts = [...this.tempArray, ...posts.data];
           this.itemsCount = posts.limitNumber;
         }
