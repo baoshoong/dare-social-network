@@ -80,3 +80,4 @@ export const getMinePostFailure = createAction(
 );
 
 export const clearMinePost = createAction('[Post] Clear Mine Post');
+export const clearGetPost = createAction('[Post] Clear Post');
