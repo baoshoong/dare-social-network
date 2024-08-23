@@ -1,10 +1,14 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
-import { Repository } from "typeorm";
-import { Post } from "./entities/post.entity";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Profile } from "../profile/entities/profile.entity";
+import { Repository } from 'typeorm';
+import { Post } from './entities/post.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Profile } from '../profile/entities/profile.entity';
 import { SearchService } from '../search/search.service';
 
 @Injectable()
@@ -15,11 +19,9 @@ export class PostService {
     @InjectRepository(Profile)
     private profileRepository: Repository<Profile>,
     private readonly searchService: SearchService,
+  ) {}
 
-  ) {
-  }
-
-  async create(createPostDto: CreatePostDto, uid: string,urls: string[]) {
+  async create(createPostDto: CreatePostDto, uid: string, urls: string[]) {
     if (!createPostDto.uid) {
       throw new NotFoundException('uid cannot be empty');
     }
@@ -32,10 +34,9 @@ export class PostService {
 
     // Create the post
     createPostDto.imageUrls = [...urls];
-    console.log("url",createPostDto.imageUrls);
+    console.log('url', createPostDto.imageUrls);
     const newPost = this.postRepository.create({ ...createPostDto, uid });
     newPost.createdAt = new Date().toISOString();
-
 
     // Save the post
     const savedPost = await this.postRepository.save(newPost);
@@ -43,15 +44,15 @@ export class PostService {
 
     await this.searchService.indexPost(newPost);
 
-
-
     return savedPost;
   }
 
-  async findAll(pageNumber: number , limitNumber: number ) {
+  async findAll(pageNumber: number, limitNumber: number) {
     const skip = (pageNumber - 1) * limitNumber;
     if (isNaN(skip)) {
-      throw new BadRequestException('Calculated skip value must be a valid number');
+      throw new BadRequestException(
+        'Calculated skip value must be a valid number',
+      );
     }
     const [result, total] = await this.postRepository.findAndCount({
       skip,
@@ -66,15 +67,26 @@ export class PostService {
     };
   }
 
-
   //get post by uid in profile
-  async findPostByUid(uid: string) {
-    const profile = await this.profileRepository.findOne({ where: { uid } });
-    console.log(profile.uid);
-    if (!profile) {
-      throw new NotFoundException('Profile not found');
+  async findPostByUid(uid: string, pageNumber: number, limitNumber: number) {
+    const skip = (pageNumber - 1) * limitNumber;
+    if (isNaN(skip)) {
+      throw new BadRequestException(
+        'Calculated skip value must be a valid number',
+      );
     }
-    return await this.postRepository.find({ where: { uid } });
+    const [result, total] = await this.postRepository.findAndCount({
+      where: { uid },
+      skip,
+      take: limitNumber,
+    });
+
+    return {
+      data: result,
+      count: total,
+      pageNumber,
+      limitNumber,
+    };
   }
 
   //get post by id
@@ -101,7 +113,6 @@ export class PostService {
       ...updatePostDto,
     });
 
-
     return updatedPost;
   }
 
@@ -119,8 +130,5 @@ export class PostService {
     }
 
     await this.postRepository.delete({ id });
-
   }
-
 }
-

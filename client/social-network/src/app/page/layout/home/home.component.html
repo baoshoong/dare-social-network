@@ -1,11 +1,15 @@
 <div class="home-container">
-  <div class="grid-container">
-    @for (post of posts.data; track $index) {
-      <div class="post-container">
-       <div class="post">
-          <app-post [post]="post" (imageClick)="navigateToDetail(post)"></app-post>
-        </div>
+  <div class="grid-container"
+       infiniteScroll
+       [infiniteScrollDistance]="2"
+       [infiniteScrollThrottle]="50"
+       [fromRoot]="true"
+       (scrolled)="onScrollDown($event)"
+  >
+    <div class="post-container" *ngFor="let post of posts">
+      <div class="post">
+        <app-post [post]="post" (imageClick)="navigateToDetail(post)"></app-post>
       </div>
-    }
+    </div>
   </div>
 </div>

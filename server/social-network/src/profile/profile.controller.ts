@@ -32,13 +32,12 @@ export class ProfileController {
     return this.profileService.getProfile(uid);
   }
 
-  @Put()
+  @Put(':uid')
   async updateProfile(
     @Req() req,
-    @Query('uid') @Body() createProfileDto: CreateProfileDto,
+    @Body() updateProfileDto: Partial<CreateProfileDto>,
   ) {
-    console.log('updateProfileDto:', createProfileDto);
     const { uid } = req.user;
-    return this.profileService.updateProfile(uid, createProfileDto);
+    return this.profileService.updateProfile(uid, updateProfileDto);
   }
 }
