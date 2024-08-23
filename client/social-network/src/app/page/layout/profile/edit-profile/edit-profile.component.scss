@@ -8,6 +8,8 @@
   box-sizing: border-box;
 }
 .form{
+  width: 80%;
+  height: 100%;
   padding-top: 10%;
   padding-bottom: 10%;
   display: flex;
@@ -70,6 +72,7 @@ button{
 
 ::ng-deep .mat-mdc-dialog-surface{
 
+  width: 1000px;
   background-color: var(--surface);
   display: flex;
   align-items: center;
