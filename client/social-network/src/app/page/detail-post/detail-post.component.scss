@@ -99,12 +99,11 @@
 }
 
 .top-content {
-  height: 80%;
   display: flex;
   flex-direction: column;
   gap: 20px;
 
-  .user-content{
+  .user-content {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -171,59 +170,59 @@
       }
     }
   }
+}
 
-  .comment-content {
-    height: 75%;
+.comment-content {
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .comment-list {
     display: flex;
     flex-direction: column;
     gap: 20px;
-
-    .comment-list {
+    //flex-grow: 1;
+    overflow-y: auto;
+    //-ms-overflow-style: none;
+    //scrollbar-width: none;
+    .comment {
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      //flex-grow: 1;
-      overflow-y: auto;
-      //-ms-overflow-style: none;
-      //scrollbar-width: none;
-      .comment {
+
+      .comment-detail {
         display: flex;
-        flex-direction: column;
+        gap: 8px;
 
-        .comment-detail {
+        .comment-detail-left {
           display: flex;
-          gap: 8px;
 
-          .comment-detail-left {
-            display: flex;
-
-            .avatar {
-              width: 40px;
-              height: 40px;
-              border-radius: 50%;
-            }
+          .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
           }
+        }
 
-          .comment-detail-right {
+        .comment-detail-right {
+          display: flex;
+
+          .commented {
+            height: 100%;
             display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
 
-            .commented {
-              height: 100%;
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: flex-start;
+            .comment-text {
+              font-size: 15px;
+              font-weight: 400;
+            }
 
-              .comment-text {
-                font-size: 15px;
-                font-weight: 400;
-              }
-
-              .date {
-                font-size: 10px;
-                font-weight: 400;
-                color: #837568;
-              }
+            .date {
+              font-size: 10px;
+              font-weight: 400;
+              color: #837568;
             }
           }
         }
@@ -235,7 +234,7 @@
     font-size: 16px;
     font-weight: 700;
   }
-  
+
   .comment-list::-webkit-scrollbar {
     background-color: #fff;
     width: 16px;
@@ -269,6 +268,7 @@
     }
   }
 }
+
 p {
   margin: 0;
 }
