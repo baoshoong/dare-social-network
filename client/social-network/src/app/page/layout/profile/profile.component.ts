@@ -1,25 +1,74 @@
-import { Component } from '@angular/core';
-import {MatDialog} from "@angular/material/dialog";
-import {EditProfileComponent} from "./edit-profile/edit-profile.component";
-import {FollowingComponent} from "./following/following.component";
-import {FollowersComponent} from "./followers/followers.component";
-import {MaterialModule} from "../../../shared/material.module";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { FollowingComponent } from './following/following.component';
+import { FollowersComponent } from './followers/followers.component';
+import { MaterialModule } from '../../../shared/material.module';
+import { AsyncPipe, NgForOf } from '@angular/common';
+import { PostComponent } from '../../../shared/components/post/post.component';
+import { PostModel, PostResponse } from '../../../model/post.model';
+import { Subscription } from 'rxjs';
+import { PostState } from '../../../ngrx/post/post.state';
+import { Store } from '@ngrx/store';
+import { ProfileState } from '../../../ngrx/profile/profile.state';
+import * as PostAction from '../../../ngrx/post/post.actions';
+import * as ProfileAction from '../../../ngrx/profile/profile.actions';
+import { ProfileModel } from '../../../model/profile.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [
-    MaterialModule
-  ],
+  imports: [MaterialModule, NgForOf, PostComponent, AsyncPipe],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.scss'
+  styleUrl: './profile.component.scss',
 })
-export class ProfileComponent {
-  name: string = 'Current Name';
-  bio: string = 'Current Bio';
-  avatarUrl: string = 'https://www.w3schools.com/howto/img_avatar.png';
+export class ProfileComponent implements OnInit, OnDestroy {
+  subscriptions: Subscription[] = [];
 
-  constructor(public dialog: MatDialog) {}
+  profileByUid$ = this.store.select('profile', 'profile');
+
+  minePosts$ = this.store.select('post', 'minePosts');
+
+  isGettingMinePost$ = this.store.select('post', 'isGettingMinePost');
+
+  minePosts: PostResponse = <PostResponse>{};
+  profileMine: ProfileModel = <ProfileModel>{};
+
+  constructor(
+    public dialog: MatDialog,
+    private activeRoute: ActivatedRoute,
+    public store: Store<{
+      post: PostState;
+      profile: ProfileState;
+    }>,
+  ) {
+    const { uid } = this.activeRoute.snapshot.params;
+    this.store.dispatch(
+      PostAction.getMinePost({ uid, pageNumber: 1, limitNumber: 5 }),
+    );
+    this.store.dispatch(ProfileAction.getById({ uid }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
+    this.store.dispatch(PostAction.clearMinePost());
+  }
+
+  ngOnInit(): void {
+    this.subscriptions.push(
+      this.profileByUid$.subscribe((profile) => {
+        if (profile) {
+          this.profileMine = profile;
+        }
+      }),
+
+      this.minePosts$.subscribe((posts) => {
+        console.log(posts);
+        this.minePosts = posts;
+      }),
+    );
+  }
 
   openDialog2() {
     this.dialog.open(FollowingComponent);
@@ -31,16 +80,23 @@ export class ProfileComponent {
 
   openEditProfileDialog(): void {
     const dialogRef = this.dialog.open(EditProfileComponent, {
-      data: { avatarUrl: this.avatarUrl,
-              name: this.name,
-              bio: this.bio,}
+      data: {
+        avatarUrl: this.profileMine.avatarUrl,
+        name: this.profileMine.userName,
+        bio: this.profileMine.bio,
+      },
     });
-    dialogRef.componentInstance.avatarChanged.subscribe((newAvatarUrl: string) => {
-      this.avatarUrl = newAvatarUrl;
-    });
-    dialogRef.componentInstance.profileUpdated.subscribe((updatedProfile: { name: string, bio: string }) => {
-      this.name = updatedProfile.name;
-      this.bio = updatedProfile.bio;
-    });
+    dialogRef.componentInstance.avatarChanged.subscribe(
+      (newAvatarUrl: string) => {
+        this.profileMine.avatarUrl = newAvatarUrl;
+        this.profileMine.userName =
+          dialogRef.componentInstance.editProfileForm.value.name ?? '';
+        this.profileMine.bio =
+          dialogRef.componentInstance.editProfileForm.value.bio ?? '';
+      },
+    );
   }
+  posts: PostModel[] = [];
+
+  selectedPost?: PostModel;
 }

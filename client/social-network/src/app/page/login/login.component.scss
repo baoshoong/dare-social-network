@@ -20,20 +20,20 @@
   line-height: 1.286;
   color: var(--primary);
   //border: 2px solid gold;
-  width: fit-content;
-  height: fit-content;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 3%;
+
 }
 
 .lbl-img {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  gap: 60px;
+  height: 100%;
+
 }
 
 .login .tab-1 {
@@ -46,7 +46,7 @@
 }
 
 .login .man-images {
-  max-width: 60%;
+  max-width: 70%;
   height: auto;
 }
 
@@ -82,13 +82,11 @@
 }
 
 .login .title {
-  //border: 2px solid red;
+
   font-weight: 700;
   font-size: 38px;
   color: var(--primary);
-  margin-top: 6%;
-  width: fit-content;
-  height: fit-content;
+
 
 }
 
@@ -100,7 +98,7 @@
   width: 70%;
   height: 80%;
   box-sizing: border-box;
-  //border: 2px solid green;
+
 }
 
 .login .tab-welcome {
@@ -124,93 +122,176 @@
 }
 
 .group-welcome {
-  width: fit-content;
-  height: fit-content;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+}
+
+///* Media Query cho iPad Pro ở chế độ dọc (Portrait) */
+//@media only screen
+//and (min-device-width: 1024px)
+//and (max-device-width: 1366px)
+//and (-webkit-min-device-pixel-ratio: 2)
+//and (orientation: portrait) {
+//  .login .sign-in-text{
+//    margin-top: 20%;
+//  }
+//  .login .title {
+//    margin-top: 6.5% !important;
+//  }
+//
+//}
+//
+///* Media Query cho iPad Pro ở chế độ ngang (Landscape) */
+//@media only screen
+//and (min-device-width: 1024px)
+//and (max-device-width: 1366px)
+//and (-webkit-min-device-pixel-ratio: 2)
+//and (orientation: landscape) {
+//
+//  .login {
+//    height: 50%;
+//  }
+//}
+//
+///* Media Query cho iPad Air ở chế độ ngang (Landscape) */
+//@media only screen
+//and (min-device-width: 820px)
+//and (max-device-width: 1180px)
+//and (-webkit-min-device-pixel-ratio: 2)
+//and (orientation: landscape) {
+//
+//  .login .sign-in-text {
+//    margin-top: -10%;
+//  }
+//}
+//
+///* Media Query cho iPad Mini ở chế độ dọc (Portrait) */
+//@media only screen
+//and (min-device-width: 768px)
+//and (max-device-width: 1024px)
+//and (-webkit-min-device-pixel-ratio: 2)
+//and (orientation: portrait) {
+//
+//  .login .sign-in-text {
+//    width: 80%;
+//    font-size: 14px;
+//    margin-left: 100%;
+//  }
+//  .login .title {
+//    margin-top: 8%;
+//  }
+//  .login {
+//    height: 40%;
+//  }
+//}
+//
+///* Media Query cho iPad Mini ở chế độ ngang (Landscape) */
+//@media only screen
+//and (min-device-width: 768px)
+//and (max-device-width: 1024px)
+//and (-webkit-min-device-pixel-ratio: 2)
+//and (orientation: landscape) {
+//
+//  .lbl-img {
+//    margin-top: -0.1%;
+//    //border: 3px solid green;
+//  }
+//  .group-welcome {
+//    margin-top: -0.1%;
+//    //border: 2px solid blue;
+//  }
+//  .login {
+//    height: 60%;
+//  }
+//  .login .title {
+//    margin-top: 6.5%;
+//  }
+//}
+
+
+.container{
+  width: 100%;
+  height: 100vh;
+  display: flex;
   justify-content: center;
   align-items: center;
-  gap: 50px;
-}
+  background: #7F7F7F;
 
-/* Media Query cho iPad Pro ở chế độ dọc (Portrait) */
-@media only screen
-and (min-device-width: 1024px)
-and (max-device-width: 1366px)
-and (-webkit-min-device-pixel-ratio: 2)
-and (orientation: portrait) {
-  .login .sign-in-text{
-    margin-top: 20%;
-  }
-  .login .title {
-    margin-top: 6.5% !important;
-  }
+ }
+
+.login{
+  width: 45%;
+  height: 60%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--surface);
 
 }
 
-/* Media Query cho iPad Pro ở chế độ ngang (Landscape) */
-@media only screen
-and (min-device-width: 1024px)
-and (max-device-width: 1366px)
-and (-webkit-min-device-pixel-ratio: 2)
-and (orientation: landscape) {
-
-  .login {
-    height: 50%;
-  }
+.login-header{
+  width: 90%;
+  height: 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--surface);
+  color: var(--onSurface);
+  font-size: 2rem;
 }
 
-/* Media Query cho iPad Air ở chế độ ngang (Landscape) */
-@media only screen
-and (min-device-width: 820px)
-and (max-device-width: 1180px)
-and (-webkit-min-device-pixel-ratio: 2)
-and (orientation: landscape) {
-
-  .login .sign-in-text {
-    margin-top: -10%;
-  }
+.login-header-title-left{
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Media Query cho iPad Mini ở chế độ dọc (Portrait) */
-@media only screen
-and (min-device-width: 768px)
-and (max-device-width: 1024px)
-and (-webkit-min-device-pixel-ratio: 2)
-and (orientation: portrait) {
-
-  .login .sign-in-text {
-    width: 80%;
-    font-size: 14px;
-    margin-left: 100%;
-  }
-  .login .title {
-    margin-top: 8%;
-  }
-  .login {
-    height: 40%;
-  }
+.login-header-title-right{
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Media Query cho iPad Mini ở chế độ ngang (Landscape) */
-@media only screen
-and (min-device-width: 768px)
-and (max-device-width: 1024px)
-and (-webkit-min-device-pixel-ratio: 2)
-and (orientation: landscape) {
+.login-middle{
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
 
-  .lbl-img {
-    margin-top: -0.1%;
-    //border: 3px solid green;
-  }
-  .group-welcome {
-    margin-top: -0.1%;
-    //border: 2px solid blue;
-  }
-  .login {
-    height: 60%;
-  }
-  .login .title {
-    margin-top: 6.5%;
-  }
+.login-middle-image-left{
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.login-middle-image-right{
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.login-end{
+  width: 90%;
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--surface);
+  color: var(--onSurface);
+  font-size: 1.5rem;
 }

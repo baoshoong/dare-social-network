@@ -19,7 +19,6 @@ import { Store } from '@ngrx/store';
 import { ProfileState } from '../../../ngrx/profile/profile.state';
 import * as PostAction from '../../../ngrx/post/post.actions';
 import { PostState } from '../../../ngrx/post/post.state';
-import { LoadingComponent } from '../../loading/loading.component';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -32,7 +31,6 @@ import { Subscription } from 'rxjs';
     ShareModule,
     ReactiveFormsModule,
     CommonModule,
-    LoadingComponent,
   ],
   templateUrl: './creator.component.html',
   styleUrl: './creator.component.scss',
@@ -53,7 +51,9 @@ export class CreatorComponent implements OnInit, OnDestroy {
   ) {
     this.subscription.push(
       this.profileMine$.subscribe((profile) => {
-        this.uid = profile.uid;
+        if (profile) {
+          this.uid = profile.uid;
+        }
       }),
     );
   }
@@ -82,7 +82,7 @@ export class CreatorComponent implements OnInit, OnDestroy {
     uid: '',
     title: '',
     content: '',
-    imageUrl: this.myFile as File[],
+    imageUrls: this.myFile as File[],
     id: BigInt(1),
   };
 
@@ -140,13 +140,13 @@ export class CreatorComponent implements OnInit, OnDestroy {
     );
     console.log('Title: ', this.createPostForm.value.title);
     console.log('Description: ', this.createPostForm.value.content);
-    console.log('Image: ', this.postForm.imageUrl);
+    console.log('Image: ', this.postForm.imageUrls);
     this.postForm = {
       uid: this.uid,
       id: BigInt(1),
       title: this.createPostForm.value.title,
       content: this.createPostForm.value.content ?? '',
-      imageUrl: this.myFile,
+      imageUrls: this.myFile,
     };
 
     console.log('Post Form: ', this.postForm);

@@ -1,0 +1,16 @@
+.post-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.content-left, .content-right {
+  display: flex;
+  gap: 10px;
+}
+
+.content-right {
+  justify-content: flex-end;
+  width: 50%;
+  margin-bottom: 0;
+}
+

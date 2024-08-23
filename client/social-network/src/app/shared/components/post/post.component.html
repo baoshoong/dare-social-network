@@ -1,15 +1,19 @@
-<div class="post">
-  <div class="post-header">
-    <img (click)="openPostDetail()" class="post-image" [src]="post.imageUrl" alt="{{ post.title }}">
-  </div>
-  <div class="post-content">
-    <div class="content-left">
-      <img class="avatar" [src]="post.avatarUrl" alt="{{ post.userName }}">
-      <p>{{ post.userName }}</p>
+@defer {
+  <div class="post">
+      <div class="post-header">
+        <img (click)="onImageClick()" class="post-image" [src]="post.imageUrls" alt="">
+      </div>
+      <div class="post-content">
+        <div class="content-left">
+          <img class="avatar" (click)="navigateToProfile()" [src]=" post.uid | idToAvatar | async " alt="">
+          <p>{{ post.uid | idToName | async }}</p>
+        </div>
+        <div class="content-right">
+          <span class="material-symbols-outlined icon-material">favorite</span>
+          <span class="material-symbols-outlined icon-material">chat</span>
+        </div>
+      </div>
     </div>
-    <div class="content-right">
-      <span class="material-symbols-outlined icon-material">favorite</span>
-      <span class="material-symbols-outlined icon-material">chat</span>
-    </div>
-  </div>
-</div>
+} @placeholder (minimum 1000ms) {
+  <app-post-loader-skeleton></app-post-loader-skeleton>
+}

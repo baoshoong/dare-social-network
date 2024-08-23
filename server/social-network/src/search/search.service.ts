@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateSearchDto } from './dto/create-search.dto';
-import { UpdateSearchDto } from './dto/update-search.dto';
+
 import { IdgenService } from '../utils/idgen/idgen.service';
-import {Client} from '@elastic/elasticsearch';
-import { Profile } from "../profile/entities/profile.entity";
+import { Client } from '@elastic/elasticsearch';
+import { Profile } from '../profile/entities/profile.entity';
 import { Post } from '../post/entities/post.entity';
 
 @Injectable()
@@ -12,43 +11,44 @@ export class SearchService {
 
   constructor(private idgenService: IdgenService) {
     this.esClient = new Client({
-      node: 'https://f5be4034ea9f40549563ff60fbdbc4c9.asia-southeast1.gcp.elastic-cloud.com:443',
-      auth: {
-        apiKey: "bTn2eV-vTlO7Fe9ByMSUWA",
-      }
+      node: 'https://es.ext.akademy.dev/',
+      // auth: {
+      //   apiKey: "N3VYTFpKRUJ2a19OYWhpZV9CZDM6REFnTHVZZk9Scm1hTEsxU2loY3lxUQ==",
+      //   username: "elastic",
+      //   password: "CGSqEgB730tMblc7lXZBwSI9"
+      // }
     });
 
-    console.log("esClient",this.esClient);
+    console.log('esClient', this.esClient);
   }
 
   async indexProfile(profile: Profile) {
     await this.esClient.index({
-      index: 'profiles',
+      index: 'dare_profiles',
       id: profile.uid,
       document: {
         uid: profile.uid,
         username: profile.userName,
         email: profile.email,
-      }
+      },
     });
   }
 
   async searchProfiles(query: string) {
     // search for profiles by username or email or uid
     const response = await this.esClient.search({
-      index: 'profiles',
+      index: 'dare_profiles',
       query: {
         multi_match: {
           query: query,
           fields: ['username', 'email', 'uid'],
         },
-      }
+      },
     });
     return response.hits.hits;
   }
 
   async indexPost(post: Post) {
-
     // get all hashtags in the post's content
     const hashtags = post.content.match(/#\w+/g) || [];
     // lowercase all hashtags
@@ -56,9 +56,9 @@ export class SearchService {
     // remove duplicates
     const uniqueHashtags = Array.from(new Set(lowercasedHashtags));
     // index
-    for(let tag of uniqueHashtags) {
+    for (let tag of uniqueHashtags) {
       await this.esClient.index({
-        index: 'hashtags',
+        index: 'dare_hashtags',
         id: this.idgenService.generateId(),
         document: {
           id: post.id,
@@ -66,12 +66,12 @@ export class SearchService {
           content: post.content,
           createdAt: post.createdAt,
           hashtag: tag,
-        }
+        },
       });
     }
 
     await this.esClient.index({
-      index: 'posts',
+      index: 'dare_posts',
       id: post.id.toString(),
       document: {
         uid: post.uid,
@@ -90,24 +90,25 @@ export class SearchService {
 
   async searchPosts(query: string) {
     const response = await this.esClient.search({
-      index: 'posts',
+      index: 'dare_posts',
       query: {
-        match: {
-          content: query,
+        multi_match: {
+          query: query,
+          fields: ['*'],
         },
-      }
+      },
     });
     return response.hits.hits;
   }
 
   async searchHashtags(query: string) {
     const response = await this.esClient.search({
-      index: 'hashtags',
+      index: 'dare_hashtags',
       query: {
         match: {
           hashtag: query,
         },
-      }
+      },
     });
     return response.hits.hits;
   }
@@ -116,7 +117,7 @@ export class SearchService {
     // delete post from hashtags index
     // get post first
     const post = await this.esClient.get({
-      index: 'posts',
+      index: 'dare_posts',
       id: postId.toString(),
     });
     // get all hashtags in the post's content
@@ -126,9 +127,9 @@ export class SearchService {
     // remove duplicates
     const uniqueHashtags = Array.from(new Set(lowercasedHashtags));
 
-    for(let tag of uniqueHashtags) {
+    for (let tag of uniqueHashtags) {
       await this.esClient.deleteByQuery({
-        index: 'hashtags',
+        index: 'dare_hashtags',
         query: {
           match: {
             id: postId,
@@ -139,8 +140,25 @@ export class SearchService {
     }
 
     await this.esClient.delete({
-      index: 'posts',
+      index: 'dare_posts',
       id: postId.toString(),
     });
+  }
+
+  async searchAny(indexName: string, query: string) {
+    try {
+      const response = await this.esClient.search({
+        index: [indexName],
+        query: {
+          multi_match: {
+            query: query,
+            fields: ['*'],
+          },
+        },
+      });
+      return response.hits.hits.map((hit) => hit['_source']);
+    } catch (e) {
+      return [];
+    }
   }
 }

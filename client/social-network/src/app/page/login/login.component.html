@@ -1,22 +1,65 @@
-<div class="login-body">
+<!--<div class="login-body">-->
+<!--  <div class="login">-->
+<!--    <div class="tab-login">-->
+<!--      <div class="lbl-img">-->
+<!--        <div class="label">-->
+<!--          <span>-->
+<!--          Sign In-->
+<!--          </span>-->
+<!--        </div>-->
+<!--        <img class="man-images" src="../public/images/man_images.png" alt="">-->
+<!--        <button class="sign-in-text" mat-stroked-button (click)="loginWithGoogle()">-->
+<!--          <div class="gg">-->
+<!--            <div>-->
+<!--              <span>Login with Google</span>-->
+<!--            </div>-->
+<!--            <img class="icon-gg" src="../public/images/google.png" alt="" />-->
+<!--          </div>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="tab-welcome">-->
+<!--      <div class="group-welcome">-->
+<!--        <div class="title">-->
+<!--          <span>WELCOME</span>-->
+<!--        </div>-->
+<!--        <img class="img-welcome" src="../public/images/exlorer_illustration_1.png" alt="">-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+<div class="container">
   <div class="login">
-    <div class="tab-login">
-      <div class="lbl-img">
-        <div class="label">Sign In</div>
-        <img class="man-images" src="../public/images/man_images.png" alt="">
-        <button class="sign-in-text" mat-stroked-button (click)="loginWithGoogle()">
-          <div class="gg">
-            <div>Login with Google</div>
-            <img class="icon-gg" src="../public/images/google.png" alt="" />
-          </div>
-        </button>
+    <div class="login-header">
+      <div class="login-header-title-left">
+        <span>Sign In</span>
+      </div>
+      <div class="login-header-title-right">
+        <span>Welcome</span>
       </div>
     </div>
-    <div class="tab-welcome">
-      <div class="group-welcome">
-        <div class="title">WELCOME</div>
-        <img class="img-welcome" src="../public/images/exlorer_illustration_1.png" alt="">
+    <div class="login-middle">
+      <div class="login-middle-image-left">
+        <img class="man-images" src="../public/images/man_images.png" alt="">
+
       </div>
+      <div class="login-middle-image-right">
+        <img class="img-welcome" src="../public/images/exlorer_illustration_1.png" alt="">
+
+      </div>
+    </div>
+
+    <div class="login-end">
+      <button class="sign-in-text" mat-stroked-button (click)="loginWithGoogle()">
+        <div class="gg">
+          <div>
+            <span>Login with Google</span>
+          </div>
+          <img class="icon-gg" src="../public/images/google.png" alt="" />
+        </div>
+      </button>
     </div>
   </div>
 </div>

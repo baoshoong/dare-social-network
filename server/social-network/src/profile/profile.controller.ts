@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Req, Put, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Req,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { ProfileService } from './profile.service';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
@@ -15,16 +26,18 @@ export class ProfileController {
   }
 
   @Get()
-  async getProfile(@Req() req, @Param('uid') uid: string) {
+  async getProfile(@Req() req, @Query('uid') uid: string) {
     // If the uid is not provided in the URL, use the uid from the authenticated user
     uid = uid || req.user.uid;
     return this.profileService.getProfile(uid);
   }
 
   @Put(':uid')
-  async updateProfile(@Req() req, @Body() createProfileDto: CreateProfileDto) {
-    console.log('updateProfileDto:', createProfileDto);
+  async updateProfile(
+    @Req() req,
+    @Body() updateProfileDto: Partial<CreateProfileDto>,
+  ) {
     const { uid } = req.user;
-    return this.profileService.updateProfile(uid, createProfileDto);
+    return this.profileService.updateProfile(uid, updateProfileDto);
   }
 }

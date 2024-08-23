@@ -7,17 +7,12 @@ export const LAYOUT_ROUTES: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full',
-      },
-      {
         path: 'home',
         loadChildren: () =>
           import('./home/home.routes').then((m) => m.HOME_ROUTES),
       },
       {
-        path: 'profile',
+        path: 'profile/:uid',
         loadChildren: () =>
           import('./profile/profile.routes').then((m) => m.PROFILE_ROUTES),
       },
