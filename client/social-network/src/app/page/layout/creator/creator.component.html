@@ -12,24 +12,21 @@
     <div class="input-form">
       <mat-form-field appearance="outline" class="example-form-field">
       <mat-label>Title</mat-label>
-      <input matInput placeholder="Input"   formControlName="title">
+      <input matInput formControlName="title" maxlength="50">
 
-        <button matSuffix mat-icon-button aria-label="Clear" (click)="clearTitle()">
-          <mat-icon matSuffix>close</mat-icon>
-        </button>
+
+
 
     </mat-form-field>
 
-      <mat-form-field appearance="outline" class="example-form-field">
+      <mat-form-field appearance="outline" class="content-field">
         <mat-label>Content</mat-label>
-        <input matInput placeholder="Input"  formControlName="content" >
+        <textarea matInput formControlName="content" cdkTextareaAutosize
+                 [cdkAutosizeMaxRows]="15" maxlength="350"></textarea>
 
-          <button matSuffix mat-icon-button aria-label="Clear" (click)="clearContent()">
-            <mat-icon matSuffix>close</mat-icon>
-          </button>
+
 
       </mat-form-field>
-
     </div>
     <div>
       <button mat-flat-button id="post-button" (click)="createPost()">Post</button>
@@ -39,13 +36,8 @@
   </form>
 
 </div>
-<button mat-flat-button (click)="getAllPost()">Get Post</button>
 
-@for( post of ( postData$ | async); track $index){
-    <h2>{{post.data.posts}}</h2>
-<!--    <p>{{post.content}}</p>-->
-<!--    <img [src]="post.imageUrl" alt="post image">-->
-}
+
 @if(isCreating$|async){
 
   <div class="loading-overlay">

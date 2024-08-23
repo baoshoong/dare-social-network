@@ -19,7 +19,6 @@ import { Store } from '@ngrx/store';
 import { ProfileState } from '../../../ngrx/profile/profile.state';
 import * as PostAction from '../../../ngrx/post/post.actions';
 import { PostState } from '../../../ngrx/post/post.state';
-import { LoadingComponent } from '../../loading/loading.component';
 import { Subscription } from 'rxjs';
 import { getAllPost } from '../../../ngrx/post/post.actions';
 import {PostDataModel} from "../../../model/post-data.model";
@@ -34,7 +33,6 @@ import {PostDataModel} from "../../../model/post-data.model";
     ShareModule,
     ReactiveFormsModule,
     CommonModule,
-    LoadingComponent,
   ],
   templateUrl: './creator.component.html',
   styleUrl: './creator.component.scss',
@@ -47,7 +45,6 @@ export class CreatorComponent implements OnInit, OnDestroy {
   isLoading = true;
   isCreating$ = this.store.select('post', 'isCreating');
 
-  postData$ = this.store.select('post', 'postData');
 
   constructor(
     private store: Store<{
@@ -57,7 +54,9 @@ export class CreatorComponent implements OnInit, OnDestroy {
   ) {
     this.subscription.push(
       this.profileMine$.subscribe((profile) => {
-        this.uid = profile.uid;
+        if (profile) {
+          this.uid = profile.uid;
+        }
       }),
     );
 
@@ -87,7 +86,7 @@ export class CreatorComponent implements OnInit, OnDestroy {
     uid: '',
     title: '',
     content: '',
-    imageUrl: this.myFile as File[],
+    imageUrls: this.myFile as File[],
     id: BigInt(1),
   };
 
@@ -137,21 +136,35 @@ export class CreatorComponent implements OnInit, OnDestroy {
     if (!inputFilled || !imageSrcFilled) {
       alert('Please fill in all fields');
       return;
+    }if(this.myFile.length > 0) {
+      for (const file of this.myFile){
+
+        if(file.type !== ('image/png'&&'image/jpeg')){
+          alert('Please upload a png or jpeg file');
+          return;
+        }
+
+        if (!this.imageSizeLimit(file)){
+          alert('Image size must be less than 5MB');
+          return;
+      }
+    }
     }
 
-    this.createPostForm.value.title = this.textLimit(
-      this.createPostForm.value?.title as string,
-      40,
-    );
+    this.createPostForm.value.title = this.createPostForm.value?.title as string;
+    //   this.textLimit(
+    //   this.createPostForm.value?.title as string,
+    //   10,
+    // );
     console.log('Title: ', this.createPostForm.value.title);
     console.log('Description: ', this.createPostForm.value.content);
-    console.log('Image: ', this.postForm.imageUrl);
+    console.log('Image: ', this.postForm.imageUrls);
     this.postForm = {
       uid: this.uid,
       id: BigInt(1),
       title: this.createPostForm.value.title,
       content: this.createPostForm.value.content ?? '',
-      imageUrl: this.myFile,
+      imageUrls: this.myFile,
     };
 
     console.log('Post Form: ', this.postForm);
@@ -159,12 +172,15 @@ export class CreatorComponent implements OnInit, OnDestroy {
 
     this.clearInputData();
   }
-  textLimit(text: string, wordLimit: number): string {
-    const words = text.split(/\s+/);
-    if (words.length > wordLimit) {
-      return words.slice(0, wordLimit).join(' ');
-    }
-    return text;
+  // textLimit(text: string, wordLimit: number): string {
+  //   text.split(/\s+/);
+  //   if (text.length > wordLimit) {
+  //     return text.splice(0, wordLimit)
+  //   }
+  //   return text;
+  // }
+  imageSizeLimit(file: File): boolean {
+    return file.size / 1024 / 1024 < 5;
   }
   clearTitle() {
     this.createPostForm.patchValue({
@@ -176,12 +192,16 @@ export class CreatorComponent implements OnInit, OnDestroy {
       content: '',
     });
   }
-  getAllPost() {
-    this.store.dispatch(getAllPost({ limit:5, page: 2}));
-    this.postData$.subscribe((data) => {
-
-      console.log('Data: ', data);
-    });
-    }
+  // private maxLines = 15;
+  // limitTextLine(event: Event): void{
+  //   const textarea = event.target as HTMLTextAreaElement;
+  //   const lines = textarea.value.split('\n').length;
+  //
+  //   if(lines > this.maxLines ){
+  //     const truncatedText = textarea.value.split('\n').slice(0, this.maxLines).join('\n');
+  //     textarea.value = truncatedText;
+  //   }
+  //
+  // }
 }
 

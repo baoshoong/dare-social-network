@@ -2,12 +2,25 @@
 
   <mat-form-field appearance="outline" class="search-frame">
       <mat-label class="search-input" >Search</mat-label>
-      <input matInput [(ngModel)]="searchQuery" placeholder="Search">
+      <input matInput [(ngModel)]="searchQuery" placeholder="Search" [formControl]="searchControl">
   </mat-form-field>
   <div class="result">
     Result
   </div>
   <div class="pic-result">
+
+
+
+<!-- @for (item of filteredItems ; track $index){-->
+<!--   @if(isSearching$|async){-->
+<!--     <div class="loading-overlay">-->
+<!--       <mat-spinner class="loading-spinner"></mat-spinner>-->
+<!--     </div>-->
+<!--   }@else{-->
+<!--     <img class="img-1" src="{{item.imageUrls}}" alt="img">-->
+<!--     <h2>{{item.content}}</h2>-->
+<!--   }-->
+<!-- }-->
 
 <!--  @for (item of items; track $index){-->
 <!--      <div class="tab-1">-->

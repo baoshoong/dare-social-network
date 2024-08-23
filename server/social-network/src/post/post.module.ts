@@ -6,6 +6,7 @@ import { Post } from './entities/post.entity';
 import { ProfileModule } from '../profile/profile.module';
 import { StorageModule } from '../storage/storage.module';
 import { IdgenModule } from '../utils/idgen/idgen.module';
+import { SearchModule } from '../search/search.module';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { IdgenModule } from '../utils/idgen/idgen.module';
     ProfileModule,
     StorageModule,
     IdgenModule,
-
+    SearchModule,
   ],
   controllers: [PostController],
   providers: [PostService],

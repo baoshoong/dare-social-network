@@ -5,9 +5,10 @@ import { NavigationEnd, Router } from '@angular/router';
 import { ProfileState } from '../../../ngrx/profile/profile.state';
 import { Store } from '@ngrx/store';
 import { AsyncPipe, NgIf } from '@angular/common';
-import { ProfileModel } from '../../../model/profile.model';
 import * as AuthActions from '../../../ngrx/auth/auth.actions';
 import * as ProfileActions from '../../../ngrx/profile/profile.actions';
+import { AuthService } from '../../../service/auth/auth.service';
+import { AuthState } from '../../../ngrx/auth/auth.state';
 
 @Component({
   selector: 'app-navbar',
@@ -21,23 +22,27 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   routeSelected: number = -1;
   dataRoutes = [
-    { icon: 'home', routeLink: '/home' },
-    { icon: 'search', routeLink: '/search' },
-    { icon: 'edit_square', routeLink: '/creator' },
-    { icon: 'campaign', routeLink: '/notification' },
-    { icon: 'person', routeLink: '/profile' },
+    { icon: 'home', routeLink: '/home', name: 'Home' },
+    { icon: 'search', routeLink: '/search', name: 'Search' },
+    { icon: 'edit_square', routeLink: '/creator', name: 'Creator' },
+    { icon: 'campaign', routeLink: '/notification', name: 'Notification' },
+    { icon: 'person', routeLink: '/profile', name: 'Profile' },
   ];
 
   constructor(
     private router: Router,
+    private authService: AuthService,
     private store: Store<{
       profile: ProfileState;
+      auth: AuthState;
     }>,
   ) {
     this.profileMine$.subscribe((mine) => {});
   }
 
   profileMine$ = this.store.select('profile', 'mine');
+
+  logout$ = this.store.select('auth', 'logOutSuccess');
 
   ngOnInit(): void {
     this.subscriptions.push(
@@ -46,6 +51,12 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
         .subscribe((event) => {
           this.updateRouteSelected((event as NavigationEnd).urlAfterRedirects);
         }),
+
+      this.logout$.subscribe((logout) => {
+        if (logout == true) {
+          this.router.navigate(['/login']).then();
+        }
+      }),
     );
     this.updateRouteSelected(this.router.url);
   }
@@ -82,8 +93,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
   logout() {
-    this.store.dispatch(AuthActions.signOut());
+    this.authService.logout();
     this.store.dispatch(ProfileActions.clearGetState());
-    this.router.navigate(['/login']).then();
   }
 }

@@ -1,12 +1,11 @@
-import { PostModel } from '../../model/post.model';
+import { PostModel, PostResponse } from '../../model/post.model';
 import { HttpErrorResponseModel } from '../../model/http-error-response.model';
 import {PostDataModel} from "../../model/post-data.model";
 
 export interface PostState {
-  posts: PostModel[];
+  posts: PostResponse;
   postDetail: PostModel;
-  minePosts: PostModel[];
-  postData: PostDataModel[],
+  minePosts: PostResponse;
 
   isCreating: boolean;
   isCreateSuccess: boolean;

@@ -55,9 +55,9 @@ button{
 #confirm {
   color: var(--onPrimary);
   font-weight: 600;
-  font-size: 20px;
+  //font-size: 20px;
   background-color: var(--primary);
-  width: 65%;
+  //width: 65%;
 }
 #upload {
   background-color: var(--primary);
@@ -67,7 +67,7 @@ button{
 
   width: 30vw;
   height: 60vh;
-  background-color: var(--surfaceContainerHigh);
+  background-color: var(--surface);
   display: flex;
   align-items: center;
   justify-content: space-around;

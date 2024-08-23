@@ -5,6 +5,7 @@ import { Repository } from "typeorm";
 import { Post } from "./entities/post.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Profile } from "../profile/entities/profile.entity";
+import { SearchService } from '../search/search.service';
 
 @Injectable()
 export class PostService {
@@ -13,6 +14,7 @@ export class PostService {
     private postRepository: Repository<Post>,
     @InjectRepository(Profile)
     private profileRepository: Repository<Profile>,
+    private readonly searchService: SearchService,
 
   ) {
   }
@@ -38,6 +40,8 @@ export class PostService {
     // Save the post
     const savedPost = await this.postRepository.save(newPost);
     // Index the post
+
+    await this.searchService.indexPost(newPost);
 
 
 

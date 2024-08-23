@@ -3,12 +3,14 @@ import { CreateProfileDto } from './dto/create-profile.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Profile } from './entities/profile.entity';
 import { Repository } from 'typeorm';
+import { SearchService } from '../search/search.service';
 
 @Injectable()
 export class ProfileService {
   constructor(
     @InjectRepository(Profile)
     private profileRepository: Repository<Profile>,
+    private readonly searchService: SearchService
 
   ) {}
 
@@ -27,6 +29,9 @@ export class ProfileService {
     // Tạo profile mới
     const profile = this.profileRepository.create(createProfileDto);
     profile.uid = uid;
+
+    await this.searchService.indexProfile(profile);
+
     // Lưu profile
     return this.profileRepository.save(profile);
 

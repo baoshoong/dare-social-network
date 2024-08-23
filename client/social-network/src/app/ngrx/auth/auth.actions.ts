@@ -18,16 +18,16 @@ export const signInWithGoogleSuccess = createAction(
 
 export const signInWithGoogleFailure = createAction(
   '[Auth] Sign In With Google Failure',
-  props<{ error: any }>,
-);
-
-export const signOut = createAction('[Auth] Sign Out');
-export const signOutSuccess = createAction('[Auth] Sign Out Success');
-export const signOutFailure = createAction(
-  '[Auth] Sign Out Failure',
   props<{ error: any }>(),
 );
 
+// export const signOut = createAction('[Auth] Sign Out');
+// export const signOutSuccess = createAction('[Auth] Sign Out Success');
+// export const signOutFailure = createAction(
+//   '[Auth] Sign Out Failure',
+//   props<{ error: any }>(),
+// );
+
 //clear state
 
-export const clearLoginSuccess = createAction('[Auth] Clear Login Success');
+export const clearState = createAction('[Auth] Clear State');
