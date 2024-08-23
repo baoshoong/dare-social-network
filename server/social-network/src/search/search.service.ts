@@ -77,6 +77,7 @@ export class SearchService {
         uid: post.uid,
         content: post.content,
         createdAt: post.createdAt,
+        imageUrls: post.imageUrls
       },
     });
   }

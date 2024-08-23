@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
     (state) => state.profile.isGetMineFailure,
   );
 
-  isShowSpinner = false;
+  isShowSpinner = true;
 
   constructor(
     private router: Router,
@@ -65,7 +65,7 @@ export class AppComponent implements OnInit {
         this.store.dispatch(ProfileActions.getMine({ uid: user.uid }));
       } else {
         this.router.navigate(['/login']).then(() => {
-          this.isShowSpinner = false;
+          this.isShowSpinner = true;
         });
       }
     });
@@ -99,9 +99,9 @@ export class AppComponent implements OnInit {
         if (authCredential.uid) {
           if (isGetMineSuccess && mine?.uid) {
             console.log(mine);
-            // this.router.navigate(['/home']).then(() => {
-            //   this.isShowSpinner = false;
-            // });
+            this.router.navigate(['/home']).then(() => {
+              this.isShowSpinner = false;
+            });
           } else if (isGetMineFailure && getMineError.status) {
             console.log(getMineError);
             this.router.navigate(['/register']).then(() => {

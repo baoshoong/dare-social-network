@@ -20,6 +20,8 @@ import { ProfileState } from '../../../ngrx/profile/profile.state';
 import * as PostAction from '../../../ngrx/post/post.actions';
 import { PostState } from '../../../ngrx/post/post.state';
 import { Subscription } from 'rxjs';
+import { getAllPost } from '../../../ngrx/post/post.actions';
+import {PostDataModel} from "../../../model/post-data.model";
 
 @Component({
   selector: 'app-creator',
@@ -43,6 +45,7 @@ export class CreatorComponent implements OnInit, OnDestroy {
   isLoading = true;
   isCreating$ = this.store.select('post', 'isCreating');
 
+
   constructor(
     private store: Store<{
       profile: ProfileState;
@@ -56,6 +59,7 @@ export class CreatorComponent implements OnInit, OnDestroy {
         }
       }),
     );
+
   }
 
   ngOnDestroy(): void {
@@ -93,7 +97,7 @@ export class CreatorComponent implements OnInit, OnDestroy {
   triggerFileInput() {
     this.fileInput.nativeElement.click();
   }
-
+  isImageUploaded= false;
   handleFileInput(event: Event) {
     const input = event.target as HTMLInputElement;
     this.myFile = [];
@@ -106,6 +110,7 @@ export class CreatorComponent implements OnInit, OnDestroy {
       console.log('input.files: ', input.files);
       reader.onload = (e) => {
         this.imageSrc = e.target?.result;
+        this.isImageUploaded= true;
       };
       reader.readAsDataURL(input.files[0]);
 
@@ -132,12 +137,26 @@ export class CreatorComponent implements OnInit, OnDestroy {
     if (!inputFilled || !imageSrcFilled) {
       alert('Please fill in all fields');
       return;
+    }if(this.myFile.length > 0) {
+      for (const file of this.myFile){
+
+        if(file.type !== ('image/png'&&'image/jpeg')){
+          alert('Please upload a png or jpeg file');
+          return;
+        }
+
+        if (!this.imageSizeLimit(file)){
+          alert('Image size must be less than 5MB');
+          return;
+      }
+    }
     }
 
-    this.createPostForm.value.title = this.textLimit(
-      this.createPostForm.value?.title as string,
-      40,
-    );
+    this.createPostForm.value.title = this.createPostForm.value?.title as string;
+    //   this.textLimit(
+    //   this.createPostForm.value?.title as string,
+    //   10,
+    // );
     console.log('Title: ', this.createPostForm.value.title);
     console.log('Description: ', this.createPostForm.value.content);
     console.log('Image: ', this.postForm.imageUrls);
@@ -154,21 +173,36 @@ export class CreatorComponent implements OnInit, OnDestroy {
 
     this.clearInputData();
   }
-  textLimit(text: string, wordLimit: number): string {
-    const words = text.split(/\s+/);
-    if (words.length > wordLimit) {
-      return words.slice(0, wordLimit).join(' ');
-    }
-    return text;
+  // textLimit(text: string, wordLimit: number): string {
+  //   text.split(/\s+/);
+  //   if (text.length > wordLimit) {
+  //     return text.splice(0, wordLimit)
+  //   }
+  //   return text;
+  // }
+  imageSizeLimit(file: File): boolean {
+    return file.size / 1024 / 1024 < 5;
   }
   clearTitle() {
     this.createPostForm.patchValue({
       title: '',
     });
   }
-  clearDescription() {
+  clearContent() {
     this.createPostForm.patchValue({
       content: '',
     });
   }
+  // private maxLines = 15;
+  // limitTextLine(event: Event): void{
+  //   const textarea = event.target as HTMLTextAreaElement;
+  //   const lines = textarea.value.split('\n').length;
+  //
+  //   if(lines > this.maxLines ){
+  //     const truncatedText = textarea.value.split('\n').slice(0, this.maxLines).join('\n');
+  //     textarea.value = truncatedText;
+  //   }
+  //
+  // }
 }
+
