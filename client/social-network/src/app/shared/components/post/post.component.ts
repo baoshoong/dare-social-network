@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MaterialModule } from '../../material.module';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { DetailPostComponent } from '../detail-post/detail-post.component';
 import { IdToAvatarPipe } from '../../pipes/id-to-avatar.pipe';
 import { IdToNamePipe } from '../../pipes/id-to-name.pipe';
 import { Store } from '@ngrx/store';
@@ -20,7 +19,6 @@ import { PostLoaderSkeletonComponent } from '../post-loader-skeleton/post-loader
   imports: [
     MaterialModule,
     NgForOf,
-    DetailPostComponent,
     NgIf,
     IdToAvatarPipe,
     AsyncPipe,
@@ -30,7 +28,7 @@ import { PostLoaderSkeletonComponent } from '../post-loader-skeleton/post-loader
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss',
 })
-export class PostComponent implements OnInit {
+export class PostComponent {
   constructor(
     private route: Router,
     private store: Store<{
@@ -39,19 +37,7 @@ export class PostComponent implements OnInit {
   ) {}
 
   profiles = <ProfileModel>{};
-  getProfile$ = this.store.select('profile', 'mine');
 
-  subscription: Subscription[] = [];
-
-  ngOnInit(): void {
-    this.subscription.push(
-      this.getProfile$.subscribe((profiles) => {
-        if (profiles) {
-          this.profiles = profiles;
-        }
-      }),
-    );
-  }
   @Input() post: PostModel = <PostModel>{};
   @Output() imageClick = new EventEmitter<void>();
 

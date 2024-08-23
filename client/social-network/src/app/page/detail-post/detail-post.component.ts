@@ -1,21 +1,19 @@
-import {
-  AfterViewInit,
-  Component,
-  Directive,
-  ElementRef,
-  OnInit,
-  Renderer2,
-  ViewChild,
-} from '@angular/core';
+import {Component, OnInit, AfterViewInit, ElementRef, Renderer2, ViewChild, Input} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostModel } from '../../model/post.model';
 import { MatButton } from '@angular/material/button';
 import { MatDialogActions, MatDialogClose } from '@angular/material/dialog';
+import { AsyncPipe } from '@angular/common';
+import { IdToAvatarPipe } from '../../shared/pipes/id-to-avatar.pipe';
+import { IdToNamePipe } from '../../shared/pipes/id-to-name.pipe';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
 
 @Component({
   selector: 'app-detail-post',
   standalone: true,
-  imports: [MatButton, MatDialogActions, MatDialogClose],
+  imports: [MatButton, MatDialogActions, MatDialogClose, AsyncPipe, IdToNamePipe, IdToAvatarPipe, FormsModule, MatFormField, MatInput, MatLabel, ReactiveFormsModule],
   templateUrl: './detail-post.component.html',
   styleUrls: ['./detail-post.component.scss'],
 })
@@ -29,21 +27,16 @@ export class DetailPostComponent implements OnInit, AfterViewInit {
     private renderer: Renderer2,
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
-      const navigation = history.state;
-      if (navigation && navigation.post) {
-        this.detailPost = navigation.post;
-      } else {
-        console.error('No navigation state found');
-      }
+      const state = history.state;
+      this.detailPost = state.post;
     });
   }
 
   ngAfterViewInit() {
     const imgElement = this.imageElement.nativeElement;
 
-    // Wait for the image to load to get the natural width and height
     imgElement.onload = () => {
       if (imgElement.naturalWidth > imgElement.naturalHeight) {
         this.renderer.addClass(imgElement, 'scale-width');
