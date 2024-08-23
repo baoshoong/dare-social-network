@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
     (state) => state.profile.isGetMineFailure,
   );
 
-  isShowSpinner = true;
+  isShowSpinner = false;
 
   constructor(
     private router: Router,
@@ -99,9 +99,9 @@ export class AppComponent implements OnInit {
         if (authCredential.uid) {
           if (isGetMineSuccess && mine?.uid) {
             console.log(mine);
-            this.router.navigate(['/home']).then(() => {
-              this.isShowSpinner = false;
-            });
+            // this.router.navigate(['/home']).then(() => {
+            //   this.isShowSpinner = false;
+            // });
           } else if (isGetMineFailure && getMineError.status) {
             console.log(getMineError);
             this.router.navigate(['/register']).then(() => {
