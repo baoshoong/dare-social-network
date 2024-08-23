@@ -9,8 +9,8 @@ import * as postActions from '../../../ngrx/post/post.actions';
 import { Subscription } from 'rxjs';
 import { PostModel, PostResponse } from '../../../model/post.model';
 import { ProfileState } from '../../../ngrx/profile/profile.state';
-import * as profileActions from '../../../ngrx/profile/profile.actions';
-import { ProfileModel } from '../../../model/profile.model';
+
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +22,7 @@ import { ProfileModel } from '../../../model/profile.model';
     NgFor,
     NgIf,
     RouterLink,
+    InfiniteScrollDirective,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -35,29 +36,54 @@ export class HomeComponent implements OnInit {
     }>,
   ) {
     this.store.dispatch(
-      postActions.getAllPost({ pageNumber: 1, limitNumber: 5 }),
+      postActions.getAllPost({
+        pageNumber: this.currentPage,
+        limitNumber: this.size,
+      }),
     );
   }
-
+  selector: string = '.scroll-container';
+  currentPage = 1;
+  size = 10;
+  itemsCount = 0;
   subscription: Subscription[] = [];
   getAllPost$ = this.store.select('post', 'posts');
+  tempArray: PostModel[] = [];
 
   ngOnInit(): void {
     this.subscription.push(
       this.getAllPost$.subscribe((posts) => {
         if (posts) {
-          this.posts = posts;
+          this.tempArray = [...this.posts];
+          this.posts = [...this.tempArray, ...posts.data];
+          this.itemsCount = posts.limitNumber;
         }
       }),
     );
   }
 
-  posts = <PostResponse>{};
+  posts: PostModel[] = [];
 
   navigateToDetail(post: PostModel) {
     this.router
       .navigate(['/detail-post', post.id], { state: { post } })
       .then((r) => console.log(r));
     console.log(post);
+  }
+
+  onScrollDown(ev: any) {
+    console.log('scrolled down!!', ev);
+    this.currentPage += 1;
+    console.log(this.currentPage);
+
+    if (this.currentPage <= this.itemsCount) {
+      console.log('get more post');
+      this.store.dispatch(
+        postActions.getAllPost({
+          pageNumber: this.currentPage,
+          limitNumber: this.size,
+        }),
+      );
+    }
   }
 }

@@ -1,7 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Body, Query } from '@nestjs/common';
 import { SearchService } from './search.service';
-import { CreateSearchDto } from './dto/create-search.dto';
-import { UpdateSearchDto } from './dto/update-search.dto';
 
 @Controller('search')
 export class SearchController {
@@ -19,11 +17,11 @@ export class SearchController {
 
   @Get('any')
   async searchTags(@Query('q') q: string) {
-    let profiles = await this.searchService.searchAny('profiles',q);
-    let posts = await this.searchService.searchAny('posts',q);
+    let profiles = await this.searchService.searchAny('dare_profiles', q);
+    let posts = await this.searchService.searchAny('dare_posts', q);
     return {
-      profiles: profiles,
-      posts: posts
+      // profiles: profiles,
+      posts: posts,
     };
   }
 }

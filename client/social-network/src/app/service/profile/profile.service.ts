@@ -14,9 +14,12 @@ export class ProfileService {
   }
 
   getById(uid: string): Observable<ProfileModel> {
-    console.log('uid', uid);
     return this.httpClient.get(
       `profile?uid=${uid}`,
     ) as Observable<ProfileModel>;
+  }
+
+  updateProfile(profile: ProfileModel) {
+    return this.httpClient.put(`profile/${profile.uid}`, profile);
   }
 }

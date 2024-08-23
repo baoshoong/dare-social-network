@@ -78,3 +78,5 @@ export const getMinePostFailure = createAction(
   '[Post] Get Mine Post Failure',
   props<{ getMinePostErrorMessage: HttpErrorResponseModel }>(),
 );
+
+export const clearMinePost = createAction('[Post] Clear Mine Post');

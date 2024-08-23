@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { FollowingComponent } from './following/following.component';
@@ -12,7 +12,9 @@ import { PostState } from '../../../ngrx/post/post.state';
 import { Store } from '@ngrx/store';
 import { ProfileState } from '../../../ngrx/profile/profile.state';
 import * as PostAction from '../../../ngrx/post/post.actions';
+import * as ProfileAction from '../../../ngrx/profile/profile.actions';
 import { ProfileModel } from '../../../model/profile.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -21,36 +23,43 @@ import { ProfileModel } from '../../../model/profile.model';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
-  profileMine$ = this.store.select('profile', 'mine');
+  profileByUid$ = this.store.select('profile', 'profile');
 
   minePosts$ = this.store.select('post', 'minePosts');
+
+  isGettingMinePost$ = this.store.select('post', 'isGettingMinePost');
 
   minePosts: PostResponse = <PostResponse>{};
   profileMine: ProfileModel = <ProfileModel>{};
 
   constructor(
     public dialog: MatDialog,
+    private activeRoute: ActivatedRoute,
     public store: Store<{
       post: PostState;
       profile: ProfileState;
     }>,
-  ) {}
+  ) {
+    const { uid } = this.activeRoute.snapshot.params;
+    this.store.dispatch(
+      PostAction.getMinePost({ uid, pageNumber: 1, limitNumber: 5 }),
+    );
+    this.store.dispatch(ProfileAction.getById({ uid }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
+    this.store.dispatch(PostAction.clearMinePost());
+  }
 
   ngOnInit(): void {
     this.subscriptions.push(
-      this.profileMine$.subscribe((profile) => {
+      this.profileByUid$.subscribe((profile) => {
         if (profile) {
           this.profileMine = profile;
-          this.store.dispatch(
-            PostAction.getMinePost({
-              uid: this.profileMine.uid,
-              pageNumber: 1,
-              limitNumber: 5,
-            }),
-          );
         }
       }),
 

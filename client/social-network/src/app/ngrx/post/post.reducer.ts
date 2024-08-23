@@ -183,4 +183,12 @@ export const postReducer = createReducer(
       getErrorMessage: getMinePostErrorMessage,
     };
   }),
+
+  on(postActions.clearMinePost, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      minePosts: <PostResponse>{},
+    };
+  }),
 );

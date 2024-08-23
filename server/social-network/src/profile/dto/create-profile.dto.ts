@@ -1,4 +1,5 @@
 import { IsString, IsEmail, IsNotEmpty } from 'class-validator';
+
 export class CreateProfileDto {
   @IsString()
   @IsNotEmpty()
@@ -16,6 +17,4 @@ export class CreateProfileDto {
 
   @IsString()
   uid: string;
-
-
 }

@@ -29,7 +29,9 @@ export class PostService {
   }
 
   getAllPost(pageNumber: number, limitNumber: number) {
-    return this.httpClient.get(`post?page=${pageNumber}&limit=${limitNumber}`);
+    return this.httpClient.get(
+      `post/all?page=${pageNumber}&limit=${limitNumber}`,
+    );
   }
 
   getPostById(id: bigint) {
