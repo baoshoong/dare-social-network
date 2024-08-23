@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { PostModel } from '../../model/post.model';
+import { PostModel, PostResponse } from '../../model/post.model';
 import { HttpErrorResponseModel } from '../../model/http-error-response.model';
 
 export const createPost = createAction(
@@ -32,7 +32,7 @@ export const updatePostFailure = createAction(
 
 export const getPostById = createAction(
   '[Post] Get Post By Id',
-  props<{ id: BigInt }>(),
+  props<{ id: bigint }>(),
 );
 
 export const getPostByIdSuccess = createAction(
@@ -47,11 +47,14 @@ export const getPostByIdFailure = createAction(
 
 //get all post
 
-export const getAllPost = createAction('[Post] Get All Post');
+export const getAllPost = createAction(
+  '[Post] Get All Post',
+  props<{ pageNumber: number; limitNumber: number }>(),
+);
 
 export const getAllPostSuccess = createAction(
   '[Post] Get All Post Success',
-  props<{ posts: PostModel[] }>(),
+  props<{ posts: PostResponse }>(),
 );
 
 export const getAllPostFailure = createAction(
@@ -63,12 +66,12 @@ export const getAllPostFailure = createAction(
 
 export const getMinePost = createAction(
   '[Post] Get Mine Post',
-  props<{ uid: string }>(),
+  props<{ uid: string; pageNumber: number; limitNumber: number }>(),
 );
 
 export const getMinePostSuccess = createAction(
   '[Post] Get Mine Post Success',
-  props<{ minePosts: PostModel[] }>(),
+  props<{ minePosts: PostResponse }>(),
 );
 
 export const getMinePostFailure = createAction(

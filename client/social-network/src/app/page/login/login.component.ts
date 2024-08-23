@@ -4,7 +4,6 @@ import { AuthState } from '../../ngrx/auth/auth.state';
 import { Store } from '@ngrx/store';
 import * as AuthActions from '../../ngrx/auth/auth.actions';
 import { AsyncPipe } from '@angular/common';
-import { Observable, Subscription } from 'rxjs';
 import { ProfileState } from '../../ngrx/profile/profile.state';
 import { Router } from '@angular/router';
 
@@ -15,7 +14,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   constructor(
     private router: Router,
     private store: Store<{
@@ -23,18 +22,7 @@ export class LoginComponent implements OnInit {
       profile: ProfileState;
     }>,
   ) {}
-  subscriptions: Subscription[] = [];
-  isLoadingSignIn = false;
-  ngOnInit() {
-    this.subscriptions.push(
-      this.store.select('auth').subscribe((auth: AuthState) => {
-        this.isLoadingSignIn = auth.loading;
-        if (auth.loginWithGoogleSuccess) {
-          this.router.navigate(['/register']).then();
-        }
-      }),
-    );
-  }
+
   loginWithGoogle() {
     this.store.dispatch(AuthActions.signInWithGoogle());
   }

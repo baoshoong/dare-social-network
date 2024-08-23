@@ -2,35 +2,40 @@
   <div id="card">
     <div class="card-item">
       <div class="card-item-content">
-        <div class="card-item-name">{{ name }}</div>
+        <div class="card-item-name">{{ profileMine.userName  }}</div>
         <div class="card-item-username"> username</div>
         <div class="card-item-number">
-          <div>
+          <div id="Followers">
             <span class="number">220K</span>
             <span class="funOfNum" (click)="openDialog3()" >Followers</span>
           </div>
-          <div>
+          <div id="Post">
             <span class="number">220K</span>
             <span class="funOfNum">Post</span>
           </div>
-          <div>
+          <div id="Following">
             <span class="number">220K</span>
             <span class="funOfNum" (click)="openDialog2()" >Following</span>
           </div>
         </div>
-        <div class="card-item-description">{{ bio }}</div>
+        <div class="card-item-description">{{ profileMine.bio }}</div>
       </div>
-        <div class="edit-button">
-          <img [src]="avatarUrl" alt="avatar">
+        <div class="card-item-image">
+          <img [src]="profileMine.avatarUrl" alt="avatar">
           <button id="edit" mat-raised-button (click)="openEditProfileDialog()">Edit Profile</button>
         </div>
     </div>
   </div>
-  <div id="Post">
-    <div class="grid-container">
-<!--      <app-post *ngFor="let post of posts; trackBy: trackByFn" [post]="post" (postSelected)="onPostSelected($event)"></app-post>-->
-    </div>
 </div>
+    <div class="grid-container">
+      @for(post of minePosts.data; track $index){
+        <div class="post-container">
+          <div class="post">
+             <app-post [post]="post"></app-post>
+           </div>
+         </div>
+      }
+    </div>
 
 
 

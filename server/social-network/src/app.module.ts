@@ -9,6 +9,9 @@ import { ProfileModule } from './profile/profile.module';
 import { PostModule } from './post/post.module';
 import { StorageModule } from './storage/storage.module';
 import { SearchModule } from './search/search.module';
+import { LikeModule } from './like/like.module';
+import { CommentModule } from './comment/comment.module';
+import { FriendshipModule } from './friendship/friendship.module';
 
 @Module({
   imports: [
@@ -38,6 +41,12 @@ import { SearchModule } from './search/search.module';
     StorageModule,
 
     SearchModule,
+
+    LikeModule,
+
+    CommentModule,
+
+    FriendshipModule,
   ],
   controllers: [AppController],
   providers: [AppService],
