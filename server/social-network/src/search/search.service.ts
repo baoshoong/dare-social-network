@@ -74,10 +74,11 @@ export class SearchService {
       index: 'dare_posts',
       id: post.id.toString(),
       document: {
+        id: post.id,
         uid: post.uid,
         content: post.content,
         createdAt: post.createdAt,
-        imageUrls: post.imageUrls
+        imageUrls: post.imageUrls,
       },
     });
   }
@@ -161,5 +162,22 @@ export class SearchService {
     } catch (e) {
       return [];
     }
+  }
+
+  async getAllIndexPosts() {
+    const response = await this.esClient.search({
+      index: 'dare_posts',
+      query: {
+        match_all: {},
+      },
+    });
+    return response.hits.hits.map((hit) => hit._source);
+  }
+
+  async deleteIndexPost(postId: number) {
+    await this.esClient.delete({
+      index: 'dare_posts',
+      id: postId.toString(),
+    });
   }
 }
