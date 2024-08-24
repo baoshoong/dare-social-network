@@ -140,7 +140,7 @@ export class CreatorComponent implements OnInit, OnDestroy {
     }if(this.myFile.length > 0) {
       for (const file of this.myFile){
 
-        if(file.type !== ('image/png'&&'image/jpeg')){
+        if(file.type !== ('image/png'||'image/jpeg')){
           alert('Please upload a png or jpeg file');
           return;
         }

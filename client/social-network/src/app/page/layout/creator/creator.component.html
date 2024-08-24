@@ -2,7 +2,9 @@
 
 
     <div id="upload-image" (click)="triggerFileInput()">
-    <img *ngif="!imageSrc" src="../../../../../../../public/images/add_photo_alternate.png" alt="add photo" >
+      @if(!isImageUploaded){
+        <img src="../../../../../../../public/images/add_photo_alternate.png" alt="add photo" >
+      }
     <img *ngIf="imageSrc" [src]="imageSrc" alt="Selected Image" id="selected-image">
       <h3 class="content" *ngIf="!isImageUploaded">Drag And Drop Your Images Here</h3>
       <h3 class="content" *ngIf="isImageUploaded"></h3>
