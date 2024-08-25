@@ -1,52 +1,11 @@
-* {
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins', serif;
-}
-
-.login-body {
-  background: #7F7F7F;
-  width: auto;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-}
-
-.login .label {
-  font-weight: 900;
-  font-size: 38px;
-  line-height: 1.286;
-  color: var(--primary);
-  //border: 2px solid gold;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-}
-
-.lbl-img {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 100%;
-
-}
-
-.login .tab-1 {
-  background: #FFFFFF;
-  position: relative;
-  display: flex;
-  padding: 6px 0;
-  width: 144.5px;
-  box-sizing: border-box;
-}
 
 .login .man-images {
   max-width: 70%;
+  height: auto;
+}
+
+.img-welcome{
+  max-width: 80%;
   height: auto;
 }
 
@@ -58,10 +17,10 @@
 }
 
 .login .sign-in-text {
-  font-size: 16px;
-  width: 65%;
+
   display: flex;
   flex-direction: column;
+  font-size: 16px;
 }
 
 .gg {
@@ -70,25 +29,10 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+  font-weight: bold;
 }
 
-.login .tab-login {
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  width: 50%;
-  border-top-left-radius: 40px;
-  border-bottom-left-radius: 40px;
-}
 
-.login .title {
-
-  font-weight: 700;
-  font-size: 38px;
-  color: var(--primary);
-
-
-}
 
 .login {
   border-radius: 40px;
@@ -100,118 +44,6 @@
   box-sizing: border-box;
 
 }
-
-.login .tab-welcome {
-  box-sizing: border-box;
-  width: 50%;
-  //border: 3px solid green;
-  border-top-right-radius: 40px;
-  border-bottom-right-radius: 40px;
-}
-
-.img-welcome {
-  max-width: 80%;
-  height: auto;
-}
-
-#btn-clickHere {
-  color: blue;
-  border: none;
-  background: #FFFFFF;
-  font-size: 16px;
-}
-
-.group-welcome {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-
-}
-
-///* Media Query cho iPad Pro ở chế độ dọc (Portrait) */
-//@media only screen
-//and (min-device-width: 1024px)
-//and (max-device-width: 1366px)
-//and (-webkit-min-device-pixel-ratio: 2)
-//and (orientation: portrait) {
-//  .login .sign-in-text{
-//    margin-top: 20%;
-//  }
-//  .login .title {
-//    margin-top: 6.5% !important;
-//  }
-//
-//}
-//
-///* Media Query cho iPad Pro ở chế độ ngang (Landscape) */
-//@media only screen
-//and (min-device-width: 1024px)
-//and (max-device-width: 1366px)
-//and (-webkit-min-device-pixel-ratio: 2)
-//and (orientation: landscape) {
-//
-//  .login {
-//    height: 50%;
-//  }
-//}
-//
-///* Media Query cho iPad Air ở chế độ ngang (Landscape) */
-//@media only screen
-//and (min-device-width: 820px)
-//and (max-device-width: 1180px)
-//and (-webkit-min-device-pixel-ratio: 2)
-//and (orientation: landscape) {
-//
-//  .login .sign-in-text {
-//    margin-top: -10%;
-//  }
-//}
-//
-///* Media Query cho iPad Mini ở chế độ dọc (Portrait) */
-//@media only screen
-//and (min-device-width: 768px)
-//and (max-device-width: 1024px)
-//and (-webkit-min-device-pixel-ratio: 2)
-//and (orientation: portrait) {
-//
-//  .login .sign-in-text {
-//    width: 80%;
-//    font-size: 14px;
-//    margin-left: 100%;
-//  }
-//  .login .title {
-//    margin-top: 8%;
-//  }
-//  .login {
-//    height: 40%;
-//  }
-//}
-//
-///* Media Query cho iPad Mini ở chế độ ngang (Landscape) */
-//@media only screen
-//and (min-device-width: 768px)
-//and (max-device-width: 1024px)
-//and (-webkit-min-device-pixel-ratio: 2)
-//and (orientation: landscape) {
-//
-//  .lbl-img {
-//    margin-top: -0.1%;
-//    //border: 3px solid green;
-//  }
-//  .group-welcome {
-//    margin-top: -0.1%;
-//    //border: 2px solid blue;
-//  }
-//  .login {
-//    height: 60%;
-//  }
-//  .login .title {
-//    margin-top: 6.5%;
-//  }
-//}
 
 
 .container{
@@ -225,24 +57,23 @@
  }
 
 .login{
-  width: 45%;
-  height: 60%;
+  width: 60%;
+  height: 80%;
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
   align-items: center;
-  background-color: var(--surface);
+  background-color: white;
 
 }
 
 .login-header{
-  width: 90%;
+  width: 100%;
   height: 10%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--surface);
-  color: var(--onSurface);
+  color: var(--primary);
   font-size: 2rem;
 }
 
@@ -252,6 +83,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: bold;
 }
 
 .login-header-title-right{
@@ -260,10 +92,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  font-weight: bold;
 }
 
 .login-middle{
-  width: 90%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -275,6 +108,9 @@
   height: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
 }
 
 .login-middle-image-right{
@@ -282,16 +118,57 @@
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: center;
 }
 
 .login-end{
-  width: 90%;
+  width: 100%;
   height: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--surface);
   color: var(--onSurface);
   font-size: 1.5rem;
+}
+
+//.login-end-left{
+//  width: 50%;
+//  height: 100%;
+//  display: flex;
+//  justify-content: center;
+//  align-items: center;
+//}
+
+
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px){
+  .login {
+    width: 80%;
+    height: 60%;
+  }
+
+  .login .sign-in-text {
+
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+  }
+}
+
+
+@media only screen
+and (min-device-width : 1024px)
+and (max-device-width : 1366px){
+  .login {
+    width: 80%;
+    height: 55%;
+  }
+
+  .login .sign-in-text {
+
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+  }
 }

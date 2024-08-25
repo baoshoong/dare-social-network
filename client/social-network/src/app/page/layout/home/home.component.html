@@ -6,10 +6,12 @@
        [fromRoot]="true"
        (scrolled)="onScrollDown($event)"
   >
-    <div class="post-container" *ngFor="let post of posts">
-      <div class="post">
-        <app-post [post]="post" (imageClick)="navigateToDetail(post)"></app-post>
+    
+    <div class="masonry-container">
+      <div class="masonry-item" *ngFor="let post of posts">
+        <app-post [post]="post"></app-post>
       </div>
     </div>
   </div>
 </div>
+

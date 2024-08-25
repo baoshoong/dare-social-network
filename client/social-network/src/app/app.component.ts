@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
     (state) => state.profile.isGetMineFailure,
   );
 
-  isShowSpinner = false;
+  isShowSpinner = true;
 
   constructor(
     private router: Router,

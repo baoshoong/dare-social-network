@@ -50,4 +50,77 @@ export class PostComponent {
     this.store.dispatch(PostActions.clearMinePost());
     this.store.dispatch(ProfileActions.getById({ uid: this.post.uid }));
   }
+
+  postList = [
+    {
+      id: '1',
+      uid: '1',
+      content: 'content',
+      createAt: Date.now(),
+      images: 'https://via.placeholder.com/450',
+    },
+    {
+      id: '2',
+      uid: '2',
+      content: 'content',
+      createAt: Date.now(),
+      images: ['https://via.placeholder.com/450'],
+    },
+    {
+      id: '3',
+      uid: '3',
+      content: 'content',
+      createAt: Date.now(),
+      images: ['https://via.placeholder.com/450'],
+    },
+    {
+      id: '4',
+      uid: '4',
+      content: 'content',
+      createAt: Date.now(),
+      images: ['https://via.placeholder.com/450'],
+    },
+    {
+      id: '5',
+      uid: '5',
+      content: 'content',
+      createAt: Date.now(),
+      images: ['https://via.placeholder.com/450'],
+    },
+    {
+      id: 6,
+      uid: '6',
+      content: 'content',
+      createAt: Date.now(),
+      images: ['https://via.placeholder.com/450'],
+    },
+    {
+      id: '7',
+      uid: '7',
+      content: 'content',
+      createAt: Date.now(),
+      images: ['https://via.placeholder.com/450'],
+    },
+    {
+      id: '8',
+      uid: '8',
+      content: 'content',
+      createAt: Date.now(),
+      images: ['https://via.placeholder.com/450'],
+    },
+    {
+      id: '9',
+      uid: '9',
+      content: 'content',
+      createAt: Date.now(),
+      images: ['https://via.placeholder.com/450'],
+    },
+    {
+      id: '10',
+      uid: '10',
+      content: 'content',
+      createAt: Date.now(),
+      images: ['https://via.placeholder.com/450'],
+    },
+  ];
 }
