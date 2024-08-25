@@ -43,6 +43,8 @@ export class PostComponent {
 
   onImageClick() {
     this.imageClick.emit();
+    this.store.dispatch(PostActions.clearMinePost());
+    this.store.dispatch(PostActions.getPostById({ id: this.post.id }));
   }
 
   navigateToProfile() {

@@ -9,11 +9,12 @@ import { IdToNamePipe } from '../../shared/pipes/id-to-name.pipe';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
+import {IdToImgPipe} from "../../shared/pipes/id-to-img.pipe";
 
 @Component({
   selector: 'app-detail-post',
   standalone: true,
-  imports: [MatButton, MatDialogActions, MatDialogClose, AsyncPipe, IdToNamePipe, IdToAvatarPipe, FormsModule, MatFormField, MatInput, MatLabel, ReactiveFormsModule],
+  imports: [MatButton, MatDialogActions, MatDialogClose, AsyncPipe, IdToNamePipe, IdToAvatarPipe, FormsModule, MatFormField, MatInput, MatLabel, ReactiveFormsModule, IdToImgPipe],
   templateUrl: './detail-post.component.html',
   styleUrls: ['./detail-post.component.scss'],
 })
@@ -30,7 +31,7 @@ export class DetailPostComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const state = history.state;
-      this.detailPost = state.post;
+      this.detailPost = state.post
     });
   }
 
