@@ -1,17 +1,103 @@
-.home-container{
-  height: 100%;
+//.home-container {
+//  height: 100%;
+//}
+//
+//.grid-container {
+//  margin-top: 20px;
+//  display: grid;
+//  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+//  justify-content: center;
+//  align-items: center;
+//}
+//
+//.post-container {
+//  width: 100%;
+//  box-sizing: border-box;
+//  display: flex;
+//  justify-content: center;
+//  align-items: center;
+//}
+//
+//.post {
+//  max-width: 400px;
+//  width: 100%;
+//}
+//
+//.post-container {
+//  display: grid;
+//  grid-template-columns: repeat(auto-fill, 300px);
+//  grid-gap: 20px;
+//  //grid-auto-rows: 20px;
+//  //grid-row-gap: 10px;
+//  //grid-column-gap: 16px;
+//}
+//
+//.post {
+//  grid-row-end: span 10;
+//  margin-bottom: 10px;
+//}
+//
+////@media only screen and (max-width: 2048px) {
+////  .grid-container {
+////    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+////    grid-gap: 32px 5px;
+////  }
+////}
+////
+////@media only screen and (max-width: 1920px) {
+////  .grid-container {
+////    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+////    grid-gap: 32px 5px;
+////  }
+////}
+////
+////@media only screen and (max-width: 1536px) {
+////  .grid-container {
+////    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+////    grid-gap: 32px 20px;
+////  }
+////}
+////
+////@media only screen and (max-width: 1024px) {
+////  .grid-container {
+////    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+////    grid-gap: 32px 5px;
+////  }
+////}
+////
+////@media only screen and (max-width: 900px) {
+////  .grid-container {
+////    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+////    grid-gap: 32px 5px;
+////  }
+////}
+////
+////@media only screen and (max-width: 768px) {
+////  .grid-container {
+////    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+////    grid-gap: 32px 5px;
+////  }
+////}
+
+
+.masonry-container {
+  column-count: 5;
+  gap: 16px; /* Adjust the gap between items */
 }
 
-.grid-container {
-  margin-top: 20px;
-  display: grid;
-  justify-content: space-evenly;
-  grid-gap: 30px 25px;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 4fr));
+.masonry-item {
+  overflow: hidden;
+  border-radius: 8px;
+
 }
 
-@media only screen and (max-width: 900px) {
-  .grid-container {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 4fr));
-  }
+.masonry-item {
+  -webkit-column-break-inside: avoid;
+  break-inside: avoid;
+  page-break-inside: avoid;
 }
+
+
+
+
+

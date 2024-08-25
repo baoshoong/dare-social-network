@@ -65,7 +65,7 @@ export class AppComponent implements OnInit {
         this.store.dispatch(ProfileActions.getMine({ uid: user.uid }));
       } else {
         this.router.navigate(['/login']).then(() => {
-          this.isShowSpinner = false;
+          this.isShowSpinner = true;
         });
       }
     });

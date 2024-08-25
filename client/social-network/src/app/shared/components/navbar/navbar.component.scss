@@ -8,6 +8,16 @@
   background-color: var(--onPrimary);
 }
 
+.navbar{
+  height: 90%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background-color: var(--onPrimary);
+}
+
 .navbar-left{
   width: 20%;
   height: 100%;
@@ -22,8 +32,6 @@
     .logo-navbar-icon{
       width: 3.5rem;
       height: 3.5rem;
-      border-radius: 50%;
-      background-color: var(--secondaryContainer);
     }
   }
 }
