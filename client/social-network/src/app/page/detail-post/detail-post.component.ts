@@ -28,12 +28,14 @@ import * as CommentAction from '../../ngrx/comment/comment.actions';
 import { CommentState } from '../../ngrx/comment/comment.state';
 import * as PostAction from '../../ngrx/post/post.actions';
 import { PostState } from '../../ngrx/post/post.state';
+import { LikeState} from "../../ngrx/like/like.state";
 import { ProfileState } from '../../ngrx/profile/profile.state';
 import { IdToAvatarPipe } from '../../shared/pipes/id-to-avatar.pipe';
 import { IdToNamePipe } from '../../shared/pipes/id-to-name.pipe';
 import { ShareModule } from '../../shared/share.module';
 import * as PostActions from '../../ngrx/post/post.actions';
 import * as ProfileActions from '../../ngrx/profile/profile.actions';
+import * as LikeActions from '../../ngrx/like/like.actions';
 
 @Component({
   selector: 'app-detail-post',
@@ -68,6 +70,8 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
 
   postDetail$ = this.store.select('post', 'postDetail');
   mine$ = this.store.select('profile', 'mine');
+  comments$ = this.store.select('comment', 'comments');
+
 
   profileMine: ProfileModel = <ProfileModel>{};
   postDetails: PostModel = <PostModel>{};
@@ -120,6 +124,7 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
           this.profileMine = profile;
         }
       })
+
     );
   }
 
@@ -177,4 +182,19 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
       );
     }
   }
+
+  createLike() {
+    if(!this.isLiked){
+      this.store.dispatch(LikeActions.createLike({
+        like: {
+          postId: this.postDetails.id,
+          uid: this.profileMine.uid,
+        }
+      }
+      ));
+      this.isLiked = true;
+  }else{
+      this.isLiked = false;
+      console.log("like removed")
+    }}
 }
