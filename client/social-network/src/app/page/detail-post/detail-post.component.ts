@@ -46,7 +46,6 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
   postDetails: PostModel = <PostModel>{};
   postId = '';
 
-  @Input() post: PostModel = <PostModel>{};
   @ViewChild('imageElement', { static: false }) imageElement!: ElementRef;
   constructor(
     private el: ElementRef,
@@ -78,7 +77,6 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
 
       this.postDetail$.subscribe((post) => {
         if (post) {
-
           this.postDetails = post;
           //parse postId to string
           this.postId = String(this.postDetails.id);
@@ -110,9 +108,13 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   navigateToProfile() {
-    this.router.navigateByUrl(`/profile/${this.post.uid}`).then();
+    this.router.navigateByUrl(`/profile/${this.postDetails.uid}`).then();
     this.store.dispatch(PostActions.clearMinePost());
-    this.store.dispatch(ProfileActions.getById({ uid: this.post.uid }));
+  }
+
+  navigateToMineProfile() {
+    this.router.navigateByUrl(`/profile/${this.profileMine.uid}`).then();
+    this.store.dispatch(PostActions.clearMinePost());
   }
 
   ngAfterViewInit() {
