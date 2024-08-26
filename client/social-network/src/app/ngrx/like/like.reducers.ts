@@ -4,9 +4,13 @@ import {HttpErrorResponseModel} from "../../model/http-error-response.model";
 import {LikeModel} from "../../model/like.model";
 
 export const initialState = {
-  likes: <LikeModel>{},
+  likes: [],
   createLikeSuccess: false,
   createLikeErrorMessage: <HttpErrorResponseModel>{},
+
+  removeLikes: [],
+  removeLikeSuccess: false,
+  removeLikeErrorMessage: <HttpErrorResponseModel>{},
 };
 export const LikeReducer = createReducer(
   initialState,
@@ -31,4 +35,5 @@ export const LikeReducer = createReducer(
       createLikeFailure: createLikeErrorMessage,
     };
   }),
+
 )
