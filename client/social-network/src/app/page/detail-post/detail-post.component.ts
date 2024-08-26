@@ -1,24 +1,25 @@
-import {Component, OnInit, AfterViewInit, ElementRef, Renderer2, ViewChild, Input, OnDestroy} from '@angular/core';
-import {PostModel} from '../../model/post.model';
-import { MatButton } from '@angular/material/button';
-import { MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import { AsyncPipe } from '@angular/common';
+import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import {MatButton, MatIconButton} from '@angular/material/button';
+import { MatDialogActions, MatDialogClose } from '@angular/material/dialog';
+import { MatFormField, MatLabel } from "@angular/material/form-field";
+import { MatInput } from "@angular/material/input";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Store } from "@ngrx/store";
+import { Subscription } from "rxjs";
+import { PostModel } from '../../model/post.model';
+import { ProfileModel } from "../../model/profile.model";
+import * as CommentAction from "../../ngrx/comment/comment.actions";
+import { CommentState } from "../../ngrx/comment/comment.state";
+import * as PostAction from "../../ngrx/post/post.actions";
+import { PostState } from "../../ngrx/post/post.state";
+import { ProfileState } from "../../ngrx/profile/profile.state";
 import { IdToAvatarPipe } from '../../shared/pipes/id-to-avatar.pipe';
 import { IdToNamePipe } from '../../shared/pipes/id-to-name.pipe';
-import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatFormField, MatLabel} from "@angular/material/form-field";
-import {MatInput} from "@angular/material/input";
-import * as PostAction from "../../ngrx/post/post.actions";
-import {Subscription} from "rxjs";
-import {Store} from "@ngrx/store";
-import {PostState} from "../../ngrx/post/post.state";
-import {ProfileState} from "../../ngrx/profile/profile.state";
-import {ProfileModel} from "../../model/profile.model";
-import {ShareModule} from "../../shared/share.module";
-import * as CommentAction from "../../ngrx/comment/comment.actions";
-import {CommentState} from "../../ngrx/comment/comment.state";
-import {CommentModel} from "../../model/comment.model";
-import {ActivatedRoute} from "@angular/router";
+import { ShareModule } from "../../shared/share.module";
+import * as PostActions from "../../ngrx/post/post.actions";
+import * as ProfileActions from "../../ngrx/profile/profile.actions";
 
 @Component({
   selector: 'app-detail-post',
@@ -30,7 +31,7 @@ import {ActivatedRoute} from "@angular/router";
     IdToNamePipe,
     IdToAvatarPipe,
     FormsModule, MatFormField, MatInput, MatLabel, ReactiveFormsModule, MatButton,
-    ShareModule,
+    ShareModule, MatIconButton,
   ],
   templateUrl: './detail-post.component.html',
   styleUrls: ['./detail-post.component.scss'],
@@ -41,14 +42,16 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
   postDetail$ = this.store.select('post', 'postDetail');
   mine$ = this.store.select('profile', 'mine');
 
-  profileUser: ProfileModel = <ProfileModel>{};
   profileMine: ProfileModel = <ProfileModel>{};
   postDetails: PostModel = <PostModel>{};
   postId = '';
 
+  @Input() post: PostModel = <PostModel>{};
   @ViewChild('imageElement', { static: false }) imageElement!: ElementRef;
   constructor(
+    private el: ElementRef,
     private renderer: Renderer2,
+    private router: Router,
     private store: Store<{
       post: PostState;
       profile: ProfileState;
@@ -57,11 +60,8 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
     private activeRoute: ActivatedRoute,
 
   ) {
-
       const {url} = this.activeRoute.snapshot.params;
     console.log('postId:', url);
-
-
   }
 
   ngOnDestroy(): void {
@@ -73,11 +73,7 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
     content: new FormControl(''),
   });
 
-
-
-
   ngOnInit(): void {
-
     this.subscriptions.push(
 
       this.postDetail$.subscribe((post) => {
@@ -100,6 +96,25 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
+  onExit() {
+    console.log('exit');
+    this.router.navigate(['/home']).then(() => {
+      this.store.dispatch(PostAction.clearMinePost());
+    });
+  }
+
+  isLiked = false;
+
+  toggleLike() {
+    this.isLiked = !this.isLiked;
+  }
+
+  navigateToProfile() {
+    this.router.navigateByUrl(`/profile/${this.post.uid}`).then();
+    this.store.dispatch(PostActions.clearMinePost());
+    this.store.dispatch(ProfileActions.getById({ uid: this.post.uid }));
+  }
+
   ngAfterViewInit() {
     const imgElement = this.imageElement.nativeElement;
 
@@ -110,6 +125,13 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
         this.renderer.addClass(imgElement, 'scale-height');
       }
     };
+
+    const commentListElement = this.el.nativeElement.querySelector('.comment-list');
+    const hasScrollbar = commentListElement.scrollHeight > commentListElement.clientHeight;
+
+    if (!hasScrollbar) {
+      this.renderer.setStyle(commentListElement, 'padding-right', '23px');
+    }
   }
 
   createComment() {
@@ -124,9 +146,5 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
         uid: this.profileMine.uid,
       }));
     }
-
-
-
-
   }
 }
