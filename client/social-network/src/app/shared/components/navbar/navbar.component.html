@@ -2,12 +2,14 @@
   <div class="navbar">
     <div class="navbar-left">
       <div class="logo-navbar">
-        <img src="../public/images/logo_backiet.png" class="logo-navbar-icon"  alt=""/>
+        <img (click)="handleLogoClick()" src="../public/images/logo_backiet.png" class="logo-navbar-icon" alt=""/>
+<!--        <button class="logo-button" (click)="handleLogoClick()">-->
+<!--          <span class="material-symbols-outlined">menu</span>-->
+<!--        </button>-->
       </div>
     </div>
 
-    <div class="navbar-center">
-
+    <div class="navbar-center" [class.hidden]="isNavbarCenterHidden">
       <div id="sidebar-container">
         <div class="sidenav-nav">
           @for (route of dataRoutes; track i; let i = $index) {
@@ -17,45 +19,35 @@
               (click)="navigate(i)"
             >
               <div class="sidenav-nav-link">
-              <span  class="material-symbols-outlined sidenav-link-icon" style="margin: 0">
-                {{ route.icon  }}
-              </span>
+                <span class="material-symbols-outlined sidenav-link-icon" style="margin: 0">
+                  {{ route.icon }}
+                </span>
                 <span style="margin: 0">
-                {{ route.name  }}
-              </span>
+                  {{ route.name }}
+                </span>
               </div>
             </div>
           }
-
-
         </div>
       </div>
-
-
     </div>
+
     <div class="navbar-right">
-
-      <div class="avatar-navbar" >
-
-        <button mat-icon-button [matMenuTriggerFor]="menu"  >
+      <div class="avatar-navbar">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
           @if(!(profileMine$ | async)?.avatarUrl){
-            <img src="../public/images/avatar.png" class="avatar-navbar-icon" loading="lazy"  alt=""/>
+            <img src="../public/images/avatar.png" class="avatar-navbar-icon" loading="lazy" alt=""/>
           } @else {
-            <img src="{{(profileMine$ | async)?.avatarUrl}}" class="avatar-navbar-icon" >
+            <img src="{{(profileMine$ | async)?.avatarUrl}}" class="avatar-navbar-icon">
           }
-
         </button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="logout()">
-            <mat-icon class="material-symbols-outlined" >logout</mat-icon>
+            <mat-icon class="material-symbols-outlined">logout</mat-icon>
             <span>logout</span>
           </button>
         </mat-menu>
-
       </div>
-
     </div>
   </div>
-
-
 </div>

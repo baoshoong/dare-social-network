@@ -5,9 +5,10 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  signal,
 } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { FormControl, FormGroup } from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { MaterialModule } from '../../../../shared/material.module';
 import { ShareModule } from '../../../../shared/share.module';
 import { Store } from '@ngrx/store';
@@ -19,6 +20,7 @@ import { ProfileModel } from '../../../../model/profile.model';
 import { ProfileState } from '../../../../ngrx/profile/profile.state';
 import * as ProfileActions from '../../../../ngrx/profile/profile.actions';
 
+
 @Component({
   selector: 'app-edit-profile',
   standalone: true,
@@ -26,12 +28,20 @@ import * as ProfileActions from '../../../../ngrx/profile/profile.actions';
   templateUrl: 'edit-profile.component.html',
   styleUrls: ['edit-profile.component.scss'],
 })
+
+
 export class EditProfileComponent implements OnInit, OnDestroy {
   @Output() avatarChanged = new EventEmitter<string>();
   urlsa: string;
   myAvatarUrl: string[] = [];
   myFile: File[] = [];
   uid = '';
+
+  protected readonly value = signal('');
+
+  protected onInput(event: Event) {
+    this.value.set((event.target as HTMLInputElement).value);
+  }
 
   protected document = document;
   profileForm: ProfileModel = {

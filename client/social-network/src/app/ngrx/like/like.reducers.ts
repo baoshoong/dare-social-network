@@ -5,12 +5,14 @@ import {LikeModel} from "../../model/like.model";
 
 export const initialState = {
   likes: [],
+
+  isCreateLike: false,
   createLikeSuccess: false,
   createLikeErrorMessage: <HttpErrorResponseModel>{},
 
-  removeLikes: [],
-  removeLikeSuccess: false,
-  removeLikeErrorMessage: <HttpErrorResponseModel>{},
+  isGetLikes: false,
+  isGetLikesSuccess: false,
+  getLikesErrorMessage: <HttpErrorResponseModel>{},
 };
 export const LikeReducer = createReducer(
   initialState,
@@ -36,4 +38,21 @@ export const LikeReducer = createReducer(
     };
   }),
 
+  on(LikeActions.getLikes, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      getLikesSuccess: false,
+    };
+  }),
+
+
+
+  on(LikeActions.getLikesFailure, (state, { getLikesErrorMessage }) => {
+    console.log(getLikesErrorMessage);
+    return {
+      ...state,
+      getLikesErrorMessage: getLikesErrorMessage,
+    };
+  }),
 )

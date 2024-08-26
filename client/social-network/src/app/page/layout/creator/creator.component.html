@@ -15,17 +15,14 @@
     <div class="input-form">
       <mat-form-field appearance="outline" class="example-form-field">
       <mat-label>Title</mat-label>
-      <input matInput formControlName="title" maxlength="50">
-
-
-
-
+      <input matInput formControlName="title" maxlength="50" >
     </mat-form-field>
 
       <mat-form-field appearance="outline" class="content-field">
         <mat-label>Content</mat-label>
         <textarea matInput formControlName="content" cdkTextareaAutosize
-                 [cdkAutosizeMaxRows]="15" maxlength="350"></textarea>
+                 [cdkAutosizeMaxRows]="15" maxlength="500" (input)="onInput($event)"></textarea>
+        <mat-hint align="end">{{value().length}}/500</mat-hint>
 
 
 
