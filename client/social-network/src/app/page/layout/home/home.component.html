@@ -9,7 +9,7 @@
 
     <div class="masonry-container">
       <div class="masonry-item" *ngFor="let post of posts">
-        <app-post [post]="post" (imageClick)="navigateToDetail(post)"></app-post>
+        <app-post [post]="post"></app-post>
       </div>
     </div>
   </div>

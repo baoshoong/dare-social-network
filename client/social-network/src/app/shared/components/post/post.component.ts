@@ -42,8 +42,7 @@ export class PostComponent {
   @Output() imageClick = new EventEmitter<void>();
 
   onImageClick() {
-    this.imageClick.emit();
-    this.store.dispatch(PostActions.clearMinePost());
+    this.route.navigateByUrl(`/detail-post/${this.post.uid}`).then();
     this.store.dispatch(PostActions.getPostById({ id: this.post.id }));
   }
 
