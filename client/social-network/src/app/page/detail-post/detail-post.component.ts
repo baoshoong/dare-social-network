@@ -1,6 +1,6 @@
 import {Component, OnInit, AfterViewInit, ElementRef, Renderer2, ViewChild, Input, OnDestroy} from '@angular/core';
 import {PostModel} from '../../model/post.model';
-import { MatButton } from '@angular/material/button';
+import {MatButton, MatIconButton} from '@angular/material/button';
 import { MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import { AsyncPipe } from '@angular/common';
 import { IdToAvatarPipe } from '../../shared/pipes/id-to-avatar.pipe';
@@ -14,6 +14,7 @@ import {Store} from "@ngrx/store";
 import {PostState} from "../../ngrx/post/post.state";
 import {ProfileState} from "../../ngrx/profile/profile.state";
 import {ProfileModel} from "../../model/profile.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-detail-post',
@@ -24,7 +25,7 @@ import {ProfileModel} from "../../model/profile.model";
     AsyncPipe,
     IdToNamePipe,
     IdToAvatarPipe,
-    FormsModule, MatFormField, MatInput, MatLabel, ReactiveFormsModule, MatButton],
+    FormsModule, MatFormField, MatInput, MatLabel, ReactiveFormsModule, MatButton, MatIconButton],
   templateUrl: './detail-post.component.html',
   styleUrls: ['./detail-post.component.scss'],
 })
@@ -34,14 +35,15 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
   postDetail$ = this.store.select('post', 'postDetail');
   mine$ = this.store.select('profile', 'mine');
 
-  profileUser: ProfileModel = <ProfileModel>{};
   profileMine: ProfileModel = <ProfileModel>{};
   postDetails: PostModel = <PostModel>{};
 
   @ViewChild('imageElement', { static: false }) imageElement!: ElementRef;
 
   constructor(
+    private el: ElementRef,
     private renderer: Renderer2,
+    private router: Router,
     private store: Store<{
       post: PostState;
       profile: ProfileState;
@@ -71,6 +73,10 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
+  onExit() {
+    this.router.navigate(['/home']).then(r => r);
+  }
+
   ngAfterViewInit() {
     const imgElement = this.imageElement.nativeElement;
 
@@ -81,5 +87,12 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
         this.renderer.addClass(imgElement, 'scale-height');
       }
     };
+
+    const commentListElement = this.el.nativeElement.querySelector('.comment-list');
+    const hasScrollbar = commentListElement.scrollHeight > commentListElement.clientHeight;
+
+    if (!hasScrollbar) {
+      this.renderer.setStyle(commentListElement, 'padding-right', '23px');
+    }
   }
 }
