@@ -34,7 +34,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       post: PostState;
       profile: ProfileState;
     }>,
-  ) {
+  )
+  {
     this.store.dispatch(
       postActions.getAllPost({
         pageNumber: this.currentPage,
@@ -50,7 +51,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   selector: string = '.scroll-container';
   currentPage = 1;
-  size = 10;
+  size = 25;
   itemsCount = 0;
   subscription: Subscription[] = [];
   getAllPost$ = this.store.select('post', 'posts');

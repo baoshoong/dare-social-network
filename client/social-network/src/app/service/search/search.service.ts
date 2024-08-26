@@ -10,4 +10,5 @@ export class SearchService {
   search(q: string) {
     return this.httpClient.get(`search/any?q=${q}`);
   }
+
 }

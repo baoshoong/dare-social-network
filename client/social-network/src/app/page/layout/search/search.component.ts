@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { SEARCH_ROUTES } from './search.routes';
 import { PostComponent } from '../../../shared/components/post/post.component';
 import { SearchService } from '../../../service/search/search.service';
-// @ts-ignore
-import * as PostActions from '../../../ngrx/post/post.action';
-import { AsyncPipe, NgForOf } from '@angular/common';
+import {AsyncPipe, NgFor, NgForOf, NgIf} from '@angular/common';
 import { ShareModule } from '../../../shared/share.module';
 import { MaterialModule } from '../../../shared/material.module';
 import { FormControl } from '@angular/forms';
@@ -13,6 +11,11 @@ import { SearchState } from '../../../ngrx/search/search.state';
 import { debounceTime, Subscription } from 'rxjs';
 import * as SearchActions from '../../../ngrx/search/search.actions';
 import {PostModel} from "../../../model/post.model";
+import * as postActions from "../../../ngrx/post/post.actions";
+import {PostState} from "../../../ngrx/post/post.state";
+import {ProfileState} from "../../../ngrx/profile/profile.state";
+import {InfiniteScrollDirective} from "ngx-infinite-scroll";
+import {Router, RouterLink} from "@angular/router";
 //import {importType} from "@angular/compiler";
 
 @Component({
@@ -24,20 +27,24 @@ import {PostModel} from "../../../model/post.model";
     PostComponent,
     AsyncPipe,
     NgForOf,
+    NgFor,
+    NgIf,
+    RouterLink,
     ShareModule,
+    InfiniteScrollDirective,
   ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss',
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
   searchQuery: string = '';
   items: PostModel[] = [];
-  filteredItems: PostModel[] = [];
+  posts: PostModel[] = [];
   searchControl = new FormControl();
 
   searchResults: any;
 
-  subscription: Subscription[] = [];
+  //subscription: Subscription[] = [];
 
   searchResults$ = this.store.select('search', 'searchResult');
 
@@ -46,10 +53,28 @@ export class SearchComponent implements OnInit {
 
 
   constructor(
+    private router: Router,
     private store: Store<{
       search: SearchState;
+      post: PostState;
+      profile: ProfileState;
     }>,private searchService: SearchService,
-  ) {}
+  ) {
+
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.forEach((sub) => sub.unsubscribe());
+    this.store.dispatch(postActions.clearGetPost());
+  }
+
+  selector: string = '.scroll-container';
+  // currentPage = 1;
+  // size = 30;
+  // itemsCount = 0;
+  subscription: Subscription[] = [];
+  getAllPost$ = this.store.select('post', 'posts');
+  tempArray: PostModel[] = [];
 
   ngOnInit(): void {
     this.subscription.push(
@@ -59,31 +84,43 @@ export class SearchComponent implements OnInit {
 
       }),
 
+
       this.searchControl.valueChanges
         .pipe(debounceTime(1000))
         .subscribe((query) => {
           this.store.dispatch(SearchActions.search({ query }));
           this.search();
         }),
+
     );
   }
+
   search(){
-    if(this.searchQuery.trim()===''){
-      this.filteredItems = this.items;
-    }else{
+    if(this.searchQuery.trim()==='value'){
+      this.posts = this.items;
+    }
+    else{
       this.searchService.search(this.searchQuery).subscribe(results => {
-        this.filteredItems= results.posts;
+        this.posts= results.posts;
       });
     }
   }
-  // selectedPost?: PostModel;
+
+
+  // onScrollDown(ev: any) {
+  //   console.log('scrolled down!!', ev);
+  //   this.currentPage += 1;
+  //   console.log(this.currentPage);
   //
-  // onPostSelected(post?: PostModel) {
-  //   this.selectedPost = post;
-  // }
-  //
-  // trackByFn(index: number, item: PostModel): number {
-  //   return item.id; // Assuming each post has a unique 'id' property
+  //   if (this.currentPage <= this.itemsCount) {
+  //     console.log('get more post');
+  //     this.store.dispatch(
+  //       postActions.getAllPost({
+  //         pageNumber: this.currentPage,
+  //         limitNumber: this.size,
+  //       }),
+  //     );
+  //   }
   // }
   protected readonly SEARCH_ROUTES = SEARCH_ROUTES;
 }
