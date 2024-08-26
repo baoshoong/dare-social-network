@@ -24,7 +24,7 @@ import {ProfileModel} from "../../model/profile.model";
     AsyncPipe,
     IdToNamePipe,
     IdToAvatarPipe,
-    FormsModule, MatFormField, MatInput, MatLabel, ReactiveFormsModule],
+    FormsModule, MatFormField, MatInput, MatLabel, ReactiveFormsModule, MatButton],
   templateUrl: './detail-post.component.html',
   styleUrls: ['./detail-post.component.scss'],
 })
