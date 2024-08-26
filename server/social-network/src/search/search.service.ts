@@ -63,6 +63,7 @@ export class SearchService {
         document: {
           id: post.id,
           uid: post.uid,
+          title: post.title,
           content: post.content,
           createdAt: post.createdAt,
           hashtag: tag,
@@ -77,6 +78,7 @@ export class SearchService {
         id: post.id,
         uid: post.uid,
         content: post.content,
+        title: post.title,
         createdAt: post.createdAt,
         imageUrls: post.imageUrls,
       },

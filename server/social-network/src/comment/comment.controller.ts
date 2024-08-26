@@ -19,11 +19,8 @@ export class CommentController {
 
   @Post()
   async create(@Body() createCommentDto: CreateCommentDto) {
-    return this.commentService.create(
-      createCommentDto,
-      createCommentDto.uid,
-      createCommentDto.postId,
-    );
+    console.log(createCommentDto);
+    return this.commentService.create(createCommentDto);
   }
 
   //@get comment by postId
