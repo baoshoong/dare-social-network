@@ -38,4 +38,8 @@ export class PostService {
   getPostById(id: bigint) {
     return this.httpClient.get(`post/${id}`);
   }
+
+  deletePost(id: bigint) {
+    return this.httpClient.delete(`post/${id}`);
+  }
 }

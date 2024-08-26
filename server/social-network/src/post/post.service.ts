@@ -129,8 +129,8 @@ export class PostService {
     }
 
     //delete post from the index
-    await this.searchService.deletePost(post.id);
 
     await this.postRepository.delete({ id });
+    await this.searchService.deletePost(post.id);
   }
 }

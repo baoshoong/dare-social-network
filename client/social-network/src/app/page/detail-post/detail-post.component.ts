@@ -83,10 +83,22 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
       profile: ProfileState;
       comment: CommentState;
     }>,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
   ) {
     const { url } = this.activeRoute.snapshot.params;
     console.log('postId:', url);
+
+    this.postDetail$.subscribe((post) => {
+      if (post.id) {
+        this.postDetails = post;
+        //parse postId to string
+        this.postId = String(this.postDetails.id);
+        console.log('postId:', this.postId);
+        this.store.dispatch(CommentAction.GetComments({ postId: this.postId }));
+
+        console.log('postDetails:', this.postDetails);
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -100,25 +112,11 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.subscriptions.push(
-      this.postDetail$.subscribe((post) => {
-        if (post.id) {
-          this.postDetails = post;
-          //parse postId to string
-          this.postId = String(this.postDetails.id);
-          console.log('postId:', this.postId);
-          this.store.dispatch(
-            CommentAction.GetComments({ postId: this.postId })
-          );
-
-          console.log('postDetails:', this.postDetails);
-        }
-      }),
-
       this.mine$.subscribe((profile) => {
         if (profile) {
           this.profileMine = profile;
         }
-      })
+      }),
     );
   }
 
@@ -176,7 +174,7 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
           content: comment.content,
           postId: this.postDetails.id,
           uid: this.profileMine.uid,
-        })
+        }),
       );
     }
   }

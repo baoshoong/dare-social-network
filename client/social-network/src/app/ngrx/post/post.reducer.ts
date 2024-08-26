@@ -3,7 +3,7 @@ import { HttpErrorResponseModel } from '../../model/http-error-response.model';
 import { PostModel, PostResponse } from '../../model/post.model';
 import { createReducer, on } from '@ngrx/store';
 import * as postActions from './post.actions';
-import {PostDataModel} from "../../model/post-data.model";
+import { PostDataModel } from '../../model/post-data.model';
 
 export const initialState: PostState = {
   posts: <PostResponse>{},
@@ -30,6 +30,10 @@ export const initialState: PostState = {
   isGettingAllPosts: false,
   isGetAllPostsSuccess: false,
   isGetAllPostsFailure: false,
+
+  isDeleting: false,
+  isDeleteSuccess: false,
+  deleteErrorMessage: <HttpErrorResponseModel>{},
 };
 
 export const postReducer = createReducer(
@@ -197,6 +201,34 @@ export const postReducer = createReducer(
     return {
       ...state,
       posts: <PostResponse>{},
+    };
+  }),
+
+  // deletePost
+  on(postActions.deletePost, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isDeleting: true,
+    };
+  }),
+
+  on(postActions.deletePostSuccess, (state, { type }) => {
+    console.log(type);
+    return {
+      ...state,
+      isDeleting: false,
+      isDeleteSuccess: true,
+    };
+  }),
+
+  on(postActions.deletePostFailure, (state, { deletePostErrorMessage }) => {
+    console.log(deletePostErrorMessage);
+    return {
+      ...state,
+      isDeleting: false,
+      isDeleteSuccess: false,
+      deleteErrorMessage: deletePostErrorMessage,
     };
   }),
 );
