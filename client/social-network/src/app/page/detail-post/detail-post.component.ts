@@ -1,25 +1,23 @@
-import {Component, OnInit, AfterViewInit, ElementRef, Renderer2, ViewChild, Input, OnDestroy} from '@angular/core';
-import {PostModel} from '../../model/post.model';
-import {MatButton, MatIconButton} from '@angular/material/button';
-import { MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import { AsyncPipe } from '@angular/common';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatButton } from '@angular/material/button';
+import { MatDialogActions, MatDialogClose } from '@angular/material/dialog';
+import { MatFormField, MatLabel } from "@angular/material/form-field";
+import { MatInput } from "@angular/material/input";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Store } from "@ngrx/store";
+import { Subscription } from "rxjs";
+import { PostModel } from '../../model/post.model';
+import { ProfileModel } from "../../model/profile.model";
+import * as CommentAction from "../../ngrx/comment/comment.actions";
+import { CommentState } from "../../ngrx/comment/comment.state";
+import * as PostAction from "../../ngrx/post/post.actions";
+import { PostState } from "../../ngrx/post/post.state";
+import { ProfileState } from "../../ngrx/profile/profile.state";
 import { IdToAvatarPipe } from '../../shared/pipes/id-to-avatar.pipe';
 import { IdToNamePipe } from '../../shared/pipes/id-to-name.pipe';
-import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatFormField, MatLabel} from "@angular/material/form-field";
-import {MatInput} from "@angular/material/input";
-import * as PostAction from "../../ngrx/post/post.actions";
-import {Subscription} from "rxjs";
-import {Store} from "@ngrx/store";
-import {PostState} from "../../ngrx/post/post.state";
-import {ProfileState} from "../../ngrx/profile/profile.state";
-import {ProfileModel} from "../../model/profile.model";
-import {Router} from "@angular/router";
-import {ShareModule} from "../../shared/share.module";
-import * as CommentAction from "../../ngrx/comment/comment.actions";
-import {CommentState} from "../../ngrx/comment/comment.state";
-import {CommentModel} from "../../model/comment.model";
-import {ActivatedRoute} from "@angular/router";
+import { ShareModule } from "../../shared/share.module";
 
 @Component({
   selector: 'app-detail-post',
@@ -31,7 +29,7 @@ import {ActivatedRoute} from "@angular/router";
     IdToNamePipe,
     IdToAvatarPipe,
     FormsModule, MatFormField, MatInput, MatLabel, ReactiveFormsModule, MatButton,
-    ShareModule, MatIconButton,
+    ShareModule,
   ],
   templateUrl: './detail-post.component.html',
   styleUrls: ['./detail-post.component.scss'],
