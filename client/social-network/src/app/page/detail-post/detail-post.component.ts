@@ -19,6 +19,7 @@ import * as CommentAction from "../../ngrx/comment/comment.actions";
 import {CommentState} from "../../ngrx/comment/comment.state";
 import {CommentModel} from "../../model/comment.model";
 import {ActivatedRoute} from "@angular/router";
+import * as LikeAction from "../../ngrx/like/like.actions";
 
 @Component({
   selector: 'app-detail-post',
@@ -124,9 +125,23 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
         uid: this.profileMine.uid,
       }));
     }
-
-
-
-
   }
+
+  // likeAction() {
+  //   if (this.postDetails.isLiked) {
+  //     this.removeLike();
+  //   } else {
+  //     this.createLike();
+  //   }
+  // }
+
+  createLike() {
+    this.store.dispatch(LikeAction.createLike({
+      like:{
+      postId: this.postDetails.id,
+      uid: this.profileMine.uid,
+      }
+    }));
+  }
+
 }

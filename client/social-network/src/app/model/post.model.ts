@@ -4,6 +4,7 @@ export interface PostModel {
   content: string;
   imageUrls: string | File[];
   id: bigint;
+  isLiked: boolean;
 }
 
 export interface PostResponse {
