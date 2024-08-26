@@ -73,9 +73,9 @@
 //   gap: 20px;
 // }
 
-::ng-deep .mat-mdc-raised-button{
-  height: 10px;
-}
+// ::ng-deep .mat-mdc-raised-button{
+//   height: 10px;
+// }
 #edit{
   background-color: var(--primary);
   color: var(--onPrimary);
@@ -93,74 +93,97 @@
   gap: 10px;
 }
 img{
-  width: 110px;
-  height: 110px;
   border-radius: 50%;
   object-fit: cover;
 }
 // i want width and height will be changed when user use ipad pro, ipad mini, ipad air 
+@media screen and (max-width: 1180px) {
+  img{
+    width: 100px;
+    height: 100px;
+  } 
+}
 @media screen and (max-width: 1024px) {
   img{
     width: 90px;
     height: 90px;
   } 
 }
-
-@media screen and (max-width: 1366px) {
+@media screen and (max-width: 768px) {
   img{
     width: 100px;
     height: 100px;
   } 
 }
 
-.grid-container {
-  margin-top: 20px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  justify-content: center;
-  align-items: center;
+.post-container {
+  padding-top: 25px;
+}
+
+.masonry-container {
+  column-gap: 16px;
+}
+
+.masonry-item {
+  width: 100%;
+  margin-bottom: 16px;
+  overflow: hidden;
+  border-radius: 25px;
+  position: relative;
+
+  &:hover::after {
+    cursor: pointer;
+    pointer-events: none;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 50% black */
+  }
+}
+
+.masonry-item {
+  -webkit-column-break-inside: avoid;
+  break-inside: avoid;
+  page-break-inside: avoid;
 }
 
 
 @media only screen and (max-width: 2048px) {
-  .grid-container {
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    grid-gap: 32px 5px;
+  .masonry-container {
+    column-count: 6;
   }
 }
 
 @media only screen and (max-width: 1920px) {
-  .grid-container {
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    grid-gap: 32px 5px;
+  .masonry-container {
+    column-count: 5;
   }
 }
 
 @media only screen and (max-width: 1536px) {
-  .grid-container {
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    grid-gap: 32px 20px;
+  .masonry-container {
+    column-count: 5;
   }
 }
 
 @media only screen and (max-width: 1024px) {
-  .grid-container {
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    grid-gap: 32px 5px;
+  .masonry-container {
+    column-count: 4;
   }
 }
 
 @media only screen and (max-width: 900px) {
-  .grid-container {
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    grid-gap: 32px 5px;
+  .masonry-container {
+    column-count: 3;
   }
 }
 
 @media only screen and (max-width: 768px) {
-  .grid-container {
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    grid-gap: 32px 5px;
+  .masonry-container {
+    column-count: 3;
   }
 }
 

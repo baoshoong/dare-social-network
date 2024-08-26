@@ -4,13 +4,14 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  PrimaryGeneratedColumn,
+  PrimaryGeneratedColumn, Unique,
   UpdateDateColumn,
 } from 'typeorm';
 import { Profile } from '../../profile/entities/profile.entity';
 import { Post } from 'src/post/entities/post.entity';
 
 @Entity()
+@Unique([ 'id', 'uid'])
 export class Comment {
   @PrimaryGeneratedColumn()
   id: number;
@@ -18,21 +19,18 @@ export class Comment {
   @Column()
   content: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt: string;
 
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: string;
-
+  @ManyToOne(() => Profile, )
   @Column({ type: 'text' })
   uid: string;
 
+  @ManyToOne(() => Post)
   @Column({ type: 'bigint' })
   postId: number;
 
-  @ManyToOne(() => Profile, (profile) => profile.uid)
-  @JoinColumn({ name: 'uid', referencedColumnName: 'uid' })
-  @ManyToOne(() => Post, (post) => post, { nullable: false })
-  @JoinColumn({ name: 'postId', referencedColumnName: 'id' })
-  post: Post;
+
 }

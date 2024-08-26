@@ -27,11 +27,10 @@ export class CommentService {
   // create comment
   async create(
     createCommentDto: CreateCommentDto,
-    uid: string,
-    postId: number,
+
   ) {
-    const post = await this.postRepository.findOne({ where: { id: postId } });
-    const profile = await this.profileRepository.findOne({ where: { uid } });
+    const post = await this.postRepository.findOne({ where: { id: createCommentDto.postId } });
+    const profile = await this.profileRepository.findOne({ where: { uid: createCommentDto.uid } });
 
     // If the post is empty, throw an error
     if (!post) {
@@ -44,9 +43,7 @@ export class CommentService {
     }
 
     if (
-      !createCommentDto.content &&
-      !createCommentDto.uid &&
-      !createCommentDto.postId
+      !createCommentDto.content
     ) {
       throw new ForbiddenException('Content cannot be empty');
     }
@@ -54,8 +51,6 @@ export class CommentService {
     // Create the comment in the postEntity and create comment entity
     const newComment = this.commentRepository.create({
       ...createCommentDto,
-      uid,
-      postId,
     });
     const savedComment = await this.commentRepository.save(newComment);
 
@@ -93,9 +88,7 @@ export class CommentService {
       throw new NotFoundException('Comment not found');
     }
     if (
-      !updateCommentDto.content &&
-      !updateCommentDto.uid &&
-      !updateCommentDto.postId
+      !updateCommentDto.content
     ) {
       throw new ForbiddenException('Content cannot be empty');
     }

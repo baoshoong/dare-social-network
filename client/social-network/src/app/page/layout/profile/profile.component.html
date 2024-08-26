@@ -32,11 +32,23 @@
       </div>
     </div>
   </div>
-      <div class="grid-container">
-        @for(post of minePosts.data; track $index){
-          <app-post [post]="post" ></app-post>
-        }
+  <div class="post-container">
+    <div class="grid-container"
+         infiniteScroll
+         [infiniteScrollDistance]="2"
+         [infiniteScrollThrottle]="50"
+         [fromRoot]="true"
+         (scrolled)="onScrollDown($event)"
+    >
+      <div class="masonry-container">
+          @for(post of minePosts.data; track $index){
+            <div class="masonry-item">
+              <app-post [post]="post" ></app-post>
+            </div>
+          }
       </div>
+    </div>
+  </div>
 }
 
 
