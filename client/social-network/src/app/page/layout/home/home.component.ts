@@ -47,6 +47,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.subscription.forEach((sub) => sub.unsubscribe());
     this.store.dispatch(postActions.clearGetPost());
   }
+
   selector: string = '.scroll-container';
   currentPage = 1;
   size = 10;
@@ -69,13 +70,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   posts: PostModel[] = [];
-
-  navigateToDetail(post: PostModel) {
-    this.router
-      .navigate(['/detail-post', post.id], { state: { post } })
-      .then((r) => console.log(r));
-    console.log(post);
-  }
 
   onScrollDown(ev: any) {
     console.log('scrolled down!!', ev);
