@@ -26,9 +26,10 @@ export class LikeService {
   ) {}
 
   // create like
-  async create(createLikeDto: CreateLikeDto, uid: string, postId: number) {
-    const post = await this.postRepository.findOne({ where: { id: postId } });
-    const profile = await this.profileRepository.findOne({ where: { uid } });
+  async create(createLikeDto: CreateLikeDto) {
+    console.log("service",createLikeDto);
+    const post = await this.postRepository.findOne({ where: { id: createLikeDto.postId } });
+    const profile = await this.profileRepository.findOne({ where: { uid: createLikeDto.uid} });
 
     // If the post is empty, throw an error
     if (!post) {
@@ -40,18 +41,20 @@ export class LikeService {
       throw new NotFoundException('Profile not found');
     }
 
-    let like = await this.likeRepository.findOne({ where: { postId, uid } });
+    let like = await this.likeRepository.findOne({ where: {
+      postId: createLikeDto.postId,
+        uid : createLikeDto.uid
+    } });
     if (like) {
       // throw error 403 forbidden if like already exists
       throw new ForbiddenException('Like already exists');
     }
 
     // Create the like in the postEntity and create like entity
-    const newLike = this.likeRepository.create({
-      ...createLikeDto,
-      uid,
-      postId,
-    });
+    const newLike = this.likeRepository.create(
+      createLikeDto,
+
+    );
     const savedLike = await this.likeRepository.save(newLike);
 
     //update post entity with like

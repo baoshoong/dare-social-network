@@ -1,25 +1,39 @@
 import { AsyncPipe } from '@angular/common';
-import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
-import {MatButton, MatIconButton} from '@angular/material/button';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatDialogActions, MatDialogClose } from '@angular/material/dialog';
-import { MatFormField, MatLabel } from "@angular/material/form-field";
-import { MatInput } from "@angular/material/input";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Store } from "@ngrx/store";
-import { Subscription } from "rxjs";
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { PostModel } from '../../model/post.model';
-import { ProfileModel } from "../../model/profile.model";
-import * as CommentAction from "../../ngrx/comment/comment.actions";
-import { CommentState } from "../../ngrx/comment/comment.state";
-import * as PostAction from "../../ngrx/post/post.actions";
-import { PostState } from "../../ngrx/post/post.state";
-import { ProfileState } from "../../ngrx/profile/profile.state";
+import { ProfileModel } from '../../model/profile.model';
+import * as CommentAction from '../../ngrx/comment/comment.actions';
+import { CommentState } from '../../ngrx/comment/comment.state';
+import * as PostAction from '../../ngrx/post/post.actions';
+import { PostState } from '../../ngrx/post/post.state';
+import { ProfileState } from '../../ngrx/profile/profile.state';
 import { IdToAvatarPipe } from '../../shared/pipes/id-to-avatar.pipe';
 import { IdToNamePipe } from '../../shared/pipes/id-to-name.pipe';
-import { ShareModule } from "../../shared/share.module";
-import * as PostActions from "../../ngrx/post/post.actions";
-import * as ProfileActions from "../../ngrx/profile/profile.actions";
+import { ShareModule } from '../../shared/share.module';
+import * as PostActions from '../../ngrx/post/post.actions';
+import * as ProfileActions from '../../ngrx/profile/profile.actions';
 
 @Component({
   selector: 'app-detail-post',
@@ -30,8 +44,21 @@ import * as ProfileActions from "../../ngrx/profile/profile.actions";
     AsyncPipe,
     IdToNamePipe,
     IdToAvatarPipe,
-    FormsModule, MatFormField, MatInput, MatLabel, ReactiveFormsModule, MatButton,
-    ShareModule, MatIconButton,
+    FormsModule,
+    MatFormField,
+    MatInput,
+    MatLabel,
+    ReactiveFormsModule,
+    MatButton,
+    ShareModule,
+    FormsModule,
+    MatFormField,
+    MatInput,
+    MatLabel,
+    ReactiveFormsModule,
+    MatButton,
+    ShareModule,
+    MatIconButton,
   ],
   templateUrl: './detail-post.component.html',
   styleUrls: ['./detail-post.component.scss'],
@@ -56,10 +83,9 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
       profile: ProfileState;
       comment: CommentState;
     }>,
-    private activeRoute: ActivatedRoute,
-
+    private activeRoute: ActivatedRoute
   ) {
-      const {url} = this.activeRoute.snapshot.params;
+    const { url } = this.activeRoute.snapshot.params;
     console.log('postId:', url);
   }
 
@@ -74,13 +100,15 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.subscriptions.push(
-
       this.postDetail$.subscribe((post) => {
-        if (post) {
+        if (post.id) {
           this.postDetails = post;
           //parse postId to string
           this.postId = String(this.postDetails.id);
-          this.store.dispatch(CommentAction.GetComments( {postId: this.postId} ));
+          console.log('postId:', this.postId);
+          this.store.dispatch(
+            CommentAction.GetComments({ postId: this.postId })
+          );
 
           console.log('postDetails:', this.postDetails);
         }
@@ -90,7 +118,7 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
         if (profile) {
           this.profileMine = profile;
         }
-      }),
+      })
     );
   }
 
@@ -128,8 +156,10 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     };
 
-    const commentListElement = this.el.nativeElement.querySelector('.comment-list');
-    const hasScrollbar = commentListElement.scrollHeight > commentListElement.clientHeight;
+    const commentListElement =
+      this.el.nativeElement.querySelector('.comment-list');
+    const hasScrollbar =
+      commentListElement.scrollHeight > commentListElement.clientHeight;
 
     if (!hasScrollbar) {
       this.renderer.setStyle(commentListElement, 'padding-right', '23px');
@@ -137,16 +167,17 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   createComment() {
-
     const comment = this.commentForm.value;
     if (!comment.content) {
-      return
-    }else {
-      this.store.dispatch(CommentAction.createComment({
-        content: comment.content,
-        postId: this.postDetails.id,
-        uid: this.profileMine.uid,
-      }));
+      return;
+    } else {
+      this.store.dispatch(
+        CommentAction.createComment({
+          content: comment.content,
+          postId: this.postDetails.id,
+          uid: this.profileMine.uid,
+        })
+      );
     }
   }
 }

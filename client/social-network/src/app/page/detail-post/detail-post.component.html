@@ -20,7 +20,7 @@
             </div>
             <div class="content">
               <div class="content-left">
-                <img class="avatar" (click)="navigateToProfile()" [src]="postDetails.uid | idToAvatar| async" alt="Avatar">
+                <img class="avatar" [src]="postDetails.uid | idToAvatar| async" alt="Avatar">
                 <div class="info">
                   <p class="name">{{postDetails.uid | idToName| async}}</p>
                   <p class="follower">1.8 triệu người theo dõi</p>
@@ -93,6 +93,89 @@
               </div>
             </div>
 
+            <div class="comment">
+              <div class="comment-detail">
+                <div class="comment-detail-left">
+                  <img class="avatar" src="https://media.istockphoto.com/id/1443562748/photo/cute-ginger-cat.jpg?s=612x612&w=0&k=20&c=vvM97wWz-hMj7DLzfpYRmY2VswTqcFEKkC437hxm3Cg=" alt="">
+                </div>
+                <div class="comment-detail-right">
+                  <div class="commented">
+                    <p class="comment-text">Bé My It is a long established fact that a reader will be distracted by the readable content of a page when looking at</p>
+                    <p class="date">July 29, 2022</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="comment">
+              <div class="comment-detail">
+                <div class="comment-detail-left">
+                  <img class="avatar" src="https://media.istockphoto.com/id/1443562748/photo/cute-ginger-cat.jpg?s=612x612&w=0&k=20&c=vvM97wWz-hMj7DLzfpYRmY2VswTqcFEKkC437hxm3Cg=" alt="">
+                </div>
+                <div class="comment-detail-right">
+                  <div class="commented">
+                    <p class="comment-text">Bé My It is a long established fact that a reader will be distracted by the readable content of a page when looking at</p>
+                    <p class="date">July 29, 2022</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="comment">
+              <div class="comment-detail">
+                <div class="comment-detail-left">
+                  <img class="avatar" src="https://media.istockphoto.com/id/1443562748/photo/cute-ginger-cat.jpg?s=612x612&w=0&k=20&c=vvM97wWz-hMj7DLzfpYRmY2VswTqcFEKkC437hxm3Cg=" alt="">
+                </div>
+                <div class="comment-detail-right">
+                  <div class="commented">
+                    <p class="comment-text">Bé My It is a long established fact that a reader will be distracted by the readable content of a page when looking at</p>
+                    <p class="date">July 29, 2022</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="comment">
+              <div class="comment-detail">
+                <div class="comment-detail-left">
+                  <img class="avatar" src="https://media.istockphoto.com/id/1443562748/photo/cute-ginger-cat.jpg?s=612x612&w=0&k=20&c=vvM97wWz-hMj7DLzfpYRmY2VswTqcFEKkC437hxm3Cg=" alt="">
+                </div>
+                <div class="comment-detail-right">
+                  <div class="commented">
+                    <p class="comment-text">Bé My It is a long established fact that a reader will be distracted by the readable content of a page when looking at</p>
+                    <p class="date">July 29, 2022</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="comment">
+              <div class="comment-detail">
+                <div class="comment-detail-left">
+                  <img class="avatar" src="https://media.istockphoto.com/id/1443562748/photo/cute-ginger-cat.jpg?s=612x612&w=0&k=20&c=vvM97wWz-hMj7DLzfpYRmY2VswTqcFEKkC437hxm3Cg=" alt="">
+                </div>
+                <div class="comment-detail-right">
+                  <div class="commented">
+                    <p class="comment-text">Bé My It is a long established fact that a reader will be distracted by the readable content of a page when looking at</p>
+                    <p class="date">July 29, 2022</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="comment">
+              <div class="comment-detail">
+                <div class="comment-detail-left">
+                  <img class="avatar" src="https://media.istockphoto.com/id/1443562748/photo/cute-ginger-cat.jpg?s=612x612&w=0&k=20&c=vvM97wWz-hMj7DLzfpYRmY2VswTqcFEKkC437hxm3Cg=" alt="">
+                </div>
+                <div class="comment-detail-right">
+                  <div class="commented">
+                    <p class="comment-text">Bé My It is a long established fact that a reader will be distracted by the readable content of a page when looking at</p>
+                    <p class="date">July 29, 2022</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -113,6 +196,7 @@
             <div class="content-right">
               <img class="avatar" (click)="navigateToMineProfile()" [src]="profileMine.avatarUrl" alt="Avatar">
             </div>
+
             <form [formGroup]="commentForm">
               <mat-form-field class="example-full-width input-border" appearance="outline" >
                 <mat-label class="input-info">Comment</mat-label>
@@ -122,6 +206,7 @@
                 </button>
               </mat-form-field>
             </form>
+
           </div>
         </div>
       </div>
