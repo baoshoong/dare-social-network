@@ -34,8 +34,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       post: PostState;
       profile: ProfileState;
     }>,
-  )
-  {
+  ) {
     this.store.dispatch(
       postActions.getAllPost({
         pageNumber: this.currentPage,
@@ -51,7 +50,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   selector: string = '.scroll-container';
   currentPage = 1;
-  size = 25;
+  size = 20;
   itemsCount = 0;
   subscription: Subscription[] = [];
   getAllPost$ = this.store.select('post', 'posts');
@@ -60,11 +59,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription.push(
       this.getAllPost$.subscribe((posts) => {
-        if (posts.limitNumber > 0) {
+        if (posts.pageNumber > 0) {
+          console.log(posts.limitNumber);
           this.tempArray = [...this.posts];
           console.log(this.tempArray);
           this.posts = [...this.tempArray, ...posts.data];
-          this.itemsCount = posts.limitNumber;
+          this.itemsCount = posts.pageNumber;
         }
       }),
     );
@@ -76,9 +76,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     console.log('scrolled down!!', ev);
     this.currentPage += 1;
     console.log(this.currentPage);
+    console.log(this.itemsCount);
 
     if (this.currentPage <= this.itemsCount) {
       console.log('get more post');
+      console.log(this.currentPage);
+      console.log(this.size);
       this.store.dispatch(
         postActions.getAllPost({
           pageNumber: this.currentPage,

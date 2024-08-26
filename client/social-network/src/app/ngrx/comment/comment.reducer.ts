@@ -48,7 +48,7 @@ export const CommentReducer = createReducer(
   }),
 
   // getComments
-  on(CommentActions.isGetComments, (state, {type}) => {
+  on(CommentActions.GetComments, (state, {type}) => {
     console.log(type);
     return {
       ...state,
