@@ -1,9 +1,6 @@
 <div class="container">
   <div class="detail-container">
     <div class="left-container">
-      <button mat-icon-button class="close-button" (click)="onExit()">
-        <span class="material-symbols-outlined">close</span>
-      </button>
       <div class="image-container">
         <img #imageElement class="image" [src]="postDetails.imageUrls"  alt="">
       </div>
@@ -20,7 +17,7 @@
             </div>
             <div class="content">
               <div class="content-left">
-                <img class="avatar" (click)="navigateToProfile()" [src]="postDetails.uid | idToAvatar| async" alt="Avatar">
+                <img class="avatar" [src]="postDetails.uid | idToAvatar| async" alt="Avatar">
                 <div class="info">
                   <p class="name">{{postDetails.uid | idToName| async}}</p>
                   <p class="follower">1.8 triệu người theo dõi</p>
@@ -93,35 +90,118 @@
               </div>
             </div>
 
+            <div class="comment">
+              <div class="comment-detail">
+                <div class="comment-detail-left">
+                  <img class="avatar" src="https://media.istockphoto.com/id/1443562748/photo/cute-ginger-cat.jpg?s=612x612&w=0&k=20&c=vvM97wWz-hMj7DLzfpYRmY2VswTqcFEKkC437hxm3Cg=" alt="">
+                </div>
+                <div class="comment-detail-right">
+                  <div class="commented">
+                    <p class="comment-text">Bé My It is a long established fact that a reader will be distracted by the readable content of a page when looking at</p>
+                    <p class="date">July 29, 2022</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="comment">
+              <div class="comment-detail">
+                <div class="comment-detail-left">
+                  <img class="avatar" src="https://media.istockphoto.com/id/1443562748/photo/cute-ginger-cat.jpg?s=612x612&w=0&k=20&c=vvM97wWz-hMj7DLzfpYRmY2VswTqcFEKkC437hxm3Cg=" alt="">
+                </div>
+                <div class="comment-detail-right">
+                  <div class="commented">
+                    <p class="comment-text">Bé My It is a long established fact that a reader will be distracted by the readable content of a page when looking at</p>
+                    <p class="date">July 29, 2022</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="comment">
+              <div class="comment-detail">
+                <div class="comment-detail-left">
+                  <img class="avatar" src="https://media.istockphoto.com/id/1443562748/photo/cute-ginger-cat.jpg?s=612x612&w=0&k=20&c=vvM97wWz-hMj7DLzfpYRmY2VswTqcFEKkC437hxm3Cg=" alt="">
+                </div>
+                <div class="comment-detail-right">
+                  <div class="commented">
+                    <p class="comment-text">Bé My It is a long established fact that a reader will be distracted by the readable content of a page when looking at</p>
+                    <p class="date">July 29, 2022</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="comment">
+              <div class="comment-detail">
+                <div class="comment-detail-left">
+                  <img class="avatar" src="https://media.istockphoto.com/id/1443562748/photo/cute-ginger-cat.jpg?s=612x612&w=0&k=20&c=vvM97wWz-hMj7DLzfpYRmY2VswTqcFEKkC437hxm3Cg=" alt="">
+                </div>
+                <div class="comment-detail-right">
+                  <div class="commented">
+                    <p class="comment-text">Bé My It is a long established fact that a reader will be distracted by the readable content of a page when looking at</p>
+                    <p class="date">July 29, 2022</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="comment">
+              <div class="comment-detail">
+                <div class="comment-detail-left">
+                  <img class="avatar" src="https://media.istockphoto.com/id/1443562748/photo/cute-ginger-cat.jpg?s=612x612&w=0&k=20&c=vvM97wWz-hMj7DLzfpYRmY2VswTqcFEKkC437hxm3Cg=" alt="">
+                </div>
+                <div class="comment-detail-right">
+                  <div class="commented">
+                    <p class="comment-text">Bé My It is a long established fact that a reader will be distracted by the readable content of a page when looking at</p>
+                    <p class="date">July 29, 2022</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="comment">
+              <div class="comment-detail">
+                <div class="comment-detail-left">
+                  <img class="avatar" src="https://media.istockphoto.com/id/1443562748/photo/cute-ginger-cat.jpg?s=612x612&w=0&k=20&c=vvM97wWz-hMj7DLzfpYRmY2VswTqcFEKkC437hxm3Cg=" alt="">
+                </div>
+                <div class="comment-detail-right">
+                  <div class="commented">
+                    <p class="comment-text">Bé My It is a long established fact that a reader will be distracted by the readable content of a page when looking at</p>
+                    <p class="date">July 29, 2022</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div class="bottom-content">
-        <div class="like-content">
+        <div class="content">
           <div class="content-left">
             <p>3 Comments</p>
           </div>
           <div class="content-right">
             <p>856 likes</p>
-            <button mat-icon-button class="like-button" [ngClass]="{'liked': isLiked}" (click)="toggleLike()">
-              <span class="material-symbols-outlined">favorite</span>
-            </button>
+            <div class="icon-background">
+              <span class="material-symbols-outlined icon-material favorite-icon" >favorite</span>
+            </div>
           </div>
         </div>
         <div class="user">
           <div class="content">
             <div class="content-right">
-              <img class="avatar" (click)="navigateToProfile()" [src]="profileMine.avatarUrl" alt="Avatar">
+              <img class="avatar" [src]="profileMine.avatarUrl" alt="Avatar">
             </div>
+
             <form [formGroup]="commentForm">
               <mat-form-field class="example-full-width input-border" appearance="outline" >
                 <mat-label class="input-info">Comment</mat-label>
                 <input formControlName="content" matInput placeholder="comment" />
-                <button mat-icon-button class="send-button">
-                  <span class="material-symbols-outlined" (click)="createComment()">send</span>
-                </button>
+                <span class="material-symbols-outlined" (click)="createComment()">send</span>
               </mat-form-field>
             </form>
+
           </div>
         </div>
       </div>

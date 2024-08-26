@@ -88,6 +88,7 @@ export class CreatorComponent implements OnInit, OnDestroy {
     content: '',
     imageUrls: this.myFile as File[],
     id: BigInt(1),
+    isLiked: false,
   };
 
   imageSrc: string | ArrayBuffer | null | undefined = null;
@@ -97,6 +98,7 @@ export class CreatorComponent implements OnInit, OnDestroy {
   triggerFileInput() {
     this.fileInput.nativeElement.click();
   }
+
   isImageUploaded= false;
   handleFileInput(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -116,6 +118,8 @@ export class CreatorComponent implements OnInit, OnDestroy {
 
       console.log('Post Form: ', this.postForm);
 
+    }else{
+      this.resetState();
     }
     console.log('My File: ', this.myFile);
   }
@@ -167,6 +171,7 @@ export class CreatorComponent implements OnInit, OnDestroy {
       title: this.createPostForm.value.title,
       content: this.createPostForm.value.content ?? '',
       imageUrls: this.myFile,
+      isLiked: false,
     };
 
     console.log('Post Form: ', this.postForm);
