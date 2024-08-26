@@ -16,6 +16,8 @@ import * as ProfileAction from '../../../ngrx/profile/profile.actions';
 import { ProfileModel } from '../../../model/profile.model';
 import { ActivatedRoute } from '@angular/router';
 
+import { InfiniteScrollDirective } from "ngx-infinite-scroll";
+
 import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 @Component({
   selector: 'app-profile',
@@ -46,7 +48,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ) {
     const { uid } = this.activeRoute.snapshot.params;
     this.store.dispatch(
-      PostAction.getMinePost({ uid, pageNumber: 1, limitNumber: 20}),
+      PostAction.getMinePost({ uid, pageNumber: 1, limitNumber: 5 }),
     );
     this.store.dispatch(ProfileAction.getById({ uid }));
   }
@@ -69,30 +71,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.minePosts = posts;
       }),
     );
-  }
-  
-  selector: string = '.scroll-container';
-  currentPage = 1;
-  size = 10;
-  itemsCount = 0;
-  subscription: Subscription[] = [];
-  getAllPost$ = this.store.select('post', 'posts');
-  tempArray: PostModel[] = [];
-
-  onScrollDown(ev: any) {
-    console.log('scrolled down!!', ev);
-    this.currentPage += 1;
-    console.log(this.currentPage);
-
-    if (this.currentPage <= this.itemsCount) {
-      console.log('get more post');
-      this.store.dispatch(
-        PostAction.getAllPost({
-          pageNumber: this.currentPage,
-          limitNumber: this.size,
-        }),
-      );
-    }
   }
 
   openDialog2() {

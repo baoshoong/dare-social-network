@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private store: Store<{ profile: ProfileState; auth: AuthState }>,
-  ) {}
+  ) { }
 
   createMineSuccess$ = this.store.select('profile', 'isCreateSuccess');
 
