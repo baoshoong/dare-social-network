@@ -21,6 +21,10 @@ import { storageReducer } from './ngrx/storage/storage.reducer';
 import { StorageEffects } from './ngrx/storage/storage.effects';
 import { SearchReducer } from './ngrx/search/search.reducer';
 import { searchEffects } from './ngrx/search/search.effects';
+import { CommentEffects } from './ngrx/comment/comment.effects';
+import {CommentReducer} from "./ngrx/comment/comment.reducer";
+import {LikeReducer} from "./ngrx/like/like.reducers";
+import {LikeEffects} from "./ngrx/like/like.effects";
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
@@ -36,12 +40,16 @@ export const appConfig: ApplicationConfig = {
       PostEffects,
       StorageEffects,
       searchEffects,
+      CommentEffects,
+      LikeEffects,
     ),
     provideState({ name: 'auth', reducer: authReducer }),
     provideState({ name: 'profile', reducer: profileReducer }),
     provideState({ name: 'post', reducer: postReducer }),
     provideState({ name: 'storage', reducer: storageReducer }),
     provideState({ name: 'search', reducer: SearchReducer }),
+    provideState({name: 'comment', reducer: CommentReducer}),
+    provideState({name: 'like', reducer: LikeReducer}),
     provideHttpClient(),
     provideAnimationsAsync(),
     HttpClientAuth,
