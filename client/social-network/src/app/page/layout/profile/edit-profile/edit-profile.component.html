@@ -2,8 +2,6 @@
 <div id="edit-profile">
   <form [formGroup]="editProfileForm">
     <div class="form">
-
-
       <img [src]="urlsa">
       <input type="file" (change)="onSelectedFile($event)" id="fileInput" hidden>
       @if(isUploading$|async){
@@ -31,13 +29,8 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Bio</mat-label>
-        <input matInput placeholder="Bio" formControlName="bio" hidden>
-        <button matSuffix mat-icon-button aria-label="Clear" (click)="clearBio()">
-          <mat-icon>close</mat-icon>
-        </button>
-        <mat-error *ngIf="editProfileForm.get('bio')?.hasError('maxlength')">
-          Bio cannot exceed 200 characters.
-        </mat-error>
+        <textarea matInput #input maxlength="200" placeholder="Bio" (input)="onInput($event)"> </textarea> 
+        <mat-hint align="end">{{value().length}}/200</mat-hint>
       </mat-form-field>
 
       <button id="confirm" (click)="onSaveClick()" mat-raised-button>Save</button>

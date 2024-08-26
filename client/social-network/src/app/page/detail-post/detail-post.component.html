@@ -2,7 +2,7 @@
   <div class="detail-container">
     <div class="left-container">
       <div class="image-container">
-        <img #imageElement class="image" [src]="detailPost?.imageUrls" alt="">
+        <img #imageElement class="image" [src]="postDetails.imageUrls"  alt="">
       </div>
     </div>
     <div class="right-container">
@@ -10,16 +10,16 @@
         <div class="user-content">
           <div class="post-detail">
             <div class="title">
-              <p>{{detailPost?.title}}</p>
+              <p>{{postDetails.title}}</p>
             </div>
             <div class="description">
-              <p>{{detailPost?.content}}</p>
+              <p>{{postDetails.content}}</p>
             </div>
             <div class="content">
               <div class="content-left">
-                <img class="avatar" [src]="(detailPost?.uid ?? '') | idToAvatar | async" alt="Avatar">
+                <img class="avatar" [src]="postDetails.uid | idToAvatar| async" alt="Avatar">
                 <div class="info">
-                  <p class="name">{{(detailPost?.uid ?? '') | idToName | async}}</p>
+                  <p class="name">{{postDetails.uid | idToName| async}}</p>
                   <p class="follower">1.8 triệu người theo dõi</p>
                 </div>
               </div>
@@ -191,11 +191,11 @@
         <div class="user">
           <div class="content">
             <div class="content-right">
-              <img class="avatar" [src]="(detailPost?.uid ?? '') | idToAvatar | async" alt="Avatar">
+              <img class="avatar" [src]="profileMine.avatarUrl" alt="Avatar">
             </div>
             <mat-form-field class="example-full-width input-border" appearance="outline" >
-              <mat-label class="input-info">Email</mat-label>
-              <input matInput formControlName="email" placeholder="..." readonly/>
+              <mat-label class="input-info">Comment</mat-label>
+              <input matInput placeholder="comment" />
               <span class="material-symbols-outlined">send</span>
             </mat-form-field>
           </div>

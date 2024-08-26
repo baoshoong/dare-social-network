@@ -5,6 +5,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  signal,
 } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -34,6 +35,12 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   myAvatarUrl: string[] = [];
   myFile: File[] = [];
   uid = '';
+
+  protected readonly value = signal('');
+
+  protected onInput(event: Event) {
+    this.value.set((event.target as HTMLInputElement).value);
+  }
 
   protected document = document;
   profileForm: ProfileModel = {
