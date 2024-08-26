@@ -26,6 +26,26 @@ export class CommentEffects {
     );
   });
 
+  getComments$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(commentActions.isGetComments),
+      switchMap((action) => {
+        return this.commentService.getComments(action.postId).pipe(
+          map((comments) => {
+            return commentActions.getCommentsSuccess({ comments });
+          }),
+          catchError((error: HttpErrorResponseModel) => {
+            return of(
+              commentActions.getCommentsFailure({ getCommentsErrorMessage: error }),
+            );
+          }),
+        );
+      }),
+    );
+  });
+
+
+
   constructor(private actions$: Actions, private commentService: CommentService) {
   }
 }

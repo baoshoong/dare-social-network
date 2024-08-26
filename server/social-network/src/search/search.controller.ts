@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Query } from '@nestjs/common';
+import { Controller, Get, Body, Query, Delete, Param } from '@nestjs/common';
 import { SearchService } from './search.service';
 
 @Controller('search')
@@ -20,8 +20,18 @@ export class SearchController {
     let profiles = await this.searchService.searchAny('dare_profiles', q);
     let posts = await this.searchService.searchAny('dare_posts', q);
     return {
-      // profiles: profiles,
+      profiles: profiles,
       posts: posts,
     };
+  }
+
+  @Get()
+  findAll() {
+    return this.searchService.getAllIndexPosts();
+  }
+
+  @Delete('posts/:id')
+  async deleteIndexPost(@Param('id') id: number) {
+    return this.searchService.deleteIndexPost(id);
   }
 }

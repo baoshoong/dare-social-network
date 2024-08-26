@@ -5,9 +5,15 @@ import {CommentModel} from "../../model/comment.model";
 import {HttpErrorResponseModel} from "../../model/http-error-response.model";
 
 export const initialState: CommentState = {
-  comments: <CommentModel>{},
+  comments:[],
+
+  isCreateComment: false,
   createCommentSuccess: false,
   createCommentErrorMessage: <HttpErrorResponseModel>{},
+
+  isGetComments: false,
+  getCommentsSuccess: false,
+  getCommentsErrorMessage: <HttpErrorResponseModel>{},
 };
 
 export const CommentReducer = createReducer(
@@ -19,6 +25,7 @@ export const CommentReducer = createReducer(
     return {
       ...state,
       createCommentSuccess: false,
+      isCreateComment: true
     };
   }),
 
@@ -27,6 +34,7 @@ export const CommentReducer = createReducer(
     return {
       ...state,
       createCommentSuccess: true,
+      isCreateComment: false
     };
   }),
 
@@ -35,6 +43,36 @@ export const CommentReducer = createReducer(
     return {
       ...state,
       createCommentFailure: createCommentErrorMessage,
+      isCreateComment: false
+    };
+  }),
+
+  // getComments
+  on(CommentActions.isGetComments, (state, {type}) => {
+    console.log(type);
+    return {
+      ...state,
+      getCommentsSuccess: false,
+      isGetComments: true
+    };
+  }),
+
+  on(CommentActions.getCommentsSuccess, (state, { comments }) => {
+    console.log(comments);
+    return {
+      ...state,
+      comments: comments,
+      getCommentsSuccess: true,
+      isGetComments: false
+    };
+  }),
+
+  on(CommentActions.getCommentsFailure, (state, { getCommentsErrorMessage }) => {
+    console.log(getCommentsErrorMessage);
+    return {
+      ...state,
+      getCommentsErrorMessage: getCommentsErrorMessage,
+      isGetComments: false
     };
   }),
 );

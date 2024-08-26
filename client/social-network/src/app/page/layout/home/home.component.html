@@ -6,7 +6,7 @@
        [fromRoot]="true"
        (scrolled)="onScrollDown($event)"
   >
-    
+
     <div class="masonry-container">
       <div class="masonry-item" *ngFor="let post of posts">
         <app-post [post]="post"></app-post>

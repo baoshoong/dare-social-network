@@ -5,7 +5,7 @@ import {LikeModel} from "../../model/like.model";
 
 export const createLike = createAction(
   '[Create Like] Create Like',
-  props<{ postId: LikeModel }>()
+  props<{ like: LikeModel }>()
 );
 export const createLikeSuccess = createAction( '[Create Like] Create Like Success');
 export const createLikeFailure = createAction(

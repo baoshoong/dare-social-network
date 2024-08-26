@@ -110,11 +110,12 @@ export class CreatorComponent implements OnInit, OnDestroy {
       console.log('input.files: ', input.files);
       reader.onload = (e) => {
         this.imageSrc = e.target?.result;
-        this.isImageUploaded= true;
+        this.isImageUploaded = true;
       };
       reader.readAsDataURL(input.files[0]);
 
       console.log('Post Form: ', this.postForm);
+
     }
     console.log('My File: ', this.myFile);
   }
@@ -140,7 +141,7 @@ export class CreatorComponent implements OnInit, OnDestroy {
     }if(this.myFile.length > 0) {
       for (const file of this.myFile){
 
-        if(file.type !== ('image/png'||'image/jpeg')){
+        if (!['image/png', 'image/jpeg'].includes(file.type)) {
           alert('Please upload a png or jpeg file');
           return;
         }
@@ -172,6 +173,7 @@ export class CreatorComponent implements OnInit, OnDestroy {
     this.store.dispatch(PostAction.createPost({ post: this.postForm }));
 
     this.clearInputData();
+    this.resetState();
   }
   // textLimit(text: string, wordLimit: number): string {
   //   text.split(/\s+/);
@@ -192,6 +194,17 @@ export class CreatorComponent implements OnInit, OnDestroy {
     this.createPostForm.patchValue({
       content: '',
     });
+  }
+  resetState() {
+    this.isImageUploaded = false;
+    this.imageSrc = null;
+    this.myFile = [];
+
+    // Reset the file input field
+    const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = ''; // Clear the file input value
+    }
   }
   // private maxLines = 15;
   // limitTextLine(event: Event): void{
