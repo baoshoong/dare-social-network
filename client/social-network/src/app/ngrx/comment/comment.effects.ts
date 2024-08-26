@@ -28,7 +28,7 @@ export class CommentEffects {
 
   getComments$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(commentActions.isGetComments),
+      ofType(commentActions.GetComments),
       switchMap((action) => {
         return this.commentService.getComments(action.postId).pipe(
           map((comments) => {

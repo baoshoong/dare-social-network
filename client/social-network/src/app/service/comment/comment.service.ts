@@ -13,7 +13,7 @@ export class CommentService {
     return this.httpClient.post('comment', { postId, uid, content });
   }
 
-  getComments(postId: bigint) {
+  getComments(postId: string) {
     return this.httpClient.get(`comment?postId=${postId}`);
   }
 
