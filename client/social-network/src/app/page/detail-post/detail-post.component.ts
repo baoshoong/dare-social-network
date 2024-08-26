@@ -5,7 +5,7 @@ import { MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import { AsyncPipe } from '@angular/common';
 import { IdToAvatarPipe } from '../../shared/pipes/id-to-avatar.pipe';
 import { IdToNamePipe } from '../../shared/pipes/id-to-name.pipe';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import * as PostAction from "../../ngrx/post/post.actions";
@@ -14,6 +14,10 @@ import {Store} from "@ngrx/store";
 import {PostState} from "../../ngrx/post/post.state";
 import {ProfileState} from "../../ngrx/profile/profile.state";
 import {ProfileModel} from "../../model/profile.model";
+import {ShareModule} from "../../shared/share.module";
+import * as CommentAction from "../../ngrx/comment/comment.actions";
+import {CommentState} from "../../ngrx/comment/comment.state";
+import {CommentModel} from "../../model/comment.model";
 
 @Component({
   selector: 'app-detail-post',
@@ -24,7 +28,9 @@ import {ProfileModel} from "../../model/profile.model";
     AsyncPipe,
     IdToNamePipe,
     IdToAvatarPipe,
-    FormsModule, MatFormField, MatInput, MatLabel, ReactiveFormsModule],
+    FormsModule, MatFormField, MatInput, MatLabel, ReactiveFormsModule, MatButton,
+    ShareModule,
+  ],
   templateUrl: './detail-post.component.html',
   styleUrls: ['./detail-post.component.scss'],
 })
@@ -39,14 +45,16 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
   postDetails: PostModel = <PostModel>{};
 
   @ViewChild('imageElement', { static: false }) imageElement!: ElementRef;
-
   constructor(
     private renderer: Renderer2,
     private store: Store<{
       post: PostState;
       profile: ProfileState;
+      comment: CommentState;
     }>,
+
   ) {
+
   }
 
   ngOnDestroy(): void {
@@ -54,12 +62,22 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
     this.store.dispatch(PostAction.clearMinePost());
   }
 
+  commentForm = new FormGroup({
+    content: new FormControl(''),
+  });
+
+
+
+
   ngOnInit(): void {
+
     this.subscriptions.push(
 
       this.postDetail$.subscribe((post) => {
         if (post) {
+
           this.postDetails = post;
+          console.log('postDetails:', this.postDetails);
         }
       }),
 
@@ -81,5 +99,23 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
         this.renderer.addClass(imgElement, 'scale-height');
       }
     };
+  }
+
+  createComment() {
+
+    const comment = this.commentForm.value;
+    if (!comment.content) {
+      return
+    }else {
+      this.store.dispatch(CommentAction.createComment({
+        content: comment.content,
+        postId: this.postDetails.id,
+        uid: this.profileMine.uid,
+      }));
+    }
+
+
+
+
   }
 }

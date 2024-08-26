@@ -12,7 +12,7 @@ export class CommentEffects {
     return this.actions$.pipe(
       ofType(commentActions.createComment),
       switchMap((action) => {
-        return this.commentService.createComment(action.comment).pipe(
+        return this.commentService.createComment(action.content, action.postId, action.uid).pipe(
           map(() => {
             return commentActions.createCommentSuccess();
           }),

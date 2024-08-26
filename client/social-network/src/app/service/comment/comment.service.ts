@@ -9,8 +9,8 @@ export class CommentService {
 
   constructor( private httpClient: HttpClientAuth) {}
 
-  createComment(comment: CommentModel) {
-    return this.httpClient.post('comment', comment);
+  createComment(content: string, postId: bigint, uid: string) {
+    return this.httpClient.post('comment', { postId, uid, content });
   }
 
   getComments(postId: bigint) {
