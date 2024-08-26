@@ -17,11 +17,13 @@
   background-color: #141414;
   position: relative;
 
-  //.exit-button {
-  //  position: absolute;
-  //  top: 10px;
-  //  left: 10px;
-  //}
+  .close-button {
+    //position: absolute;
+    top: 10px;
+    left: 10px;
+    color: #ffffff;
+    background-color: #522b00;
+  }
 }
 
 .right-container {
@@ -37,8 +39,6 @@
 .image-container {
   width: 100%;
   height: 100%;
-  position: relative;
-  overflow: hidden;
 }
 
 .image-container img {
@@ -53,19 +53,19 @@
 }
 
 .image-container img.scale-width {
-  width: 90%;
+  max-width: 90%;
   height: auto;
 }
 
 .image-container img.scale-height {
   width: auto;
-  height: 90%;
+  max-height: 90%;
 }
 
 .top-content {
   display: flex;
   flex-direction: column;
-  height: 75%;
+  height: 65%;
   gap: 20px;
 }
 
@@ -260,6 +260,10 @@
 
       .like-button {
       }
+
+      .like-button.liked {
+        color: red;
+      }
     }
   }
 
@@ -270,6 +274,7 @@
       display: flex;
       width: 100%;
       justify-content: space-between;
+      //align-items: center;
       gap: 8px;
 
       .content-right {
@@ -288,10 +293,15 @@
         align-items: center;
       }
 
+      form {
+        display: flex;
+        width: 100%;
+      }
+
       .input-border {
         width: 100%;
-        display: flex;
         padding: 0;
+        display: flex;
       }
 
       .send-button {

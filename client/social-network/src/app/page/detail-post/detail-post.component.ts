@@ -1,7 +1,7 @@
 import { AsyncPipe } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MatButton } from '@angular/material/button';
+import {MatButton, MatIconButton} from '@angular/material/button';
 import { MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import { MatFormField, MatLabel } from "@angular/material/form-field";
 import { MatInput } from "@angular/material/input";
@@ -18,6 +18,8 @@ import { ProfileState } from "../../ngrx/profile/profile.state";
 import { IdToAvatarPipe } from '../../shared/pipes/id-to-avatar.pipe';
 import { IdToNamePipe } from '../../shared/pipes/id-to-name.pipe';
 import { ShareModule } from "../../shared/share.module";
+import * as PostActions from "../../ngrx/post/post.actions";
+import * as ProfileActions from "../../ngrx/profile/profile.actions";
 
 @Component({
   selector: 'app-detail-post',
@@ -29,7 +31,7 @@ import { ShareModule } from "../../shared/share.module";
     IdToNamePipe,
     IdToAvatarPipe,
     FormsModule, MatFormField, MatInput, MatLabel, ReactiveFormsModule, MatButton,
-    ShareModule,
+    ShareModule, MatIconButton,
   ],
   templateUrl: './detail-post.component.html',
   styleUrls: ['./detail-post.component.scss'],
@@ -44,6 +46,7 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
   postDetails: PostModel = <PostModel>{};
   postId = '';
 
+  @Input() post: PostModel = <PostModel>{};
   @ViewChild('imageElement', { static: false }) imageElement!: ElementRef;
   constructor(
     private el: ElementRef,
@@ -57,11 +60,8 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
     private activeRoute: ActivatedRoute,
 
   ) {
-
       const {url} = this.activeRoute.snapshot.params;
     console.log('postId:', url);
-
-
   }
 
   ngOnDestroy(): void {
@@ -73,11 +73,7 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
     content: new FormControl(''),
   });
 
-
-
-
   ngOnInit(): void {
-
     this.subscriptions.push(
 
       this.postDetail$.subscribe((post) => {
@@ -101,7 +97,22 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onExit() {
-    this.router.navigate(['/home']).then(r => r);
+    console.log('exit');
+    this.router.navigate(['/home']).then(() => {
+      this.store.dispatch(PostAction.clearMinePost());
+    });
+  }
+
+  isLiked = false;
+
+  toggleLike() {
+    this.isLiked = !this.isLiked;
+  }
+
+  navigateToProfile() {
+    this.router.navigateByUrl(`/profile/${this.post.uid}`).then();
+    this.store.dispatch(PostActions.clearMinePost());
+    this.store.dispatch(ProfileActions.getById({ uid: this.post.uid }));
   }
 
   ngAfterViewInit() {
@@ -135,9 +146,5 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
         uid: this.profileMine.uid,
       }));
     }
-
-
-
-
   }
 }
