@@ -18,6 +18,7 @@ import {ShareModule} from "../../shared/share.module";
 import * as CommentAction from "../../ngrx/comment/comment.actions";
 import {CommentState} from "../../ngrx/comment/comment.state";
 import {CommentModel} from "../../model/comment.model";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-detail-post',
@@ -43,6 +44,7 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
   profileUser: ProfileModel = <ProfileModel>{};
   profileMine: ProfileModel = <ProfileModel>{};
   postDetails: PostModel = <PostModel>{};
+  postId = '';
 
   @ViewChild('imageElement', { static: false }) imageElement!: ElementRef;
   constructor(
@@ -52,8 +54,13 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
       profile: ProfileState;
       comment: CommentState;
     }>,
+    private activeRoute: ActivatedRoute,
 
   ) {
+
+      const {url} = this.activeRoute.snapshot.params;
+    console.log('postId:', url);
+
 
   }
 
@@ -77,6 +84,10 @@ export class DetailPostComponent implements OnInit, OnDestroy, AfterViewInit {
         if (post) {
 
           this.postDetails = post;
+          //parse postId to string
+          this.postId = String(this.postDetails.id);
+          this.store.dispatch(CommentAction.GetComments( {postId: this.postId} ));
+
           console.log('postDetails:', this.postDetails);
         }
       }),
