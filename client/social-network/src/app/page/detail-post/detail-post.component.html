@@ -193,11 +193,15 @@
             <div class="content-right">
               <img class="avatar" [src]="profileMine.avatarUrl" alt="Avatar">
             </div>
-            <mat-form-field class="example-full-width input-border" appearance="outline" >
-              <mat-label class="input-info">Comment</mat-label>
-              <input matInput placeholder="comment" />
-              <span class="material-symbols-outlined">send</span>
-            </mat-form-field>
+
+            <form [formGroup]="commentForm">
+              <mat-form-field class="example-full-width input-border" appearance="outline" >
+                <mat-label class="input-info">Comment</mat-label>
+                <input formControlName="content" matInput placeholder="comment" />
+                <span class="material-symbols-outlined" (click)="createComment()">send</span>
+              </mat-form-field>
+            </form>
+
           </div>
         </div>
       </div>
