@@ -6,7 +6,6 @@ import { PostModel, PostResponse } from '../../model/post.model';
   providedIn: 'root',
 })
 export class PostService {
-
   constructor(private httpClient: HttpClientAuth) {}
 
   createPost(post: PostModel) {
@@ -29,6 +28,8 @@ export class PostService {
   }
 
   getAllPost(pageNumber: number, limitNumber: number) {
+    console.log('page', pageNumber);
+    console.log('limit', limitNumber);
     return this.httpClient.get(
       `post/all?page=${pageNumber}&limit=${limitNumber}`,
     );

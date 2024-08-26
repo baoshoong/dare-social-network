@@ -62,8 +62,9 @@ export class CommentService {
   //get all comments by postId
   async findCommentByPostId(postId: number) {
     //parse postId to number
+    console.log('postId: service', postId);
     postId = Number(postId);
-    console.log('postId:', postId);
+    console.log('postId: service', postId);
 
     const post = await this.postRepository.findOne({ where: { id: postId } });
     if (!post) {
