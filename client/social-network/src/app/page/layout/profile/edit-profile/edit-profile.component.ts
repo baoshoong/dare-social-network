@@ -20,6 +20,7 @@ import { ProfileModel } from '../../../../model/profile.model';
 import { ProfileState } from '../../../../ngrx/profile/profile.state';
 import * as ProfileActions from '../../../../ngrx/profile/profile.actions';
 
+
 @Component({
   selector: 'app-edit-profile',
   standalone: true,

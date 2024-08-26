@@ -87,7 +87,6 @@ button{
  
 }
 textarea{
-  // i want hiiden scrollbar bur user can use it
   overflow: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -95,9 +94,8 @@ textarea{
 
 mat-form-field {
   textarea{
-    height: 150px;
+    height: 250px;
   }
-
 }
 
 .loader {

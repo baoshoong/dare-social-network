@@ -96,24 +96,24 @@ img{
   border-radius: 50%;
   object-fit: cover;
 }
-// i want width and height will be changed when user use ipad pro, ipad mini, ipad air 
+// i want width and height will be changed when user use ipad pro, ipad mini, ipad air
 @media screen and (max-width: 1180px) {
   img{
     width: 100px;
     height: 100px;
-  } 
+  }
 }
 @media screen and (max-width: 1024px) {
   img{
     width: 90px;
     height: 90px;
-  } 
+  }
 }
 @media screen and (max-width: 768px) {
   img{
     width: 100px;
     height: 100px;
-  } 
+  }
 }
 
 .post-container {
@@ -140,7 +140,7 @@ img{
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* 50% black */
+    background-color: rgba(0, 0, 0, 0.1); /* 50% black */
   }
 }
 

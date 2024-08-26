@@ -25,5 +25,6 @@ export class LikeEffects {
       }),
     );
   });
+
   constructor(private actions$: Actions, private likeService: LikeService) {}
 }

@@ -6,6 +6,6 @@ export class CreateLikeDto {
   uid: string;
 
   @IsNotEmpty()
-  @IsNumber()
+  // @IsNumber()
   postId: number;
 }

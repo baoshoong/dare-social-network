@@ -10,6 +10,8 @@ export class LikeService {
   constructor( private httpClient: HttpClientAuth) { }
 
   createLike(like: LikeModel) {
+    console.log(like);
     return this.httpClient.post('like', like);
   }
+
 }

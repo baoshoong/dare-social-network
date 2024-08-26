@@ -18,8 +18,6 @@ export class LikeController {
   async create(@Body() createLikeDto: CreateLikeDto) {
     return this.likeService.create(
       createLikeDto,
-      createLikeDto.uid,
-      createLikeDto.postId,
     );
   }
 
