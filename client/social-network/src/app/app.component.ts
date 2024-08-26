@@ -38,6 +38,7 @@ export class AppComponent implements OnInit {
   );
 
   isShowSpinner = true;
+  //isShowSpinner = false;
 
   constructor(
     private router: Router,

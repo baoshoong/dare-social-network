@@ -15,3 +15,5 @@ export const uploadFileSuccess = createAction(
   '[Storage] Upload File Success',
   props<{ url: string[] }>(),
 );
+
+export const clearState = createAction('[Storage] Clear Messages');

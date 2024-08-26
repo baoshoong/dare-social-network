@@ -15,11 +15,17 @@ import * as PostAction from '../../../ngrx/post/post.actions';
 import * as ProfileAction from '../../../ngrx/profile/profile.actions';
 import { ProfileModel } from '../../../model/profile.model';
 import { ActivatedRoute } from '@angular/router';
-
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [MaterialModule, NgForOf, PostComponent, AsyncPipe],
+  imports: [
+    MaterialModule,
+    NgForOf,
+    PostComponent,
+    AsyncPipe,
+    InfiniteScrollDirective,
+  ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })
@@ -45,7 +51,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ) {
     const { uid } = this.activeRoute.snapshot.params;
     this.store.dispatch(
-      PostAction.getMinePost({ uid, pageNumber: 1, limitNumber: 5 }),
+      PostAction.getMinePost({ uid, pageNumber: 1, limitNumber: 30 }),
     );
     this.store.dispatch(ProfileAction.getById({ uid }));
   }
@@ -86,15 +92,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
         bio: this.profileMine.bio,
       },
     });
-    dialogRef.componentInstance.avatarChanged.subscribe(
-      (newAvatarUrl: string) => {
-        this.profileMine.avatarUrl = newAvatarUrl;
-        this.profileMine.userName =
-          dialogRef.componentInstance.editProfileForm.value.name ?? '';
-        this.profileMine.bio =
-          dialogRef.componentInstance.editProfileForm.value.bio ?? '';
-      },
-    );
+    // dialogRef.componentInstance.avatarChanged.subscribe(
+    //   (newAvatarUrl: string) => {
+    //     this.profileMine.avatarUrl = newAvatarUrl;
+    //     this.profileMine.userName =
+    //       dialogRef.componentInstance.editProfileForm.value.name ?? '';
+    //     this.profileMine.bio =
+    //       dialogRef.componentInstance.editProfileForm.value.bio ?? '';
+    //   },
+    // );
   }
   posts: PostModel[] = [];
 

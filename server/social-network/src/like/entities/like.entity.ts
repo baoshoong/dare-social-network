@@ -13,6 +13,7 @@ import { Profile } from '../../profile/entities/profile.entity';
 export class Like {
   @PrimaryGeneratedColumn()
   id: number;
+
   @Column({ type: 'bigint' })
   postId: number;
 

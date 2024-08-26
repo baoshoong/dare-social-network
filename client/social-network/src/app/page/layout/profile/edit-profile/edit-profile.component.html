@@ -1,8 +1,7 @@
+
 <div id="edit-profile">
   <form [formGroup]="editProfileForm">
     <div class="form">
-
-
       <img [src]="urlsa">
       <input type="file" (change)="onSelectedFile($event)" id="fileInput" hidden>
       @if(isUploading$|async){
@@ -14,33 +13,26 @@
 <!--        <button class="upload" mat-raised-button (click)="document.getElementById('fileInput')?.click()">-->
 <!--          <span class="loader"></span>-->
 <!--        </button>-->
-
       }
 
       <mat-form-field appearance="outline">
         <mat-label>Name</mat-label>
-        <input matInput placeholder="Name" formControlName="name">
+        <input matInput placeholder="Name" formControlName="name" hidden>
         <button matSuffix mat-icon-button aria-label="Clear" (click)="clearName()">
           <mat-icon>close</mat-icon>
         </button>
+        <mat-error *ngIf="editProfileForm.get('name')?.hasError('maxlength')">
+          Name cannot exceed 10 characters.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Bio</mat-label>
-        <input matInput  placeholder="Bio"  formControlName="bio">
-        <button matSuffix mat-icon-button aria-label="Clear" (click)="clearBio()">
-          <mat-icon>close</mat-icon>
-        </button>
+        <textarea matInput maxlength="200" placeholder="Bio" formControlName="bio"  (input)="onInput($event)" cdkTextareaAutosize></textarea>
+        <mat-hint align="end">{{value().length}}/200</mat-hint>
       </mat-form-field>
-    <button id="confirm" (click)="onSaveClick()" mat-raised-button>Save</button>
-  </div>
+
+      <button id="confirm" (click)="onSaveClick()" mat-raised-button>Save</button>
+    </div>
   </form>
-
 </div>
-<!--@if(isUploading$|async){-->
-
-<!--  <div class="loading-overlay">-->
-<!--    <mat-spinner class="loading-spinner"></mat-spinner>-->
-
-<!--  </div>-->
-<!--}-->

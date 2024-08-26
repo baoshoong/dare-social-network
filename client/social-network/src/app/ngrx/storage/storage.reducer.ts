@@ -43,4 +43,13 @@ export const storageReducer = createReducer(
       };
     },
   ),
+
+  on(StorageActions.clearState, (state) => {
+    return {
+      ...state,
+      isUploading: false,
+      uploadError: <HttpErrorResponseModel>{},
+      url: [],
+    };
+  }),
 );

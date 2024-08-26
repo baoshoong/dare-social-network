@@ -43,13 +43,7 @@ export class PostComponent {
 
   onImageClick() {
     this.route.navigateByUrl(`/detail-post/${this.post.id}`).then();
-    this.store.dispatch(PostActions.getPostById({ id: this.post.id }));
-  }
-
-  navigateToProfile() {
-    this.route.navigateByUrl(`/profile/${this.post.uid}`).then();
-    this.store.dispatch(PostActions.clearMinePost());
-    this.store.dispatch(ProfileActions.getById({ uid: this.post.uid }));
+    // this.store.dispatch(PostActions.getPostById({ id: this.post.id }));
   }
 
   deletePost() {

@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Query, Delete, Param } from '@nestjs/common';
+import { Controller, Get, Query, Delete, Param } from '@nestjs/common';
 import { SearchService } from './search.service';
 
 @Controller('search')
@@ -6,13 +6,13 @@ export class SearchController {
   constructor(private readonly searchService: SearchService) {}
 
   @Get('posts')
-  async searchPosts(@Body() request: any) {
-    return this.searchService.searchPosts(request.query);
+  async searchPosts(@Query('q') query: string) {
+    return this.searchService.searchPosts(query);
   }
 
   @Get('person')
-  async searchProfiles(@Body() request: any) {
-    return this.searchService.searchProfiles(request.query);
+  async searchProfiles(@Query('q') query: string) {
+    return this.searchService.searchUser(query); // Sử dụng phương thức mới để tìm kiếm người dùng
   }
 
   @Get('any')

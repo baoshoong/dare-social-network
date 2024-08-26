@@ -28,6 +28,7 @@ export class PostService {
   }
 
   getAllPost(pageNumber: number, limitNumber: number) {
+    console.log('get all post', pageNumber, limitNumber);
     console.log('page', pageNumber);
     console.log('limit', limitNumber);
     return this.httpClient.get(

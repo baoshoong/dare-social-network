@@ -2,7 +2,7 @@ import {
   Component,
   ElementRef,
   OnDestroy,
-  OnInit,
+  OnInit, signal,
   ViewChild,
 } from '@angular/core';
 import { MaterialModule } from '../../../shared/material.module';
@@ -38,6 +38,11 @@ import {PostDataModel} from "../../../model/post-data.model";
   styleUrl: './creator.component.scss',
 })
 export class CreatorComponent implements OnInit, OnDestroy {
+  protected readonly value = signal('');
+
+  protected onInput(event: Event) {
+    this.value.set((event.target as HTMLInputElement).value);
+  }
   profileMine$ = this.store.select('profile', 'mine');
   uid = '';
 

@@ -5,9 +5,10 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  signal,
 } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MaterialModule } from '../../../../shared/material.module';
 import { ShareModule } from '../../../../shared/share.module';
 import { Store } from '@ngrx/store';
@@ -33,6 +34,12 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   myFile: File[] = [];
   uid = '';
 
+  protected readonly value = signal('');
+
+  protected onInput(event: Event) {
+    this.value.set((event.target as HTMLInputElement).value);
+  }
+
   protected document = document;
   profileForm: ProfileModel = {
     bio: '',
@@ -46,6 +53,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     bio: new FormControl(''),
     uid: new FormControl(''),
     email: new FormControl(''),
+    avatarUrl: new FormControl(''),
   });
 
   subscription: Subscription[] = [];
@@ -78,6 +86,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
             bio: profile.bio,
             uid: profile.uid,
             email: profile.email,
+            avatarUrl: profile.avatarUrl,
           });
         }
       }),
@@ -92,7 +101,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
           });
         }
       }),
-
       this.isUpdateSuccess$.subscribe((isUpdateSuccess) => {
         if (isUpdateSuccess) {
           this.dialog.closeAll();
@@ -105,6 +113,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     this.subscription.forEach((sub) => {
       sub.unsubscribe();
     });
+    this.store.dispatch(StorageActions.clearState());
+    this.store.dispatch(ProfileActions.clearUpdateState());
   }
   onSelectedFile(e: any): void {
     if (e.target.files) {
@@ -126,20 +136,13 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       });
     }
   }
-  clearInput(): void {
-    this.editProfileForm.setValue({
-      name: '',
-      bio: '',
-      uid: '',
-      email: this.editProfileForm.value.email ?? '',
-    });
-  }
+
   onSaveClick(): void {
     // this.avatarChanged.emit(this.url);
 
     this.profileForm = {
       uid: this.editProfileForm.value.uid ?? '',
-      avatarUrl: this.profileForm.avatarUrl ?? '',
+      avatarUrl: this.editProfileForm.value.avatarUrl ?? '',
       email: this.editProfileForm.value.email ?? '',
       bio: this.editProfileForm.value.bio ?? '',
       userName: this.editProfileForm.value.name ?? '',
