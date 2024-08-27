@@ -79,5 +79,18 @@ export const getMinePostFailure = createAction(
   props<{ getMinePostErrorMessage: HttpErrorResponseModel }>(),
 );
 
+//delete post
+export const deletePost = createAction(
+  '[Post] Delete Post',
+  props<{ id: bigint }>(),
+);
+
+export const deletePostSuccess = createAction('[Post] Delete Post Success');
+
+export const deletePostFailure = createAction(
+  '[Post] Delete Post Failure',
+  props<{ deletePostErrorMessage: HttpErrorResponseModel }>(),
+);
+
 export const clearMinePost = createAction('[Post] Clear Mine Post');
 export const clearGetPost = createAction('[Post] Clear Post');

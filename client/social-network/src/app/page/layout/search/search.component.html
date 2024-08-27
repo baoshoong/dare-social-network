@@ -7,40 +7,28 @@
   <div class="result">
     Result
   </div>
-  <div class="pic-result">
 
-
-    @if(isSearching$|async){
+  @if(isSearching$|async){
       <div class="loading-overlay">
         <mat-spinner class="loading-spinner"></mat-spinner>
       </div>
-    }
-<!-- @for (item of filteredItems ; track $index){-->
-<!--     <img class="img-1" src="{{item.imageUrls}}" alt="img">-->
-<!--   }-->
+    }@else {
+    <div class="grid-container"
+         infiniteScroll
+         [infiniteScrollDistance]="2"
+         [infiniteScrollThrottle]="50"
+         [fromRoot]="true"
+    >
 
-
-  @for (item of filteredItems; track $index){
-      <div class="tab-1">
-          <img class="img-1" src="{{item.imageUrls}}" alt="...">
-          <div class="status-1">
-            <div class="avt-name-1">
-              <div class="bg-avt">
-                <img class="avt" src="{{item.imageUrls}}" alt="...">
-              </div>
-              <div class="rose">
-                Rose
-              </div>
-            </div>
-            <div class="icon-1">
-              <img class="icon-heart-1" src="{{item.imageUrls}}" alt="...">
-              <img class="icon-comment-1" src="{{item.imageUrls}}" alt="...">
-            </div>
-          </div>
+      <div class="masonry-container">
+        <div class="masonry-item" *ngFor="let post of posts">
+          <app-post [post]="post"></app-post>
         </div>
-  }
-<!--      <app-post *ngFor="let post of posts; trackBy: trackByFn" [post]="post" (postSelected)="onPostSelected($event)"></app-post>-->
+      </div>
+    </div>
+    }
+<!--    @for (item of filteredItems ; track $index){-->
+<!--     <img class="img-1" src="{{item.imageUrls}}" alt="img">-->
+<!--    }-->
 
   </div>
-
-</div>

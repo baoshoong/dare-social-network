@@ -1,8 +1,9 @@
-import {LikeModel} from "../../model/like.model";
-import {HttpErrorResponseModel} from "../../model/http-error-response.model";
+import { LikeModel } from '../../model/like.model';
+import { HttpErrorResponseModel } from '../../model/http-error-response.model';
 
 export interface LikeState {
   likes: LikeModel[];
+  count: number;
 
   isCreateLike: boolean;
   createLikeSuccess: boolean;
@@ -11,4 +12,8 @@ export interface LikeState {
   isGetLikes: boolean;
   isGetLikesSuccess: boolean;
   getLikesErrorMessage: HttpErrorResponseModel;
+
+  isDeleteLike: boolean;
+  deleteLikeSuccess: boolean;
+  deleteLikeErrorMessage: HttpErrorResponseModel;
 }

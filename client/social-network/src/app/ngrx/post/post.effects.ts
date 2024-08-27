@@ -91,21 +91,19 @@ export class PostEffects {
     );
   });
 
-  constructor(
-    private actions$: Actions,
-    private postService: PostService,
-  ) {}
-  getAllPostData$ = createEffect(() => {
+  deletePost$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(postActions.getAllPost),
+      ofType(postActions.deletePost),
       switchMap((action) => {
-        return this.postService.getAllPost(action.limitNumber, action.pageNumber).pipe(
-          map((posts) => {
-            return postActions.getAllPostSuccess({ posts });
+        return this.postService.deletePost(action.id).pipe(
+          map(() => {
+            return postActions.deletePostSuccess();
           }),
           catchError((error: HttpErrorResponseModel) => {
             return of(
-              postActions.getAllPostFailure({ getAllPostErrorMessage: error }),
+              postActions.deletePostFailure({
+                deletePostErrorMessage: error,
+              }),
             );
           }),
         );
@@ -113,5 +111,8 @@ export class PostEffects {
     );
   });
 
-
+  constructor(
+    private actions$: Actions,
+    private postService: PostService,
+  ) {}
 }

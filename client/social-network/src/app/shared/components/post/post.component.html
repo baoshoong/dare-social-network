@@ -3,7 +3,7 @@
       <div class="post-header">
         <img (click)="onImageClick()" class="post-image" [src]="post.imageUrls" alt="">
       </div>
-
+<button mat-button (click)="deletePost()"> xóa</button>
     </div>
 } @placeholder (minimum 1000ms) {
   <app-post-loader-skeleton></app-post-loader-skeleton>

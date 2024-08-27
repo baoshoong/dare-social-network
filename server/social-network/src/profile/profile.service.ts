@@ -32,7 +32,7 @@ export class ProfileService {
     }
     // Kiểm tra các trường không được phép null
     if (createProfileDto.userName == '' && createProfileDto.avatarUrl == '') {
-      throw new BadRequestException('Name, avatarUrl, and bio cannot be empty');
+      throw new BadRequestException('Name, avatarUrl cannot be empty');
     }
 
     // Tạo profile mới

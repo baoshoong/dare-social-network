@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-
 import { IdgenService } from '../utils/idgen/idgen.service';
 import { Client } from '@elastic/elasticsearch';
 import { Profile } from '../profile/entities/profile.entity';
@@ -19,7 +18,7 @@ export class SearchService {
       // }
     });
 
-    console.log('esClient', this.esClient);
+    console.log('esClient initialized', this.esClient);
   }
 
   async indexProfile(profile: Profile) {
@@ -35,7 +34,7 @@ export class SearchService {
   }
 
   async searchProfiles(query: string) {
-    // search for profiles by username or email or uid
+    // Search for profiles by username, email, or uid
     const response = await this.esClient.search({
       index: 'dare_profiles',
       query: {
@@ -49,13 +48,13 @@ export class SearchService {
   }
 
   async indexPost(post: Post) {
-    // get all hashtags in the post's content
+    // Get all hashtags in the post's content
     const hashtags = post.content.match(/#\w+/g) || [];
-    // lowercase all hashtags
+    // Lowercase all hashtags
     const lowercasedHashtags = hashtags.map((tag) => tag.toLowerCase());
-    // remove duplicates
+    // Remove duplicates
     const uniqueHashtags = Array.from(new Set(lowercasedHashtags));
-    // index
+    // Index hashtags
     for (let tag of uniqueHashtags) {
       await this.esClient.index({
         index: 'dare_hashtags',
@@ -86,9 +85,9 @@ export class SearchService {
   }
 
   async updatePost(post: Post) {
-    // delete first
+    // Delete first
     await this.deletePost(post.id);
-    // index
+    // Index
     await this.indexPost(post);
   }
 
@@ -118,17 +117,17 @@ export class SearchService {
   }
 
   async deletePost(postId: number) {
-    // delete post from hashtags index
-    // get post first
+    // Delete post from hashtags index
+    // Get post first
     const post = await this.esClient.get({
       index: 'dare_posts',
       id: postId.toString(),
     });
-    // get all hashtags in the post's content
+    // Get all hashtags in the post's content
     const hashtags = (post._source as any).content.match(/#\w+/g) || [];
-    // lowercase all hashtags
+    // Lowercase all hashtags
     const lowercasedHashtags = hashtags.map((tag) => tag.toLowerCase());
-    // remove duplicates
+    // Remove duplicates
     const uniqueHashtags = Array.from(new Set(lowercasedHashtags));
 
     for (let tag of uniqueHashtags) {
@@ -162,6 +161,7 @@ export class SearchService {
       });
       return response.hits.hits.map((hit) => hit['_source']);
     } catch (e) {
+      console.error('Error searching in index', e);
       return [];
     }
   }
@@ -181,5 +181,26 @@ export class SearchService {
       index: 'dare_posts',
       id: postId.toString(),
     });
+  }
+
+  async searchProfileByUsername(query: string) {
+    const response = await this.esClient.search({
+      index: 'dare_profiles',
+      query: {
+        multi_match: {
+          query: query,
+          fields: ['username'],
+        },
+      },
+    });
+    return response.hits.hits;
+  }
+
+  async searchUser(query: string) {
+    if (query.startsWith('@')) {
+      const username = query.substring(1); // Remove '@'
+      return this.searchProfileByUsername(username);
+    }
+    return this.searchProfiles(query);
   }
 }

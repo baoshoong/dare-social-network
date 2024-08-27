@@ -1,4 +1,4 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -31,10 +31,14 @@
 }
 
 .register .title {
-  font-weight: bold;
   font-size: 32px;
+  line-height: 1.286;
   color: var(--primary);
-  margin-top: 6.5%;
+  //border: 1px solid gold;
+  width: fit-content;
+  height: 70px;
+  padding-top: 3%;
+
 }
 
 .register .man-image {
@@ -55,11 +59,12 @@
 }
 
 .register .label-1 {
-  margin-top: 3%;
   font-size: 32px;
   line-height: 1.286;
   font-weight: bold;
   color: var(--primary);
+  width: fit-content;
+  height: 70px;
 }
 
 .register .tab-register {
@@ -70,9 +75,10 @@
   box-sizing: border-box;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
+  gap: 20px;
   border-bottom-left-radius: 40px;
   border-top-left-radius: 40px;
+  padding-top: 10px;
 }
 
 .register .icon {
@@ -99,7 +105,7 @@
   box-sizing: border-box;
   width: 50%;
   height: 100%;
- // border: 2px solid blue;
+  // border: 2px solid blue;
   border-bottom-left-radius: 40px;
   border-top-left-radius: 40px;
 }
@@ -112,7 +118,8 @@
   display: flex;
   flex-direction: row;
   position: sticky;
-  top: 0; /* Phần tử sẽ dính vào đỉnh viewport khi cuộn trang lên đến đỉnh phần tử */
+  top: 0;
+  /* Phần tử sẽ dính vào đỉnh viewport khi cuộn trang lên đến đỉnh phần tử */
 }
 
 .register-text {
@@ -130,7 +137,7 @@
   margin-left: 7.5%;
 }
 
-.form-register{
+.form-register {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -153,67 +160,65 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  gap: 10px;
+  // border: 2px solid aqua;
+
 }
 
 //ipad pro nam doc
-@media only screen
-and (min-device-width: 1024px)
-and (max-device-width: 1366px)
-and (-webkit-min-device-pixel-ratio: 2)
-and (orientation: portrait) {
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
 
   .register .title {
     font-size: 32px;
     margin-left: -5%;
   }
-  .register .man-image{
+
+  .register .man-image {
     margin-left: 25%;
   }
+
   .register {
     height: 40% !important;
   }
+
   .register-text {
     width: 80%;
   }
 }
 
 /* Media Query cho iPad Pro ở chế độ ngang (Landscape) */
-@media only screen
-and (min-device-width: 1024px)
-and (max-device-width: 1366px)
-and (-webkit-min-device-pixel-ratio: 2)
-and (orientation: landscape) {
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
 
- .register {
-   height: 60%;
- }
+  .register {
+    height: 60%;
+  }
+
   //.example-full-width{
   //  border: 2px solid gold;
   //}
 }
 
 /* Media Query cho iPad Mini ở chế độ dọc (Portrait) */
-@media only screen
-and (min-device-width: 768px)
-and (max-device-width: 1024px)
-and (-webkit-min-device-pixel-ratio: 2)
-and (orientation: portrait) {
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
 
   .check-with-box {
     margin-left: 6%;
   }
 
-  .register .man-image{
+  .register .man-image {
     margin-left: 25%;
   }
+
   .example-full-width {
     margin-left: 10%;
     //border: 2px solid gold;
     width: 80%;
   }
+
   .register {
     height: 50%;
   }
+
   .register-text {
     width: 80%;
 
@@ -221,16 +226,13 @@ and (orientation: portrait) {
 }
 
 /* Media Query cho iPad Mini ở chế độ ngang (Landscape) */
-@media only screen
-and (min-device-width: 768px)
-and (max-device-width: 1024px)
-and (-webkit-min-device-pixel-ratio: 2)
-and (orientation: landscape) {
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
 
-  .register .title{
+  .register .title {
     font-size: 32px;
   }
-  .register .man-image{
+
+  .register .man-image {
     margin-left: 25%;
   }
 
@@ -243,6 +245,7 @@ and (orientation: landscape) {
     margin-left: 10%;
     width: 80%;
   }
+
   .check-with-box {
     margin-left: 7%;
   }

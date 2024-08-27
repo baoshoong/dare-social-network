@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { SEARCH_ROUTES } from './search.routes';
-import { PostComponent } from '../../../shared/components/post/post.component';
-import { SearchService } from '../../../service/search/search.service';
-// @ts-ignore
-import * as PostActions from '../../../ngrx/post/post.action';
-import { AsyncPipe, NgForOf } from '@angular/common';
-import { ShareModule } from '../../../shared/share.module';
-import { MaterialModule } from '../../../shared/material.module';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { SearchService } from '../../../service/search/search.service';
+import { PostModel } from '../../../model/post.model';
 import { Store } from '@ngrx/store';
-import { SearchState } from '../../../ngrx/search/search.state';
-import { debounceTime, Subscription } from 'rxjs';
 import * as SearchActions from '../../../ngrx/search/search.actions';
-import {PostModel} from "../../../model/post.model";
-//import {importType} from "@angular/compiler";
+import * as postActions from '../../../ngrx/post/post.actions';
+import { SearchState } from '../../../ngrx/search/search.state';
+import { PostState } from '../../../ngrx/post/post.state';
+import { ProfileState } from '../../../ngrx/profile/profile.state';
+import { Router, RouterLink } from '@angular/router';
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { MaterialModule } from '../../../shared/material.module';
+import { ShareModule } from '../../../shared/share.module';
+import { PostComponent } from '../../../shared/components/post/post.component';
 
 @Component({
   selector: 'app-search',
@@ -21,69 +23,61 @@ import {PostModel} from "../../../model/post.model";
   imports: [
     PostComponent,
     MaterialModule,
-    PostComponent,
     AsyncPipe,
     NgForOf,
+    NgIf,
+    RouterLink,
     ShareModule,
+    InfiniteScrollDirective,
   ],
   templateUrl: './search.component.html',
-  styleUrl: './search.component.scss',
+  styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
   searchQuery: string = '';
   items: PostModel[] = [];
-  filteredItems: PostModel[] = [];
+  posts: PostModel[] = [];
   searchControl = new FormControl();
-
-  searchResults: any;
-
   subscription: Subscription[] = [];
-
-  searchResults$ = this.store.select('search', 'searchResult');
-
-  isLoading= true;
+  isLoading = true;
   isSearching$ = this.store.select('search', 'isSearching');
 
-
   constructor(
+    private router: Router,
     private store: Store<{
       search: SearchState;
-    }>,private searchService: SearchService,
+      post: PostState;
+      profile: ProfileState;
+    }>,
+    private searchService: SearchService,
   ) {}
 
   ngOnInit(): void {
     this.subscription.push(
-      this.searchResults$.subscribe((searchResults) => {
-        this.searchResults = searchResults;
-        console.log('searchResults', searchResults);
-
-      }),
-
       this.searchControl.valueChanges
         .pipe(debounceTime(1000))
         .subscribe((query) => {
-          this.store.dispatch(SearchActions.search({ query }));
-          this.search();
-        }),
+          this.searchQuery = query.trim();
+          this.performSearch();
+        })
     );
   }
-  search(){
-    if(this.searchQuery.trim()===''){
-      this.filteredItems = this.items;
-    }else{
+
+  ngOnDestroy(): void {
+    this.subscription.forEach((sub) => sub.unsubscribe());
+    this.store.dispatch(postActions.clearGetPost());
+  }
+
+  performSearch(): void {
+    if (this.searchQuery.startsWith('@')) {
+      this.searchService.searchProfileByUsername(this.searchQuery.substring(0)).subscribe(results => {
+        this.posts = results;
+        console.log(results);
+      });
+    } else {
       this.searchService.search(this.searchQuery).subscribe(results => {
-        this.filteredItems= results.posts;
+        this.posts = results.posts;
       });
     }
   }
-  // selectedPost?: PostModel;
-  //
-  // onPostSelected(post?: PostModel) {
-  //   this.selectedPost = post;
-  // }
-  //
-  // trackByFn(index: number, item: PostModel): number {
-  //   return item.id; // Assuming each post has a unique 'id' property
-  // }
-  protected readonly SEARCH_ROUTES = SEARCH_ROUTES;
 }
