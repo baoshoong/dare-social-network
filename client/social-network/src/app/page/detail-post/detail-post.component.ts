@@ -110,7 +110,7 @@ export class DetailPostComponent implements OnInit, OnDestroy {
   ) {
     const { id } = this.activeRoute.snapshot.params;
     console.log('id:', id);
-    this.store.dispatch(PostActions.getPostById({ id }));
+
     // this.store.dispatch(LikeActions.getLikes({ postId: id }));
     this.postId = id;
   }
