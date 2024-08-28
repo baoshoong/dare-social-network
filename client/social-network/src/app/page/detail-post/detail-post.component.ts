@@ -89,7 +89,6 @@ export class DetailPostComponent implements OnInit, OnDestroy {
   postId = '';
   commentList: CommentModel[] = [];
   likeList: LikeModel[] = [];
-  @ViewChild('imageElement', { static: false }) imageElement!: ElementRef;
   constructor(
     private el: ElementRef,
     private renderer: Renderer2,
@@ -202,12 +201,13 @@ export class DetailPostComponent implements OnInit, OnDestroy {
 
   isLiked = false;
 
-  toggleLike() {
-    this.isLiked = !this.isLiked;
-  }
-
   navigateToProfile() {
     this.router.navigateByUrl(`/profile/${this.postDetails.uid}`).then();
+    this.store.dispatch(PostActions.clearMinePost());
+  }
+
+  navigateToCommentProfile(uid: string) {
+    this.router.navigateByUrl(`/profile/${uid}`).then();
     this.store.dispatch(PostActions.clearMinePost());
   }
 
@@ -215,27 +215,6 @@ export class DetailPostComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl(`/profile/${this.profileMine.uid}`).then();
     this.store.dispatch(PostActions.clearMinePost());
   }
-
-  // ngAfterViewInit() {
-  //   const imgElement = this.imageElement.nativeElement;
-  //
-  //   imgElement.onload = () => {
-  //     if (imgElement.naturalWidth > imgElement.naturalHeight) {
-  //       this.renderer.addClass(imgElement, 'scale-width');
-  //     } else {
-  //       this.renderer.addClass(imgElement, 'scale-height');
-  //     }
-  //   };
-  //
-  //   const commentListElement =
-  //     this.el.nativeElement.querySelector('.comment-list');
-  //   const hasScrollbar =
-  //     commentListElement.scrollHeight > commentListElement.clientHeight;
-  //
-  //   if (!hasScrollbar) {
-  //     this.renderer.setStyle(commentListElement, 'padding-right', '23px');
-  //   }
-  // }
 
   createComment() {
     console.log('comment is empty');

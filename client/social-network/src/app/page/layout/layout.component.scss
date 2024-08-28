@@ -7,15 +7,15 @@
 }
 
 #navbar-layout-container {
-  width: 100%;
+  width: calc(100% - 4rem);
   height: 4rem;
   margin-bottom: 1rem;
   background-color: white;
+  padding: 0 2rem;
 }
 
 #content-layout-container {
   width: calc(100% - 4rem);
   height: calc(100% - 5rem);
   padding: 0 2rem;
-
 }
