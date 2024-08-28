@@ -122,6 +122,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
           this.dialog.closeAll();
         }
+
       }),
     );
   }
