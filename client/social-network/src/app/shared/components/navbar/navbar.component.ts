@@ -26,7 +26,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     { icon: 'home', routeLink: '/home', name: 'Home' },
     { icon: 'search', routeLink: '/search', name: 'Search' },
     { icon: 'edit_square', routeLink: '/creator', name: 'Creator' },
-    { icon: 'campaign', routeLink: '/notification', name: 'Notification' },
     { icon: 'person', routeLink: `/profile/${this.uid}`, name: 'Profile' },
   ];
 
@@ -132,7 +131,5 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isNavbarCenterHidden = !this.isNavbarCenterHidden;
   }
 
-  onResize() {
-
-  }
+  onResize() {}
 }
