@@ -33,6 +33,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   profileByUid$ = this.store.select('profile', 'profile');
+  profileMine$ = this.store.select('profile', 'mine');
 
   minePosts$ = this.store.select('post', 'minePosts');
 
@@ -40,7 +41,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   minePosts: PostResponse = <PostResponse>{};
   profileMine: ProfileModel = <ProfileModel>{};
-
+  mineUid = '';
+  yoursUid = '';
   constructor(
     public dialog: MatDialog,
     private activeRoute: ActivatedRoute,
@@ -50,10 +52,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }>,
   ) {
     const { uid } = this.activeRoute.snapshot.params;
+    console.log(uid);
     this.store.dispatch(
       PostAction.getMinePost({ uid, pageNumber: 1, limitNumber: 30 }),
     );
     this.store.dispatch(ProfileAction.getById({ uid }));
+    this.yoursUid = uid;
   }
 
   ngOnDestroy(): void {
@@ -73,6 +77,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
         console.log(posts);
         this.minePosts = posts;
       }),
+
+      this.profileMine$.subscribe((profile) => {
+        if (profile?.uid) {
+          this.mineUid = profile.uid;
+        }
+      }),
+
     );
   }
 
@@ -92,16 +103,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
         bio: this.profileMine.bio,
       },
     });
-    // dialogRef.componentInstance.avatarChanged.subscribe(
-    //   (newAvatarUrl: string) => {
-    //     this.profileMine.avatarUrl = newAvatarUrl;
-    //     this.profileMine.userName =
-    //       dialogRef.componentInstance.editProfileForm.value.name ?? '';
-    //     this.profileMine.bio =
-    //       dialogRef.componentInstance.editProfileForm.value.bio ?? '';
-    //   },
-    // );
   }
+
   posts: PostModel[] = [];
 
   selectedPost?: PostModel;

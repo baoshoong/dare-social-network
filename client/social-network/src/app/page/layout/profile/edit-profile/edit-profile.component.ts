@@ -20,7 +20,7 @@ import { ProfileModel } from '../../../../model/profile.model';
 import { ProfileState } from '../../../../ngrx/profile/profile.state';
 import * as ProfileActions from '../../../../ngrx/profile/profile.actions';
 
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-profile',
@@ -35,6 +35,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   myAvatarUrl: string[] = [];
   myFile: File[] = [];
   uid = '';
+  profileMine: ProfileModel = <ProfileModel>{};
 
   protected readonly value = signal('');
 
@@ -48,7 +49,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     uid: '',
     userName: '',
     email: '',
-    avatarUrl: '',
+    avatarUrl: this.profileMine.avatarUrl,
   };
   editProfileForm = new FormGroup({
     name: new FormControl(''),
@@ -69,6 +70,9 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   isUpdateSuccess$ = this.store.select('profile', 'isUpdateSuccess');
 
   constructor(
+    public snackBar: MatSnackBar,
+
+
     public dialog: MatDialog,
     public store: Store<{
       storage: StorageState;
@@ -82,6 +86,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     this.subscription.push(
       this.profileMine$.subscribe((profile) => {
         if (profile) {
+
           this.uid = profile.uid;
           this.editProfileForm.setValue({
             name: profile.userName,
@@ -90,6 +95,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
             email: profile.email,
             avatarUrl: profile.avatarUrl,
           });
+          this.profileMine = profile;
         }
       }),
 
@@ -107,6 +113,14 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         if (isUpdateSuccess) {
           // this.dialog.closeAll();
           this.store.dispatch(ProfileActions.getMine({ uid: this.uid }));
+          //when update success, show snackbar
+          this.snackBar.open('Update successfully', 'Close', {
+            duration: 2000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+          });
+
+          this.dialog.closeAll();
         }
 
       }),
@@ -142,11 +156,10 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
   onSaveClick(): void {
     // this.avatarChanged.emit(this.url);
-
     this.profileForm = {
       uid: this.editProfileForm.value.uid ?? '',
       avatarUrl:
-        this.profileForm.avatarUrl ?? this.editProfileForm.value.avatarUrl,
+        this.profileForm.avatarUrl ?? this.profileMine.avatarUrl,
       email: this.editProfileForm.value.email ?? '',
       bio: this.editProfileForm.value.bio ?? '',
       userName: this.editProfileForm.value.name ?? '',

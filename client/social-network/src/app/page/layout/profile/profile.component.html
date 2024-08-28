@@ -29,8 +29,10 @@
         </div>
         <div class="edit-button">
           <img [src]="profileMine.avatarUrl" alt="avatar">
-          <button id="edit" mat-raised-button (click)="openEditProfileDialog()">Edit Profile</button>
-        </div>
+          @if(mineUid === yoursUid){
+            <button id="edit" mat-raised-button (click)="openEditProfileDialog()">Edit Profile</button>
+
+          }
       </div>
     </div>
   </div>
@@ -46,6 +48,7 @@
       </div>
     </div>
   </div>
+</div>
 }
 
 
