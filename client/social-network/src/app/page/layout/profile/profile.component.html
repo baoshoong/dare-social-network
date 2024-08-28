@@ -29,10 +29,10 @@
         </div>
         <div class="edit-button">
           <img [src]="profileMine.avatarUrl" alt="avatar">
-          <!-- @if( profileMine.userId === uid){
+          @if(mineUid === yoursUid){
             <button id="edit" mat-raised-button (click)="openEditProfileDialog()">Edit Profile</button>
-          } -->
-          <button id="edit" mat-raised-button (click)="openEditProfileDialog()">Edit Profile</button>
+
+          }
       </div>
     </div>
   </div>
