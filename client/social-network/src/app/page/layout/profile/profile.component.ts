@@ -41,6 +41,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   minePosts: PostResponse = <PostResponse>{};
   profileMine: ProfileModel = <ProfileModel>{};
 
+  
+
   constructor(
     public dialog: MatDialog,
     private activeRoute: ActivatedRoute,
@@ -73,6 +75,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         console.log(posts);
         this.minePosts = posts;
       }),
+
     );
   }
 
@@ -92,16 +95,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
         bio: this.profileMine.bio,
       },
     });
-    // dialogRef.componentInstance.avatarChanged.subscribe(
-    //   (newAvatarUrl: string) => {
-    //     this.profileMine.avatarUrl = newAvatarUrl;
-    //     this.profileMine.userName =
-    //       dialogRef.componentInstance.editProfileForm.value.name ?? '';
-    //     this.profileMine.bio =
-    //       dialogRef.componentInstance.editProfileForm.value.bio ?? '';
-    //   },
-    // );
   }
+
   posts: PostModel[] = [];
 
   selectedPost?: PostModel;
