@@ -1,5 +1,8 @@
 @if(getPostDetail$| async){
-  <mat-spinner></mat-spinner>
+  <div class="loading">
+    <mat-spinner></mat-spinner>
+
+  </div>
 } @else {
   <div class="container">
     <div class="detail-container">
@@ -23,8 +26,7 @@
               </div>
               <div class="content">
                 <div class="content-left">
-                  <img class="avatar" (click)="navigateToProfile()" [src]="postDetails.uid | idToAvatar| async"
-                       alt="Avatar">
+                  <img class="avatar" (click)="navigateToProfile()" [src]="postDetails.uid | idToAvatar| async" alt="Avatar">
                   <div class="info">
                     <p class="name">{{ postDetails.uid | idToName| async }}</p>
                     <p class="follower">1.8 triệu người theo dõi</p>
@@ -56,7 +58,6 @@
                   </div>
                 </div>
               }
-
             </div>
           </div>
         </div>
