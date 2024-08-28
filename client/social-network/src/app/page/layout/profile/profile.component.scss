@@ -76,6 +76,12 @@
 // ::ng-deep .mat-mdc-raised-button{
 //   height: 10px;
 // }
+
+p{
+  margin: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
 #edit{
   background-color: var(--primary);
   color: var(--onPrimary);
