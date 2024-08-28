@@ -75,7 +75,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   navigate(index: number) {
-    if (index === 4) {
+    if (index === 3) {
       this.router.navigate([`/profile/${this.uid}`]).then(() => {
         this.routeSelected = index;
       });
@@ -106,10 +106,8 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
       this.routeSelected = 1;
     } else if (url.includes('creator')) {
       this.routeSelected = 2;
-    } else if (url.includes('notification')) {
-      this.routeSelected = 3;
     } else if (url.includes('profile')) {
-      this.routeSelected = 4;
+      this.routeSelected = 3;
     } else {
       this.routeSelected = -1;
     }
