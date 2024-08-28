@@ -46,20 +46,20 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 80%;
+  max-height: 80%;
   width: auto;
   height: auto;
 }
 
 .image-container img.scale-width {
-  max-width: 90%;
+  max-width: 80%;
   height: auto;
 }
 
 .image-container img.scale-height {
   width: auto;
-  max-height: 90%;
+  max-height: 80%;
 }
 
 .top-content {
