@@ -105,8 +105,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       }),
       this.isUpdateSuccess$.subscribe((isUpdateSuccess) => {
         if (isUpdateSuccess) {
-          this.dialog.closeAll();
-          this.store.dispatch(ProfileActions.getMine({uid: this.uid}));
+          // this.dialog.closeAll();
+          this.store.dispatch(ProfileActions.getMine({ uid: this.uid }));
         }
 
       }),
@@ -145,7 +145,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
     this.profileForm = {
       uid: this.editProfileForm.value.uid ?? '',
-      avatarUrl: this.editProfileForm.value.avatarUrl ?? '',
+      avatarUrl:
+        this.profileForm.avatarUrl ?? this.editProfileForm.value.avatarUrl,
       email: this.editProfileForm.value.email ?? '',
       bio: this.editProfileForm.value.bio ?? '',
       userName: this.editProfileForm.value.name ?? '',
