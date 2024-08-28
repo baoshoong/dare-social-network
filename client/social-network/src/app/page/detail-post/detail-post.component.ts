@@ -16,7 +16,11 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatDialogActions, MatDialogClose } from '@angular/material/dialog';
+import {
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -39,6 +43,7 @@ import * as LikeActions from '../../ngrx/like/like.actions';
 import { CommentModel } from '../../model/comment.model';
 import { LikeModel } from '../../model/like.model';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { Location } from '@angular/common';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -90,6 +95,8 @@ export class DetailPostComponent implements OnInit, OnDestroy {
   commentList: CommentModel[] = [];
   likeList: LikeModel[] = [];
   constructor(
+    private dialogRef: MatDialogRef<DetailPostComponent>,
+    private location: Location,
     private el: ElementRef,
     private renderer: Renderer2,
     private router: Router,
@@ -104,13 +111,12 @@ export class DetailPostComponent implements OnInit, OnDestroy {
     const { id } = this.activeRoute.snapshot.params;
     console.log('id:', id);
     this.store.dispatch(PostActions.getPostById({ id }));
-    this.store.dispatch(LikeActions.getLikes({ postId: id }));
+    // this.store.dispatch(LikeActions.getLikes({ postId: id }));
     this.postId = id;
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
-    this.store.dispatch(PostAction.clearMinePost());
     this.store.dispatch(CommentAction.clearCommentState());
   }
 
@@ -125,9 +131,10 @@ export class DetailPostComponent implements OnInit, OnDestroy {
       this.postDetail$.subscribe((post) => {
         if (post.id) {
           this.postDetails = post;
-          // this.store.dispatch(
-          //   LikeActions.getLikes({ postId: post.id.toString() }),
-          // );
+          console.log('postDetails', this.postDetails);
+          this.store.dispatch(
+            LikeActions.getLikes({ postId: post.id.toString() }),
+          );
 
           this.store.dispatch(
             CommentAction.GetComments({ postId: post.id.toString() }),
@@ -150,14 +157,18 @@ export class DetailPostComponent implements OnInit, OnDestroy {
       this.createCommentSuccess$.subscribe((success) => {
         if (success) {
           this.store.dispatch(
-            CommentAction.GetComments({ postId: this.postId }),
+            CommentAction.GetComments({
+              postId: this.postDetails.id.toString(),
+            }),
           );
         }
       }),
 
       this.createLikeSuccess$.subscribe((success) => {
         if (success) {
-          this.store.dispatch(LikeActions.getLikes({ postId: this.postId }));
+          this.store.dispatch(
+            LikeActions.getLikes({ postId: this.postDetails.id.toString() }),
+          );
         }
       }),
 
@@ -173,17 +184,13 @@ export class DetailPostComponent implements OnInit, OnDestroy {
       this.createLikeSuccess$.subscribe((success) => {
         if (success) {
           this.store.dispatch(LikeActions.getLikes({ postId: this.postId }));
-          this.store.dispatch(
-            LikeActions.getLikeCount({ postId: this.postId.toString() }),
-          );
         }
       }),
 
       this.deleteLikeSuccess$.subscribe((success) => {
         if (success) {
-          this.store.dispatch(LikeActions.getLikes({ postId: this.postId }));
           this.store.dispatch(
-            LikeActions.getLikeCount({ postId: this.postId.toString() }),
+            LikeActions.getLikes({ postId: this.postDetails.id.toString() }),
           );
         }
       }),
@@ -192,11 +199,11 @@ export class DetailPostComponent implements OnInit, OnDestroy {
 
   onExit() {
     console.log('exit');
-    this.router.navigate(['/home']).then(() => {
-      this.commentList = [];
-      this.store.dispatch(CommentAction.clearCommentState());
-      this.store.dispatch(LikeActions.clearLikeState());
-    });
+    //how to close dialog
+    this.dialogRef.close();
+    this.commentList = [];
+    this.store.dispatch(CommentAction.clearCommentState());
+    this.store.dispatch(LikeActions.clearLikeState());
   }
 
   isLiked = false;
@@ -204,15 +211,20 @@ export class DetailPostComponent implements OnInit, OnDestroy {
   navigateToProfile() {
     this.router.navigateByUrl(`/profile/${this.postDetails.uid}`).then();
     this.store.dispatch(PostActions.clearMinePost());
+    //close dialog
   }
 
   navigateToCommentProfile(uid: string) {
-    this.router.navigateByUrl(`/profile/${uid}`).then();
+    this.router
+      .navigateByUrl(`/profile/${uid}`)
+      .then(() => this.dialogRef.close());
     this.store.dispatch(PostActions.clearMinePost());
   }
 
   navigateToMineProfile() {
-    this.router.navigateByUrl(`/profile/${this.profileMine.uid}`).then();
+    this.router
+      .navigateByUrl(`/profile/${this.profileMine.uid}`)
+      .then(() => this.dialogRef.close());
     this.store.dispatch(PostActions.clearMinePost());
   }
 

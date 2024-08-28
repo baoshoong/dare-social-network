@@ -8,7 +8,7 @@
     <div class="detail-container">
       <div class="left-container">
         <button mat-icon-button class="close-button" (click)="onExit()">
-          <span class="material-symbols-outlined">close</span>
+          <span class="material-symbols-outlined" mat-dialog-close>close</span>
         </button>
         <div class="image-container">
           <img #imageElement class="image" [src]="postDetails.imageUrls" alt="">
@@ -33,9 +33,9 @@
                   </div>
                 </div>
                 <div class="content-right">
-                  <mat-dialog-actions>
-                    <button mat-button mat-dialog-close class="follow-button">Theo dõi</button>
-                  </mat-dialog-actions>
+<!--                  <mat-dialog-actions>-->
+<!--                    <button mat-button mat-dialog-close class="follow-button">Theo dõi</button>-->
+<!--                  </mat-dialog-actions>-->
                 </div>
               </div>
             </div>
@@ -67,7 +67,7 @@
               <p>{{ this.commentList.length }} Comments</p>
             </div>
             <div class="content-right">
-              <p>{{ likeCount$ | async }} like</p>
+              <p>{{ this.likeList.length }} like</p>
 
               @if(isLiked){
                 <button mat-icon-button class="like-button liked" (click)="deleteLike()">
@@ -94,7 +94,7 @@
                 <mat-form-field class="example-full-width input-border" appearance="outline">
                   <mat-label class="input-info">Comment</mat-label>
                   <input formControlName="content" matInput placeholder="comment"/>
-                  <button mat-icon-button class="send-button" (click)="createComment()">
+                  <button mat-icon-button class="send-button" (click)="createComment()" type="button">
                     <span class="material-symbols-outlined">send</span>
                   </button>
                 </mat-form-field>

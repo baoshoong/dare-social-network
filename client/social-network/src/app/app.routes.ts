@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { DetailPostComponent } from './page/detail-post/detail-post.component';
 
 export const routes: Routes = [
   {
