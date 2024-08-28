@@ -45,7 +45,7 @@
                 <div class="comment">
                   <div class="comment-detail">
                     <div class="comment-detail-left">
-                      <img class="avatar" src="{{comments.uid | idToAvatar| async}}" alt="">
+                      <img class="avatar" (click)="navigateToCommentProfile(comments.uid)" src="{{comments.uid | idToAvatar| async}}" alt="">
                     </div>
                     <div class="comment-detail-right">
                       <div class="commented">
@@ -63,23 +63,21 @@
         <div class="bottom-content">
           <div class="like-content">
             <div class="content-left">
-              <p>{{ this.commentList.length }} comments</p>
+              <p>{{ this.commentList.length }} Comments</p>
             </div>
             <div class="content-right">
               <p>{{ likeCount$ | async }} like</p>
 
               @if(isLiked){
                 <button mat-icon-button class="like-button liked" (click)="deleteLike()">
-                  <span class="material-symbols-outlined">favorite</span>
+                  <span class="material-icons">favorite</span>
                 </button>
               } @else {
-                <button mat-icon-button class="like-button" (click)="createLike()">
+                <button mat-icon-button class="like-button not-like" (click)="createLike()">
                   <span class="material-symbols-outlined">favorite</span>
                 </button>
 
               }
-
-
 <!--              <button mat-icon-button class="like-button" [ngClass]="{'liked': isLiked}" (click)="createLike()">-->
 <!--                <span class="material-symbols-outlined">favorite</span>-->
 <!--              </button>-->

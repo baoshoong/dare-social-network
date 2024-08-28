@@ -65,11 +65,12 @@
 .top-content {
   display: flex;
   flex-direction: column;
-  height: 65%;
-  gap: 20px;
+  height: 84%;
+  gap: 10px;
 }
 
 .user-content {
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -103,6 +104,11 @@
           height: 40px;
           border-radius: 50%;
           align-self: center;
+          object-fit: cover;
+        }
+
+        .avatar:hover {
+          cursor: pointer;
         }
 
         .info {
@@ -144,11 +150,13 @@
 }
 
 .comment-content {
-  height: 80%;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   padding-left: 23px;
   gap: 20px;
+  overflow-y: auto;
+  max-height: calc(100% - 16%);
 
   p {
     font-size: 16px;
@@ -157,6 +165,7 @@
 
 
   .comment-list {
+    max-height: 90%;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -177,6 +186,11 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
+            object-fit: cover;
+          }
+
+          .avatar:hover {
+            cursor: pointer;
           }
         }
 
@@ -193,6 +207,10 @@
             .comment-text {
               font-size: 15px;
               font-weight: 400;
+
+              p {
+                padding-left: 16px;
+              }
             }
 
             .date {
@@ -224,13 +242,10 @@
   .comment-list::-webkit-scrollbar-button {
     display:none;
   }
-
-  //.comment-list:not(:has(::-webkit-scrollbar)) {
-  //  padding-right: 23px;
-  //}
 }
 
 .bottom-content {
+  height: 16%;
   display: flex;
   flex-direction: column;
   padding: 0 23px 0 23px;
@@ -261,9 +276,13 @@
       .like-button {
       }
 
-      .like-button.liked {
+      .liked {
         color: red;
       }
+
+      //.not-like {
+      //  color: black;
+      //}
     }
   }
 
@@ -284,6 +303,11 @@
           width: 50px;
           height: 50px;
           border-radius: 50%;
+          object-fit: cover;
+        }
+
+        .avatar:hover {
+          cursor: pointer;
         }
       }
 
@@ -304,6 +328,21 @@
         display: flex;
       }
 
+      .input-button-container {
+        display: flex;
+        align-items: center;
+      }
+
+      .comment-input {
+        flex-grow: 1;
+        margin-right: 0.5rem; // Optional: Add some space between the input and the button
+      }
+
+      .send-button {
+        flex-shrink: 0;
+        width: 3rem; // Adjust the width as needed
+      }
+
       .send-button {
         position: absolute;
         right: 0;
@@ -317,8 +356,13 @@
 
 p {
   margin: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
+.mat-mdc-form-field:not(.mat-form-field-no-animations) .mdc-text-field__input {
+  max-width: 85%;
+}
 @media only screen and (max-width: 1024px) {
   //.detail-container {
   //  display: flex;

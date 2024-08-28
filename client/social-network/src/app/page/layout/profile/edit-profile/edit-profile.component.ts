@@ -20,6 +20,8 @@ import { ProfileModel } from '../../../../model/profile.model';
 import { ProfileState } from '../../../../ngrx/profile/profile.state';
 import * as ProfileActions from '../../../../ngrx/profile/profile.actions';
 
+
+
 @Component({
   selector: 'app-edit-profile',
   standalone: true,
@@ -104,8 +106,9 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       this.isUpdateSuccess$.subscribe((isUpdateSuccess) => {
         if (isUpdateSuccess) {
           this.dialog.closeAll();
-          this.store.dispatch(ProfileActions.getMine({ uid: this.uid }));
+          this.store.dispatch(ProfileActions.getMine({uid: this.uid}));
         }
+
       }),
     );
   }
