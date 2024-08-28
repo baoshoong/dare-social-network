@@ -210,6 +210,11 @@ img{
   }
 }
 
+.custom-snackbar {
+  background-color: var(--);
+  color: var(--onPrimary);
+}
+
 .loading-overlay {
   position: fixed;
   top: 0;

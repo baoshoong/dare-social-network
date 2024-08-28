@@ -20,6 +20,8 @@ import { ProfileModel } from '../../../../model/profile.model';
 import { ProfileState } from '../../../../ngrx/profile/profile.state';
 import * as ProfileActions from '../../../../ngrx/profile/profile.actions';
 
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-edit-profile',
   standalone: true,
@@ -67,6 +69,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   isUpdateSuccess$ = this.store.select('profile', 'isUpdateSuccess');
 
   constructor(
+    public snackBar: MatSnackBar,
+
     public dialog: MatDialog,
     public store: Store<{
       storage: StorageState;
@@ -105,6 +109,13 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         if (isUpdateSuccess) {
           // this.dialog.closeAll();
           this.store.dispatch(ProfileActions.getMine({ uid: this.uid }));
+          //when update success, show snackbar
+          this.snackBar.open('Update successfully', 'Close', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+          });
+          
         }
       }),
     );
@@ -154,6 +165,10 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         mine: this.profileForm,
       }),
     );
+
+    
+
+    
 
     // this.dialog.closeAll();
     // this.clearInput();
